@@ -1,8 +1,20 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, and :timeoutable
+
+  WHITELIST = [
+    "rachel@c4q.nyc",
+    "mike@c4q.nyc"
+  ]
+
   devise :omniauthable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauth_providers => [:google_oauth2]
+
+  validate :whitelisted_email
+
+  def whitelisted_email
+    unless WHITELIST.include? email
+      errors.add(:email, "This email address does not have valid permissions")
+    end
+  end
 
   def self.from_omniauth(access_token)
       data = access_token.info
