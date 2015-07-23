@@ -5,8 +5,14 @@ class User < ActiveRecord::Base
     "mike@c4q.nyc"
   ]
 
-  devise :omniauthable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauth_providers => [:google_oauth2]
+  devise :omniauthable,
+    :database_authenticatable,
+    :registerable,
+    :recoverable,
+    :rememberable,
+    :trackable,
+    :validatable,
+    :omniauth_providers => [:google_oauth2]
 
   validate :whitelisted_email
 
@@ -17,18 +23,18 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(access_token)
-      data = access_token.info
-      user = User.where(:email => data["email"]).first
+    data = access_token.info
+    user = User.where(:email => data["email"]).first
 
-      # Uncomment the section below if you want users to be created if they don't exist
-      unless user
-          user = User.create(name: data["name"],
-             email: data["email"],
-             image: data["image"],
-             password: Devise.friendly_token[0,20]
-          )
-      end
-      user
+    # Uncomment the section below if you want users to be created if they don't exist
+    unless user
+        user = User.create(name: data["name"],
+           email: data["email"],
+           image: data["image"],
+           password: Devise.friendly_token[0,20]
+        )
+    end
+    user
   end
 
 end
