@@ -11,10 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721043655) do
+ActiveRecord::Schema.define(version: 20150724175230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "developers", force: :cascade do |t|
+    t.integer  "application_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "age"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "date_of_birth"
+    t.boolean  "veteran"
+    t.integer  "personal_device"
+    t.boolean  "immigrant"
+    t.integer  "education_status"
+    t.integer  "current_annual_income"
+    t.boolean  "free_or_reduced_lunch"
+    t.string   "github_username"
+    t.integer  "tshirt_size"
+    t.string   "high_school"
+    t.integer  "high_school_gpa_cents"
+    t.integer  "sat_score"
+    t.boolean  "first_generation_college_student"
+    t.string   "college_or_university"
+    t.string   "college_major"
+    t.integer  "number_of_college_credits_cents"
+    t.integer  "college_gpa_cents"
+    t.boolean  "public_or_community_college"
+    t.string   "masters_college"
+    t.string   "masters_concentration"
+    t.integer  "masters_gpa_cents"
+    t.string   "degree_currently_pursuing"
+    t.string   "current_school"
+    t.string   "current_concentration"
+    t.integer  "current_gpa_cents"
+    t.integer  "current_employment_status"
+    t.string   "current_employer"
+    t.string   "current_job_title"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.integer  "type"
+    t.string   "description"
+    t.string   "reference_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "equipment", ["reference_id"], name: "index_equipment_on_reference_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
