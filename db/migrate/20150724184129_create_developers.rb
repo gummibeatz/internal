@@ -8,17 +8,17 @@ class CreateDevelopers < ActiveRecord::Migration
       t.integer :age
       t.string :phone
       t.string :email
-      t.timestamp :birthday
+      t.timestamp :date_of_birth
 
       t.boolean :veteran
-      t.integer :personal_device
+      t.integer :personal_device, default: 0
       t.boolean :immigrant
-      t.integer :education_status
+      t.integer :education_status, default: 0
       t.integer :current_annual_income
       t.boolean :free_or_reduced_lunch
 
       t.string :github_username
-      t.integer :tshirt_size
+      t.integer :tshirt_size, default: 0
 
       t.string :high_school
       t.integer :high_school_gpa_cents
@@ -39,7 +39,7 @@ class CreateDevelopers < ActiveRecord::Migration
       t.string :current_school
       t.string :current_concentration
       t.integer :current_gpa_cents
-      t.integer :current_employment_status
+      t.integer :current_employment_status, default: 0
       t.string :current_employer
       t.string :current_job_title
 
