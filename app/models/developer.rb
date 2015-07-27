@@ -5,6 +5,8 @@ class Developer < ActiveRecord::Base
   enum personal_device: [:iphone, :android, :windows]
   enum current_employment_status: [:part_time, :full_time, :unemployed]
 
+  # has_many :emergency_contacts, through: Contact
+
 end
 
 # == Schema Information
@@ -48,4 +50,5 @@ end
 #  current_job_title                :string
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  gender                           :integer
 #
