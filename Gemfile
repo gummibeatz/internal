@@ -22,6 +22,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "omniauth-google-oauth2"
 gem 'devise', '~> 3.5.1'
+gem 'puma'
 
 group :development, :test do
   gem 'byebug'
