@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :authenticate_user!
 
   def google_oauth2
       @user = User.from_omniauth(request.env["omniauth.auth"])
