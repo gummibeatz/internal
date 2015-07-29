@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729215542) do
+ActiveRecord::Schema.define(version: 20150729230041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,21 +39,21 @@ ActiveRecord::Schema.define(version: 20150729215542) do
     t.string   "email"
     t.datetime "date_of_birth"
     t.boolean  "veteran"
-    t.integer  "personal_device",                  default: 0
+    t.integer  "personal_device",                   default: 0
     t.boolean  "immigrant"
-    t.integer  "education_status",                 default: 0
+    t.integer  "education_status",                  default: 0
     t.integer  "current_annual_income"
     t.boolean  "free_or_reduced_lunch"
     t.string   "github_username"
-    t.integer  "tshirt_size",                      default: 0
+    t.integer  "tshirt_size",                       default: 0
     t.string   "high_school"
     t.integer  "high_school_gpa_cents"
     t.integer  "sat_score"
     t.boolean  "first_generation_college_student"
-    t.string   "college_or_university"
-    t.string   "college_major"
-    t.integer  "number_of_college_credits_cents"
-    t.integer  "college_gpa_cents"
+    t.string   "undergrad_college_or_university"
+    t.string   "undergrad_major"
+    t.integer  "number_of_undergrad_credits_cents"
+    t.integer  "undergrad_gpa_cents"
     t.boolean  "public_or_community_college"
     t.string   "masters_college"
     t.string   "masters_concentration"
@@ -62,12 +62,22 @@ ActiveRecord::Schema.define(version: 20150729215542) do
     t.string   "current_school"
     t.string   "current_concentration"
     t.integer  "current_gpa_cents"
-    t.integer  "current_employment_status",        default: 0
+    t.integer  "current_employment_status",         default: 0
     t.string   "current_employer"
     t.string   "current_job_title"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "gender"
+    t.boolean  "borrows_laptop"
+    t.string   "race_ethnicity"
+    t.string   "linkedin_url"
+    t.string   "online_portfolio_url"
+    t.string   "graduate_college_or_university"
+    t.string   "graduate_concentration"
+    t.integer  "number_of_graduate_credits_cents"
+    t.integer  "graduate_gpa_cents"
+    t.boolean  "is_current_student"
+    t.integer  "coding_background",                 default: 0
   end
 
   add_index "developers", ["gender"], name: "index_developers_on_gender", using: :btree
