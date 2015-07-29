@@ -1,11 +1,19 @@
 class Developer < ActiveRecord::Base
 
+  require 'csv'
+
   enum eductation_status: [:not_applicable, :associates, :bachelors, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
   enum current_employment_status: [:part_time, :full_time, :unemployed]
 
   # has_many :emergency_contacts, through: Contact
+
+  has_many :addresses, foreign_key: :user_id
+
+  def self.import(file)
+    DeveloperImporter.import(file)
+  end
 
 end
 
