@@ -1,5 +1,6 @@
 class DevelopersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:exit_ticket]
+  skip_before_filter :authenticate_user!, only: [:exit_ticket]
 
   def index
     @cohorts = Cohort.includes(:developers).all
@@ -30,7 +31,7 @@ class DevelopersController < ApplicationController
   end
 
   def exit_ticket
-    puts params.to_yaml
+    puts JSON.parse(params["ticket"]).to_yaml
   end
 
   protected
