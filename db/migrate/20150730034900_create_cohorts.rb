@@ -6,5 +6,7 @@ class CreateCohorts < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    Cohort.create(name: "Access Code", version: "2.2")
   end
 end

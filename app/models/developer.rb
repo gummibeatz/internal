@@ -12,6 +12,7 @@ class Developer < ActiveRecord::Base
   # has_many :emergency_contacts, through: Contact
 
   has_many :addresses, foreign_key: :user_id
+  belongs_to :cohort
 
   def self.import(file)
     DeveloperImporter.import(file)
