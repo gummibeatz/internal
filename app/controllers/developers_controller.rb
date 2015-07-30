@@ -11,7 +11,7 @@ class DevelopersController < ApplicationController
 
   def import
     Developer.import(params[:file])
-    redirect_to root_url
+    redirect_to developers_path
   end
 
   def create
