@@ -31,12 +31,13 @@ class DevelopersController < ApplicationController
   end
 
   def exit_ticket
-    byebug
-    json = JSON.parse(params)["ticket"].to_yaml
-    puts "*" * 20
-    puts json["name"]
-    puts json["Certainty (1-100)"]
-    puts "*" * 20
+    puts params.to_yaml
+    # json = JSON.parse(params)["ticket"].to_yaml
+    # puts "*" * 20
+    # puts json["name"]
+    # puts json["Certainty (1-100)"]
+    # puts "*" * 20
+    head :ok
   end
 
   protected
