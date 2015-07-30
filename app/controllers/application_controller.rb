@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       super
     else
-      redirect_to root_url, :notice => 'You must be authenticated'
+      redirect_to root_url, :notice => 'You need to be signed in to do that'
     end
   end
 end

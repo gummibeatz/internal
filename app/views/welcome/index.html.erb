@@ -1,19 +1,20 @@
-<% unless flash["error"].nil? %>
-  <% flash["error"].each do |e| %>
-    <p><%= e %></p>
+<div class="container">
+  <% unless flash["error"].nil? %>
+    <% flash["error"].each do |e| %>
+      <p><%= e %></p>
+    <% end %>
   <% end %>
-<% end %>
-<% if flash[:notice] %>
-  <p class="flash-notice"><%= flash[:notice] %></p>
-<% end %>
+  <% if flash[:notice] %>
+    <p class="flash-notice"><%= flash[:notice] %></p>
+  <% end %>
 
-<% if current_user %>
-  <%= image_tag current_user.image, width: 100, height: 100 %>
-  <br>
-  <%= current_user.name %>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  <% if current_user %>
+    <%= image_tag current_user.image, width: 100, height: 100 %>
+    <br>
+    <%= current_user.name %>
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 
-<% else %>
-  <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
-<% end %>
-
+  <% else %>
+    <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+  <% end %>
+</div>
