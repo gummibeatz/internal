@@ -3,6 +3,9 @@
     <p><%= e %></p>
   <% end %>
 <% end %>
+<% if flash[:notice] %>
+  <p class="flash-notice"><%= flash[:notice] %></p>
+<% end %>
 
 <% if current_user %>
   <%= image_tag current_user.image, width: 100, height: 100 %>
