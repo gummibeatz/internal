@@ -31,12 +31,12 @@ class DevelopersController < ApplicationController
   end
 
   def exit_ticket
-    puts params.to_yaml
-    # json = JSON.parse(params)["ticket"].to_yaml
-    # puts "*" * 20
-    # puts json["name"]
-    # puts json["Certainty (1-100)"]
-    # puts "*" * 20
+    puts "*" * 80
+    ticket = params["ticket"]
+    puts ticket["overall_quality"]
+    puts ticket["difficulty"]
+    puts ticket["name"]
+    puts "*" * 80
     head :ok
   end
 
