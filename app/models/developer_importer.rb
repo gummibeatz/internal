@@ -1,5 +1,6 @@
 class DeveloperImporter
   def self.import(file)
+    devs = []
     CSV.foreach(file.path) do |row|
       next if $. == 1
       email = row[1]
@@ -53,7 +54,6 @@ class DeveloperImporter
       state = row[20]
       zip = row[21]
 
-
       d = Developer.new
       d.first_name = first_name
       d.last_name = last_name
@@ -95,6 +95,7 @@ class DeveloperImporter
       d.gender = ["Female", "Male"].index gender
       d.date_of_birth = DateTime.new(dob[2].to_i, dob[0].to_i, dob[1].to_i)
 
+      puts d
       if d.save
         d.addresses.create({
           address_1: address_1,
@@ -103,8 +104,10 @@ class DeveloperImporter
           state: state,
           zip: zip
         })
+        devs << d
       end
     end
+    devs
   end
 end
 

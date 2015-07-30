@@ -10,7 +10,8 @@ class DevelopersController < ApplicationController
   end
 
   def import
-    Developer.import(params[:file])
+    cohort = Cohort.find(params[:cohort_id])
+    cohort.import(params[:file])
     redirect_to developers_path
   end
 

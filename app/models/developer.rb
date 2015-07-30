@@ -14,10 +14,6 @@ class Developer < ActiveRecord::Base
   has_many :addresses, foreign_key: :user_id
   belongs_to :cohort
 
-  def self.import(file)
-    DeveloperImporter.import(file)
-  end
-
   def name
     [first_name, last_name].join(" ")
   end
