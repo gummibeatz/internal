@@ -25,8 +25,8 @@ gem "omniauth-google-oauth2"
 gem 'devise', '~> 3.5.1'
 gem 'puma'
 
-group :development, :test do
   gem 'byebug'
+group :development, :test do
   gem 'dotenv-rails'
   gem 'web-console', '~> 2.0'
   gem 'spring'

@@ -31,6 +31,7 @@ class DevelopersController < ApplicationController
   end
 
   def exit_ticket
+    byebug
     json = JSON.parse(params)["ticket"].to_yaml
     puts "*" * 20
     puts json["name"]
