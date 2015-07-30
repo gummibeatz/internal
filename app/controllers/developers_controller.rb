@@ -1,5 +1,6 @@
 class DevelopersController < ApplicationController
   def index
+    @developers = Developer.all
   end
 
   def show
@@ -27,7 +28,7 @@ class DevelopersController < ApplicationController
 
   protected
 
-  helper_method developer
+  helper_method :developer
   def developer
     return @developer if defined?(@developer)
     @developer = Developer.find(params[:id])

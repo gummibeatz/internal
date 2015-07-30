@@ -2,3 +2,7 @@
   <%= file_field_tag :file %>
   <%= submit_tag "Import" %>
 <% end %>
+
+<% @developers.each do |developer| %>
+  <p><%= link_to developer.name, developer_path(developer) %></p>
+<% end %>
