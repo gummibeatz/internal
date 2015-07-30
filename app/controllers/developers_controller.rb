@@ -32,7 +32,7 @@ class DevelopersController < ApplicationController
 
   def exit_ticket
     puts "*" * 80
-    ticket = params["ticket"]
+    ticket = JSON.parse(params["ticket"])
     puts ticket["overall_quality"]
     puts ticket["difficulty"]
     puts ticket["name"]
