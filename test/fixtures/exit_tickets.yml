@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  certainty: 1
+  overall_quality: 
+  difficulty: 1
+  instructors_ability_to_communicate: 1
+
+two:
+  certainty: 1
+  overall_quality: 
+  difficulty: 1
+  instructors_ability_to_communicate: 1
