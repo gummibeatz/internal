@@ -1,18 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <h1><%= "#{cohort.name} #{cohort.version}" %></h1>
+    </div>
+    <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
           Import developers
         </div>
         <div class="panel-body">
           <%= form_tag import_developers_path, multipart: true do %>
-            <%= file_field_tag :file %>
+            <%= file_field_tag :file, class: "pull-left" %>
             <%= hidden_field_tag :cohort_id, cohort.id %>
-            <%= submit_tag "Import" %>
+            <%= submit_tag "Import", class: "pull-left" %>
           <% end %>
         </div>
       </div>
+    </div>
+    <div class="col-md-9">
+      &nbsp;
     </div>
   </div>
 </div>
