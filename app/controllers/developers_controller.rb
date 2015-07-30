@@ -25,4 +25,12 @@ class DevelopersController < ApplicationController
   def destroy
   end
 
+  protected
+
+  helper_method developer
+  def developer
+    return @developer if defined?(@developer)
+    @developer = Developer.find(params[:id])
+  end
+
 end
