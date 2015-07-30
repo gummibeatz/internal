@@ -1,6 +1,6 @@
 class DevelopersController < ApplicationController
   def index
-    @developers = Developer.all
+    @cohorts = Cohort.includes(:developers).all
   end
 
   def show

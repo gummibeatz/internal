@@ -3,6 +3,9 @@
   <%= submit_tag "Import" %>
 <% end %>
 
-<% @developers.each do |developer| %>
-  <p><%= link_to developer.name, developer_path(developer) %></p>
+<% @cohorts.each do |cohort| %>
+  <h2><%= "#{cohort.name} #{cohort.version}" %></h2>
+  <% cohort.developers.each do |developer| %>
+    <p><%= link_to developer.name, developer_path(developer) %></p>
+  <% end %>
 <% end %>
