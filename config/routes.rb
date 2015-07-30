@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  post '/developers/exit_tickets/submit', to: 'developers#exit_ticket'
+
   resources :cohorts
 
 end
