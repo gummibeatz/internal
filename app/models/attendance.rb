@@ -15,7 +15,7 @@ class Attendance < ActiveRecord::Base
     # TODO: 12 hours is arbitrary. The idea is that any attendance record within
     # the last 12 hours would be and update vs create. We don't want to
     # add a record where we should be updating an existing record
-    if attendance = Attendance.where("created_at < ? AND developer_id = ?", 12.hours.ago, developer.id)
+    if attendance = Attendance.where("created_at < ? AND developer_id = ?", 12.hours.ago, developer.id).first
       attendance.update_attribute(:status, json["status"])
     else
       attendance = Attendance.create( status: json["status"])
