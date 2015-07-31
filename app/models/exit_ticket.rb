@@ -8,10 +8,15 @@ class ExitTicket < ActiveRecord::Base
     tickets.each do |ticket|
       if developer = Developer.where("full_name = ?", ticket["name"]).first
         ticket.delete("name")
-        t = ExitTicket.new(ticket)
-        t.submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
-        if t.save
-          developer.exit_tickets << t
+        submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
+        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
+          t.update_attributes(ticket)
+        else
+          t = ExitTicket.new(ticket)
+          t.submitted_at = submitted_at
+          if t.save
+            developer.exit_tickets << t
+          end
         end
       end
     end
