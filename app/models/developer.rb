@@ -13,6 +13,7 @@ class Developer < ActiveRecord::Base
 
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets
+  has_many :attendances
   belongs_to :cohort
 
 end
