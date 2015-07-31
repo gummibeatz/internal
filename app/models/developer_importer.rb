@@ -3,6 +3,7 @@ class DeveloperImporter
     devs = []
     CSV.foreach(file.path) do |row|
       next if $. == 1
+      name = row[0]
       email = row[1]
       github = row[2]
       first_name = row[3]
@@ -55,6 +56,7 @@ class DeveloperImporter
       zip = row[21]
 
       d = Developer.new
+      d.full_name = name
       d.first_name = first_name
       d.last_name = last_name
       d.email = email

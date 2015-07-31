@@ -19,6 +19,14 @@ class Developer < ActiveRecord::Base
     [first_name, last_name].join(" ")
   end
 
+  def parse_exit_ticket(json)
+    json = JSON.parse(params["ticket"])
+    ticket = json["ticket"]
+    puts ticket["overall_quality"]
+    puts ticket["difficulty"]
+    puts ticket["name"]
+  end
+
 end
 
 # == Schema Information

@@ -31,13 +31,7 @@ class DevelopersController < ApplicationController
   end
 
   def exit_ticket
-    puts "*" * 80
-    json = JSON.parse(params["ticket"])
-    ticket = json["ticket"]
-    puts ticket["overall_quality"]
-    puts ticket["difficulty"]
-    puts ticket["name"]
-    puts "*" * 80
+    #developer = Developer.where()
     head :ok
   end
 
