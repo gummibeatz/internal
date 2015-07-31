@@ -18,7 +18,7 @@
         <% if defined?(link) && link == true %>
           <td><%= link_to "#{pretty_date(t.submitted_at)}", exit_ticket_path(t) %></td>
         <% else %>
-          <td><%= pretty_date(t.created_at) %></td>
+          <td><%= pretty_date(t.submitted_at) %></td>
         <% end %>
         <td><%= t.overall_quality %></td>
         <td><%= t.difficulty %></td>
