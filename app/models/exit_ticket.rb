@@ -3,7 +3,7 @@ class ExitTicket < ActiveRecord::Base
   belongs_to :developer
 
   def self.import_from_google_form(form_data)
-    json = JSON.parse(form_data)
+    json = JSON.parse(form_data["tickets"])
     puts json.to_yaml
   end
 
