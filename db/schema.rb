@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731151611) do
+ActiveRecord::Schema.define(version: 20150731152504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,13 @@ ActiveRecord::Schema.define(version: 20150731151611) do
   add_index "addresses", ["contact_id"], name: "index_addresses_on_contact_id", using: :btree
 
   create_table "attendances", force: :cascade do |t|
-    t.integer  "status"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "developer_id"
+    t.integer  "status",       default: 0
   end
 
   add_index "attendances", ["developer_id"], name: "index_attendances_on_developer_id", using: :btree
-  add_index "attendances", ["status"], name: "index_attendances_on_status", using: :btree
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "version"
