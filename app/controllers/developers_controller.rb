@@ -33,7 +33,7 @@ class DevelopersController < ApplicationController
   helper_method :developer
   def developer
     return @developer if defined?(@developer)
-    @developer = Developer.find(params[:id])
+    @developer = Developer.includes(:exit_tickets).find(params[:id])
   end
 
 end

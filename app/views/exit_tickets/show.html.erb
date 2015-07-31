@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Exit Ticket</h1>
+      <caption><%= link_to exit_ticket.developer.full_name, developer_path(exit_ticket.developer) %></caption>
+      <%= render "form_table", tickets: [exit_ticket] %>
+    </div>
+  </div>
+</div>

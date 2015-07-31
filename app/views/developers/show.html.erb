@@ -4,4 +4,10 @@
       <h1><%= developer.full_name %></h1>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Exit Tickets</h4>
+      <%= render "/exit_tickets/form_table", tickets: developer.exit_tickets, link: true %>
+    </div>
+  </div>
 </div>

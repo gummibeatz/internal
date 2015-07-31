@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   post '/exit_tickets/create', to: 'exit_tickets#create'
+  resources :exit_tickets
+  # get '/exit_tickets/:id', to: 'exit_tickets#show', as: 'exit_ticket'
 
   resources :cohorts
 
