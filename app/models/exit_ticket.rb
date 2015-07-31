@@ -2,6 +2,11 @@ class ExitTicket < ActiveRecord::Base
 
   belongs_to :developer
 
+  def self.import_from_google_form(form_data)
+    json = JSON.parse(form_data)
+    puts json.to_yaml
+  end
+
   def self.create_from_google_form(form_data)
     json = JSON.parse(form_data["ticket"])
     tck = json["ticket"]

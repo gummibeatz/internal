@@ -1,4 +1,6 @@
 class DeveloperImporter
+  require 'csv'
+
   def self.import(file)
     devs = []
     CSV.foreach(file.path) do |row|
@@ -94,10 +96,9 @@ class DeveloperImporter
 
       d.coding_background = ["No exposure", "Limited exposure to coding", "Some self-directed/online learning", "Workshop or other training", "Some college-level coursework"].index coding_background
 
-      d.gender = ["Female", "Male"].index gender
+      d.gender = ["Female", "Male"].index(gender)
       d.date_of_birth = DateTime.new(dob[2].to_i, dob[0].to_i, dob[1].to_i)
 
-      puts d
       if d.save
         d.addresses.create({
           address_1: address_1,

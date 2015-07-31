@@ -1,6 +1,6 @@
 class ExitTicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
-  skip_before_filter :authenticate_user!, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create, :import]
+  skip_before_filter :authenticate_user!, only: [:create, :import]
 
   def index
     @exit_tickets = ExitTicket.all
@@ -11,6 +11,11 @@ class ExitTicketsController < ApplicationController
 
   def create
     ExitTicket.create_from_google_form(params)
+    head :ok
+  end
+
+  def import
+    ExitTicket.import_from_google_form(params)
     head :ok
   end
 

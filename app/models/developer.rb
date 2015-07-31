@@ -1,15 +1,11 @@
 class Developer < ActiveRecord::Base
 
-  require 'csv'
-
   enum education_status: [:not_applicable, :some_high_school, :high_school_graduate, :some_college, :pursuing_associates, :associates, :pursuing_bachelors, :bachelors, :pursuing_masters, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
   enum current_employment_status: [:student, :retired, :not_employed_not_looking, :not_employed_looking, :self_employed, :part_time, :full_time]
   enum coding_background: [:no_experience, :limited_experience, :some_experience, :workshop_level_experience, :college_level_experience]
   enum gender: [:female, :male]
-
-  # has_many :emergency_contacts, through: Contact
 
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets

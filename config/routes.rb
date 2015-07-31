@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   post '/exit_tickets/create', to: 'exit_tickets#create'
+  post '/exit_tickets/import', to: 'exit_tickets#import'
   resources :exit_tickets
 
   post '/attendances/create', to: 'attendances#create'
