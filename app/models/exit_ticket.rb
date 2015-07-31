@@ -4,6 +4,16 @@ class ExitTicket < ActiveRecord::Base
 
   def self.import_from_google_form(form_data)
     json = JSON.parse(form_data["tickets"])
+    tickets = json["tickets"]
+    tickets.each do |ticket|
+      if developer = Developer.where("full_name = ?", ticket["name"]).first
+        t = ExitTicket.new(ticket)
+        t.submitted_at = Date.parse(ticket.submitted_at).to_datetime
+        if t.save
+          developer.exit_tickets << t
+        end
+      end
+    end
     puts json.to_yaml
   end
 
