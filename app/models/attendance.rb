@@ -4,7 +4,7 @@ class Attendance < ActiveRecord::Base
 
   belongs_to :developer
 
-  def self.create_from_goog_form(form_data)
+  def self.create_from_google_form(form_data)
     json = JSON.parse(form_data["attendance"])
     att = json["attendance"]
 
