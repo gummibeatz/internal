@@ -7,6 +7,7 @@ class ExitTicket < ActiveRecord::Base
     ticket = json["ticket"]
 
     ActiveRecord::Base.transaction do
+      puts ticket["name"]
       developer = Developer.where(full_name: ticket["name"]).first
       ticket = ExitTicket.new(
         certainty: ticket["certainty"],
