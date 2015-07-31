@@ -7,7 +7,7 @@ class ExitTicket < ActiveRecord::Base
     tickets = json["tickets"]
     tickets.each do |ticket|
       if developer = Developer.where("full_name = ?", ticket["name"]).first
-        t.delete("name")
+        ticket.delete("name")
         t = ExitTicket.new(ticket)
         t.submitted_at = Date.parse(ticket.submitted_at).to_datetime
         if t.save
