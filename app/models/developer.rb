@@ -15,14 +15,6 @@ class Developer < ActiveRecord::Base
   has_many :exit_tickets
   belongs_to :cohort
 
-  def parse_exit_ticket(json)
-    json = JSON.parse(params["ticket"])
-    ticket = json["ticket"]
-    puts ticket["overall_quality"]
-    puts ticket["difficulty"]
-    puts ticket["name"]
-  end
-
 end
 
 # == Schema Information

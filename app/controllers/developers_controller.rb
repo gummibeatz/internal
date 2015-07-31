@@ -30,11 +30,6 @@ class DevelopersController < ApplicationController
   def destroy
   end
 
-  def exit_ticket
-    #developer = Developer.where()
-    head :ok
-  end
-
   protected
 
   helper_method :developer
