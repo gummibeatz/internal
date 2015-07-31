@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  post '/exit_tickets/create', to: 'exit_ticket#create'
+  post '/exit_tickets/create', to: 'exit_tickets#create'
 
   resources :cohorts
 
