@@ -7,3 +7,14 @@ one:
 two:
   status: 1
   date: 2015-07-31 11:14:30
+
+# == Schema Information
+#
+# Table name: attendances
+#
+#  id           :integer          not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  developer_id :integer
+#  status       :integer          default(0)
+#

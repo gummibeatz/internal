@@ -66,4 +66,6 @@ end
 #  graduate_gpa_cents                :integer
 #  is_current_student                :boolean
 #  coding_background                 :integer          default(0)
+#  cohort_id                         :integer
+#  full_name                         :string
 #
