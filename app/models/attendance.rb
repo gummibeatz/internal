@@ -13,12 +13,14 @@ class Attendance < ActiveRecord::Base
     developer = Developer.where(full_name: json["name"]).first
 
     # TODO: 12 hours is arbitrary. The idea is that any attendance record within
-    # the last 12 hours would be and update vs create
+    # the last 12 hours would be and update vs create. We don't want to
+    # add a record where we should be updating an existing record
     if attendance = Attendance.where("created_at < ? AND developer_id = ?", 12.hours.ago, developer.id)
       attendance.update_attribute(:status, json["status"])
     else
       attendance = Attendance.create( status: json["status"])
       developer.attendances << attendance
+    end
   end
 
   def self.create_from_google_form(form_data)
