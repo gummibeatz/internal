@@ -1,8 +1,20 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Import exit tickets
+        </div>
+        <div class="panel-body">
+          <%= form_tag upload_exit_tickets_path, multipart: true do %>
+            <%= file_field_tag :file, class: "pull-left" %>
+            <%= submit_tag "Import", class: "pull-left" %>
+          <% end %>
+        </div>
+      </div>
     <div class="col-md-12">
       <% @exit_tickets.each do |key, val| %>
-        <a href="/exit_tickets/<%= pretty_date(key) %>
+        <%= pretty_date(key) %>
       <% end %>
     </div>
   </div>

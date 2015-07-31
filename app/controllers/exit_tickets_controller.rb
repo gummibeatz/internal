@@ -19,6 +19,11 @@ class ExitTicketsController < ApplicationController
     head :ok
   end
 
+  def upload
+    ExitTicket.import(params[:file])
+    redirect_to developers_path
+  end
+
   protected
 
   helper_method :exit_ticket

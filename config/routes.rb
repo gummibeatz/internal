@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   post '/exit_tickets/create', to: 'exit_tickets#create'
   post '/exit_tickets/import', to: 'exit_tickets#import'
-  resources :exit_tickets
+  resources :exit_tickets do
+    collection { post :upload }
+  end
 
   post '/attendances/create', to: 'attendances#create'
 

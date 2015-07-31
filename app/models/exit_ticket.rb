@@ -2,6 +2,12 @@ class ExitTicket < ActiveRecord::Base
 
   belongs_to :developer
 
+  def self.import(file)
+    ActiveRecord::Base.transaction do
+      ExitTicketImporter.import(file)
+    end
+  end
+
   def self.import_from_google_form(form_data)
     json = JSON.parse(form_data["tickets"])
     tickets = json["tickets"]
