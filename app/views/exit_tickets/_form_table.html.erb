@@ -16,7 +16,7 @@
     <% tickets.each do |t| %>
       <tr>
         <% if defined?(link) && link == true %>
-          <td><%= link_to "#{pretty_date(t.created_at)}", exit_ticket_path(t) %></td>
+          <td><%= link_to "#{pretty_date(t.submitted_at)}", exit_ticket_path(t) %></td>
         <% else %>
           <td><%= pretty_date(t.created_at) %></td>
         <% end %>
