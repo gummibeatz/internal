@@ -19,7 +19,7 @@
     </div>
     <div class="col-md-12">
       <% cohort.developers.each do |developer| %>
-        <p><%= link_to "#{developer.name}", developers_path(developer) %></p>
+        <p><%= link_to "#{developer.full_name}", developer_path(developer) %></p>
       <% end %>
     </div>
   </div>

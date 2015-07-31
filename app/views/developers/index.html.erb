@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <h2><%= "#{cohort.name} #{cohort.version}" %></h2>
         <% cohort.developers.each do |developer| %>
-          <p><%= link_to developer.name, developer_path(developer) %></p>
+          <p><%= link_to developer.full_name, developer_path(developer) %></p>
         <% end %>
       </div>
     <% end %>

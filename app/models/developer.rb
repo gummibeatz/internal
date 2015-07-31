@@ -15,10 +15,6 @@ class Developer < ActiveRecord::Base
   has_many :exit_tickets
   belongs_to :cohort
 
-  def name
-    [first_name, last_name].join(" ")
-  end
-
   def parse_exit_ticket(json)
     json = JSON.parse(params["ticket"])
     ticket = json["ticket"]
