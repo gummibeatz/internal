@@ -37,7 +37,6 @@ class ExitTicketImporter
             day = p[1].length == 1 ? "0#{p[1]}" : p[1]
             month = p[0].length == 1 ? "0#{p[0]}" : p[0]
             date = "#{year}#{month}#{day}"
-            puts date
             d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
           else
             d[headers[idx]] = col
@@ -49,8 +48,12 @@ class ExitTicketImporter
     data.each do  |ticket_data|
       if developer = Developer.where("full_name = ?", ticket_data["name"]).last
         ticket_data.delete("name")
-        ticket = ExitTicket.new(ticket_data)
-        developer.exit_tickets << ticket
+        if t = ExitTicket.where("submitted_at = ? AND developer_id = ?", ticket_data["submitted_at"], developer.id)
+          t.update_attributes(ticket_data)
+        else
+          ticket = ExitTicket.new(ticket_data)
+          developer.exit_tickets << ticket
+        end
       end
     end
   end
