@@ -21,7 +21,7 @@ class ExitTicketsController < ApplicationController
 
   def upload
     ExitTicket.import(params[:file])
-    redirect_to developers_path
+    redirect_to exit_tickets_path
   end
 
   protected
