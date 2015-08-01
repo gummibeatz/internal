@@ -14,7 +14,6 @@ class ExitTicket < ActiveRecord::Base
     tickets.each do |ticket|
       if developer = Developer.where("full_name = ?", ticket["name"]).first
         ticket.delete("name")
-        ticket.delete("question")
         submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
         if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
           t.update_attributes(ticket)
@@ -38,6 +37,7 @@ class ExitTicket < ActiveRecord::Base
       developer = Developer.where(full_name: tck["name"]).first
         submitted_at = DateTime.now.in_time_zone.midnight
         tck.delete("name")
+        tck.delete("question")
         if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
           t.update_attributes(tck)
         else
