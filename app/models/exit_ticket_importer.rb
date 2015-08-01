@@ -5,6 +5,7 @@ class ExitTicketImporter
     "Timestamp" => "submitted_at",
     "Certainty (1-100)" => "certainty",
     "Name" => "name",
+    "Assessment Question" => "questions",
     "Please rate the overall quality of the class." => "overall_quality",
     "Please rate the difficulty of the class." => "difficulty",
     "Instructor's ability to communicate the subject matter." => "instructors_ability_to_communicate",
@@ -38,6 +39,9 @@ class ExitTicketImporter
             month = p[0].length == 1 ? "0#{p[0]}" : p[0]
             date = "#{year}#{month}#{day}"
             d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
+          else if headers[idx] == "questions"
+            headers["questions"] = [] if headers["questions"].nil?
+            headers["questions"] << col
           else
             d[headers[idx]] = col
           end
