@@ -15,7 +15,6 @@ class ExitTicketImporter
     "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments"
   }
 
-
   def self.import(file)
     headers = []
     devs = []
