@@ -39,7 +39,7 @@ class ExitTicketImporter
             month = p[0].length == 1 ? "0#{p[0]}" : p[0]
             date = "#{year}#{month}#{day}"
             d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
-          else if headers[idx] == "questions"
+          elsif headers[idx] == "questions"
             headers["questions"] = [] if headers["questions"].nil?
             headers["questions"] << col
           else
