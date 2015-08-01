@@ -41,7 +41,7 @@ class ExitTicket < ActiveRecord::Base
         if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
           t.update_attributes(tck)
         else
-          ticket = ExitTicket.new(ticket)
+          ticket = ExitTicket.new(tck)
           ticket.submitted_at = submitted_at
           if ticket.save
             developer.exit_tickets << ticket
