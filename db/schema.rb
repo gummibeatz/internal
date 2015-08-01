@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731194630) do
+ActiveRecord::Schema.define(version: 20150801231114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,22 +22,20 @@ ActiveRecord::Schema.define(version: 20150731194630) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.integer  "contact_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
   end
 
-  add_index "addresses", ["contact_id"], name: "index_addresses_on_contact_id", using: :btree
-
   create_table "attendances", force: :cascade do |t|
+    t.integer  "status",       default: 0
+    t.integer  "developer_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "developer_id"
-    t.integer  "status",       default: 0
   end
 
   add_index "attendances", ["developer_id"], name: "index_attendances_on_developer_id", using: :btree
+  add_index "attendances", ["status"], name: "index_attendances_on_status", using: :btree
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "version"
@@ -86,7 +84,6 @@ ActiveRecord::Schema.define(version: 20150731194630) do
     t.integer  "gender"
     t.boolean  "borrows_laptop"
     t.string   "race_ethnicity"
-    t.string   "linkedin_url"
     t.string   "online_portfolio_url"
     t.string   "graduate_college_or_university"
     t.string   "graduate_concentration"
@@ -94,6 +91,7 @@ ActiveRecord::Schema.define(version: 20150731194630) do
     t.integer  "graduate_gpa_cents"
     t.boolean  "is_current_student"
     t.integer  "coding_background",                 default: 0
+    t.string   "linkedin_url"
     t.integer  "cohort_id"
     t.string   "full_name"
   end
@@ -121,10 +119,11 @@ ActiveRecord::Schema.define(version: 20150731194630) do
     t.integer  "recall_information_from_previous_class", default: 0
     t.string   "additional_comments"
     t.integer  "developer_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "original_form_url"
     t.datetime "submitted_at"
+    t.string   "questions",                              default: [],              array: true
   end
 
   create_table "users", force: :cascade do |t|
