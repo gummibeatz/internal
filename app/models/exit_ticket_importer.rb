@@ -48,7 +48,7 @@ class ExitTicketImporter
     data.each do  |ticket_data|
       if developer = Developer.where("full_name = ?", ticket_data["name"]).last
         ticket_data.delete("name")
-        if t = ExitTicket.where("submitted_at = ? AND developer_id = ?", ticket_data["submitted_at"], developer.id)
+        if t = ExitTicket.where("submitted_at = ? AND developer_id = ?", ticket_data["submitted_at"], developer.id).first
           t.update_attributes(ticket_data)
         else
           ticket = ExitTicket.new(ticket_data)
