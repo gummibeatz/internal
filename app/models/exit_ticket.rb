@@ -38,7 +38,7 @@ class ExitTicket < ActiveRecord::Base
         submitted_at = DateTime.now.in_time_zone.midnight
         tck.delete("name")
         if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
-          t.update_attributes(ticket)
+          t.update_attributes(tck)
         else
           ticket = ExitTicket.new(ticket)
           ticket.submitted_at = submitted_at
