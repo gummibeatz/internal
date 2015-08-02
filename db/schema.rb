@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802025531) do
+ActiveRecord::Schema.define(version: 20150802033152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150802025531) do
     t.string   "original_form_url"
     t.datetime "submitted_at"
     t.text     "questions"
+    t.float    "score"
   end
 
   create_table "users", force: :cascade do |t|
