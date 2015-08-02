@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801231114) do
+ActiveRecord::Schema.define(version: 20150802025531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,11 +119,11 @@ ActiveRecord::Schema.define(version: 20150801231114) do
     t.integer  "recall_information_from_previous_class", default: 0
     t.string   "additional_comments"
     t.integer  "developer_id"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "original_form_url"
     t.datetime "submitted_at"
-    t.string   "questions",                              default: [],              array: true
+    t.text     "questions"
   end
 
   create_table "users", force: :cascade do |t|

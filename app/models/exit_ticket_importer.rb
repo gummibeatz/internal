@@ -5,6 +5,7 @@ class ExitTicketImporter
     "Timestamp" => "submitted_at",
     "Certainty (1-100)" => "certainty",
     "Name" => "name",
+    "Score" => "score",
     "Assessment Question" => "questions",
     "Please rate the overall quality of the class." => "overall_quality",
     "Please rate the difficulty of the class." => "difficulty",
@@ -16,7 +17,7 @@ class ExitTicketImporter
     "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments"
   }
 
-  def self.import(file)
+  def self.import_from_file(file)
     headers = []
     devs = []
     CSV.foreach(file.path) do |row|
@@ -55,6 +56,26 @@ class ExitTicketImporter
         else
           ticket = ExitTicket.new(ticket_data)
           developer.exit_tickets << ticket
+        end
+      end
+    end
+  end
+
+  def import_from_form(form_data)
+    json = JSON.parse(form_data["tickets"])
+    tickets = json["tickets"]
+    tickets.each do |ticket|
+      if developer = Developer.where("full_name = ?", ticket["name"]).first
+        ticket.delete("name")
+        submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
+        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
+          t.update_attributes(ticket)
+        else
+          t = ExitTicket.new(ticket)
+          t.submitted_at = submitted_at
+          if t.save
+            developer.exit_tickets << t
+          end
         end
       end
     end

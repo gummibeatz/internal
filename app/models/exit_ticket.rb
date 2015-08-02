@@ -2,46 +2,20 @@ class ExitTicket < ActiveRecord::Base
 
   belongs_to :developer
 
-  def self.import(file)
-    ActiveRecord::Base.transaction do
-      ExitTicketImporter.import(file)
-    end
-  end
-
-  def self.import_from_google_form(form_data)
-    json = JSON.parse(form_data["tickets"])
-    tickets = json["tickets"]
-    tickets.each do |ticket|
-      if developer = Developer.where("full_name = ?", ticket["name"]).first
-        ticket.delete("name")
-        submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
-        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
-          t.update_attributes(ticket)
-        else
-          t = ExitTicket.new(ticket)
-          t.submitted_at = submitted_at
-          if t.save
-            developer.exit_tickets << t
-          end
-        end
-      end
-    end
-    puts json.to_yaml
-  end
-
+  # Submitted as Google Form
   def self.create_from_google_form(form_data)
     json = JSON.parse(form_data["ticket"])
     tck = json["ticket"]
 
     ActiveRecord::Base.transaction do
       developer = Developer.where(full_name: tck["name"]).first
-        submitted_at = DateTime.now.in_time_zone.midnight
+        tck["submitted_at"] = Date.parse(tck["submitted_at"]).to_datetime
         tck.delete("name")
-        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
+        tck["questions"] = tck["questions"].inspect
+        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, tck["submitted_at"]).last
           t.update_attributes(tck)
         else
           ticket = ExitTicket.new(tck)
-          ticket.submitted_at = submitted_at
           if ticket.save
             developer.exit_tickets << ticket
           else
@@ -51,6 +25,20 @@ class ExitTicket < ActiveRecord::Base
     end
 
     true
+  end
+
+  # Imported as .csv
+  def self.import(file)
+    ActiveRecord::Base.transaction do
+      ExitTicketImporter.import(file)
+    end
+  end
+
+  # Submitted as exit ticket response sheet
+  def self.import_from_google_form(form_data)
+    ActiveRecord::Base.transaction do
+      ExitTicketImporter.import(form_data)
+    end
   end
 
 end
