@@ -25,4 +25,7 @@ end
 #  updated_at                             :datetime         not null
 #  original_form_url                      :string
 #  submitted_at                           :datetime
+#  questions                              :text
+#  score                                  :float
+#  summary_form_url                       :string
 #
