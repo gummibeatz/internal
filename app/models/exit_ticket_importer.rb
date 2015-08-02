@@ -31,20 +31,18 @@ class ExitTicketImporter
     devs.each do |dev|
       d = {}
       dev.each_with_index do |col, idx|
-        if headers[idx]
-          if headers[idx] == "submitted_at"
-            p = col.split(' ')[0].split('/')
-            year = p[2]
-            day = p[1].length == 1 ? "0#{p[1]}" : p[1]
-            month = p[0].length == 1 ? "0#{p[0]}" : p[0]
-            date = "#{year}#{month}#{day}"
-            d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
-          elsif headers[idx] == "questions"
-            headers["questions"] = [] if headers["questions"].nil?
-            headers["questions"] << col
-          else
-            d[headers[idx]] = col
-          end
+        if headers[idx] == "submitted_at"
+          p = col.split(' ')[0].split('/')
+          year = p[2]
+          day = p[1].length == 1 ? "0#{p[1]}" : p[1]
+          month = p[0].length == 1 ? "0#{p[0]}" : p[0]
+          date = "#{year}#{month}#{day}"
+          d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
+        elsif headers[idx] == "questions"
+          d["questions"] = [] if d["questions"].nil?
+          d["questions"] << col
+        else
+          d[headers[idx]] = col
         end
       end
       data << d
