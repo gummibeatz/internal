@@ -2,6 +2,32 @@ class ExitTicket < ActiveRecord::Base
 
   belongs_to :developer
 
+  def self.completion_rate_in_range(range)
+    a = Attendance.where("timestamp >= ? AND timestamp <= ?", range.begin, range.end).present
+    count = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).count
+    return (a.count / count).to_f unless count == 0
+    return nil
+  end
+
+  def self.completion_rate_on_day(day)
+    a = Attendance.where("timestamp = ?", day).present
+    count = where(submitted_at: day).count
+    return (a.count / count).to_f unless count == 0
+    return nil
+  end
+
+  def self.accuracy_rate_in_range(range)
+    tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el }.to_f / tickets.count unless tickets.count == 0
+    return nil
+  end
+
+  def self.accuracy_rate_on_day(day)
+    tickets = where(submitted_at: day)
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el }.to_f / tickets.count unless tickets.count == 0
+    return nil
+  end
+
   # Submitted as Google Form
   def self.create_from_google_form(form_data)
     json = JSON.parse(form_data["ticket"])
