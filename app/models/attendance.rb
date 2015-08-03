@@ -10,16 +10,13 @@ class Attendance < ActiveRecord::Base
   belongs_to :developer
 
   def self.find_or_create(json)
-    developer = Developer.where(full_name: json["name"]).first
+    developer = Developer.where(full_name: json["name"].downcase).first
 
-    # TODO: 12 hours is arbitrary. The idea is that any attendance record within
-    # the last 12 hours would be and update vs create. We don't want to
-    # add a record where we should be updating an existing record
-    if attendance = Attendance.where("created_at < ? AND developer_id = ?", 12.hours.ago, developer.id).first
+    date = Date.parse(json["date"]).to_datetime.midnight
+    if attendance = Attendance.where("timestamp = ? AND developer_id = ?", date , developer.id).first
       attendance.update_attribute(:status, json["status"])
     else
-      attendance = Attendance.create( status: json["status"])
-      developer.attendances << attendance
+      attendance = developer.attendances.create( status: json["status"], timestamp: date)
     end
   end
 
