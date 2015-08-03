@@ -9,6 +9,14 @@ class Attendance < ActiveRecord::Base
 
   belongs_to :developer
 
+  def self.absent
+    where("status = 4 OR status = 5")
+  end
+
+  def self.late
+    where("status = 1 OR status = 2 OR status = 3")
+  end
+
   def self.find_or_create(json)
     developer = Developer.where(full_name: json["name"].downcase).first
 
