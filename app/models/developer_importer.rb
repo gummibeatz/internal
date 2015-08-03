@@ -58,9 +58,9 @@ class DeveloperImporter
       zip = row[21]
 
       d = Developer.new
-      d.full_name = name.split(" ").map(&:capitalize).join(" ")
-      d.first_name = first_name
-      d.last_name = last_name
+      d.full_name = name.downcase
+      d.first_name = first_name.downcase
+      d.last_name = last_name.downcase
       d.email = email
       d.github_username = github
       d.application_id = application_id

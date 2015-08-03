@@ -8,7 +8,7 @@ class ExitTicket < ActiveRecord::Base
     tck = json["ticket"]
 
     ActiveRecord::Base.transaction do
-      developer = Developer.where(full_name: tck["name"]).first
+      developer = Developer.where(full_name: tck["name"].downcase).first
         tck["submitted_at"] = Date.parse(tck["submitted_at"]).to_datetime
         tck.delete("name")
         tck["questions"] = tck["questions"].to_json

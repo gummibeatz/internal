@@ -12,6 +12,10 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   belongs_to :cohort
 
+  def display_name
+    full_name.split(" ").map(&:capitalize).join(" ")
+  end
+
 end
 
 # == Schema Information

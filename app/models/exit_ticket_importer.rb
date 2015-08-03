@@ -49,7 +49,7 @@ class ExitTicketImporter
       data << d
     end
     data.each do  |ticket_data|
-      if developer = Developer.where("full_name = ?", ticket_data["name"]).last
+      if developer = Developer.where("full_name = ?", ticket_data["name"].downcase).last
         ticket_data.delete("name")
         if t = ExitTicket.where("submitted_at = ? AND developer_id = ?", ticket_data["submitted_at"], developer.id).first
           t.update_attributes(ticket_data)
@@ -65,7 +65,7 @@ class ExitTicketImporter
     json = JSON.parse(form_data["tickets"])
     tickets = json["tickets"]
     tickets.each do |ticket|
-      if developer = Developer.where("full_name = ?", ticket["name"]).first
+      if developer = Developer.where("full_name = ?", ticket["name"].downcase).first
         ticket.delete("name")
         submitted_at = Date.parse(ticket["submitted_at"]).to_datetime
         if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, submitted_at).last
