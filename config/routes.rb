@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   post '/attendances/create', to: 'attendances#create'
+  post '/attendances/import', to: 'attendances#import_all'
 
   resources :cohorts
 

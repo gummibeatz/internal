@@ -25,10 +25,19 @@ class Attendance < ActiveRecord::Base
     att = json["attendance"]
 
     ActiveRecord::Base.transaction do
-      attendance = Attendance.find_or_create(att)
+      Attendance.find_or_create(att)
     end
+  end
 
-    true
+  def self.import_all(form_data)
+    json = JSON.parse(form_data["attendance"])
+    as = json["attendance"]
+
+    as.each do |a|
+      ActiveRecord::Base.transaction do
+        Attendance.find_or_create(a)
+      end
+    end
   end
 
 end
