@@ -35,9 +35,6 @@ class ExitTicketImporter
       dev.each_with_index do |col, idx|
         next if headers[idx] == nil
         if headers[idx] == "submitted_at"
-          puts "*" * 80
-          puts col
-          puts "*" * 80
           p = col.split(' ')[0].split('/')
           year = p[2]
           day = p[1].length == 1 ? "0#{p[1]}" : p[1]

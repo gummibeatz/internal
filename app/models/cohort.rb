@@ -1,6 +1,6 @@
 class Cohort < ActiveRecord::Base
 
-  has_many :developers
+  has_many :developers, -> { order(first_name: :asc) }
 
   def create_developer_association(devs)
     devs.each do |dev|
