@@ -9,7 +9,9 @@
       <th>Pace &amp; Speed</th>
       <th>Understanding</th>
       <th>Recall</th>
-      <th>Comments</th>
+      <% unless comments == false %>
+        <th>Comments</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +29,9 @@
         <td><%= t.pace_and_speed %></td>
         <td><%= t.understanding %></td>
         <td><%= t.recall_information_from_previous_class %></td>
-        <td><%= t.additional_comments %></td>
+        <% unless comments == false %>
+          <td><%= t.additional_comments %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

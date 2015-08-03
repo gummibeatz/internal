@@ -3,6 +3,8 @@
     <div class="col-md-12">
       <h1><%= "#{cohort.name} #{cohort.version}" %></h1>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -17,7 +19,15 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
+      <% cohort.units.each_with_index do |unit, idx| %>
+        <p><strong><%= "Unit-#{idx}:" %></strong> <%= pretty_date(unit.started_at) %> - <%= pretty_date(unit.ended_at) %></p>
+      <% end %>
+    </div>
+    <div class="col-md-12">
+      <h3>Developers</h3>
       <% cohort.developers.each do |developer| %>
         <p><%= link_to "#{developer.display_name}", developer_path(developer) %></p>
       <% end %>

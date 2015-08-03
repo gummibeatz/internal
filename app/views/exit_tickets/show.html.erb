@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <h1>Exit Ticket</h1>
       <caption><%= link_to exit_ticket.developer.display_name, developer_path(exit_ticket.developer) %></caption>
-      <%= render "form_table", tickets: [exit_ticket] %>
+      <%= render "form_table", tickets: [exit_ticket], comments: true %>
     </div>
   </div>
 </div>
