@@ -5,7 +5,7 @@ class ExitTicketImporter
     "Timestamp" => "submitted_at",
     "Certainty (1-100)" => "certainty",
     "Name" => "name",
-    "Score" => "score",
+    "Correct?" => "score",
     "Assessment Question" => "questions",
     "Please rate the overall quality of the class." => "overall_quality",
     "Please rate the difficulty of the class." => "difficulty",
@@ -17,6 +17,7 @@ class ExitTicketImporter
     "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments"
   }
 
+  # from csv file
   def self.import_from_file(file)
     headers = []
     devs = []
@@ -41,11 +42,15 @@ class ExitTicketImporter
           d[headers[idx]] = Date.parse("#{year}#{month}#{day}").to_datetime
         elsif headers[idx] == "questions"
           d["questions"] = [] if d["questions"].nil?
-          d["questions"] << col
+          d["questions"] << {
+            question: "question",
+            answer: col
+          }
         else
           d[headers[idx]] = col
         end
       end
+      d["questions"] = JSON.generate(d["questions"])
       data << d
     end
     data.each do  |ticket_data|
@@ -61,6 +66,7 @@ class ExitTicketImporter
     end
   end
 
+  # from response sheet
   def import_from_form(form_data)
     json = JSON.parse(form_data["tickets"])
     tickets = json["tickets"]

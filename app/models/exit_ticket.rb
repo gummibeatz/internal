@@ -30,14 +30,14 @@ class ExitTicket < ActiveRecord::Base
   # Imported as .csv
   def self.import(file)
     ActiveRecord::Base.transaction do
-      ExitTicketImporter.import(file)
+      ExitTicketImporter.import_from_file(file)
     end
   end
 
   # Submitted as exit ticket response sheet
   def self.import_from_google_form(form_data)
     ActiveRecord::Base.transaction do
-      ExitTicketImporter.import(form_data)
+      ExitTicketImporter.import_from_form(form_data)
     end
   end
 

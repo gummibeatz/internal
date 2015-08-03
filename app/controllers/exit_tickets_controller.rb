@@ -3,7 +3,7 @@ class ExitTicketsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :import]
 
   def index
-      @exit_tickets = ExitTicket.all.group_by(&:submitted_at)
+      @exit_tickets = ExitTicket.all.sort_by(&:submitted_at).group_by(&:submitted_at).sort_by
   end
 
   def show
