@@ -8,7 +8,7 @@ class Developer < ActiveRecord::Base
   enum gender: [:female, :male]
 
   has_many :addresses, foreign_key: :user_id
-  has_many :exit_tickets
+  has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances
   belongs_to :cohort
 
