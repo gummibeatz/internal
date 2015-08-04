@@ -36,4 +36,5 @@ bower.json
 .env
 
 .sass-cache/*
+latest.dump
 notes/*
