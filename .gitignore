@@ -34,4 +34,6 @@ bower.json
 # Ignore pow environment settings
 .powenv
 .env
+
+.sass-cache/*
 notes/*
