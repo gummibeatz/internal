@@ -1,12 +1,4 @@
 source 'https://rubygems.org'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 ruby '2.2.2'
 gem 'rails', '4.2.1'
@@ -25,8 +17,8 @@ gem "omniauth-google-oauth2"
 gem 'devise', '~> 3.5.1'
 gem 'puma'
 
-  gem 'byebug'
 group :development, :test do
+  gem 'byebug'
   gem 'dotenv-rails'
   gem 'web-console', '~> 2.0'
   gem 'spring'
