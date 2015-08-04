@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   WHITELIST = [
     "rachel@c4q.nyc",
     "mike@c4q.nyc",
-    "max@c4q.nyc"
+    "max@c4q.nyc",
+    "franklin@c4q.nyc"
   ]
 
   devise :omniauthable,
