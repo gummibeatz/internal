@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/attendances/create', to: 'attendances#create'
   post '/attendances/import', to: 'attendances#import_all'
 
+  resources :units, only: [:show]
+
   resources :cohorts
 
 end

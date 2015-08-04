@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Unit <%= @index %> - <small><%= @percentage_complete %>%</small></h1>
+      <p>
+        <strong>Start date: </strong>
+        <%= pretty_date(@unit.started_at) %>
+      </p>
+      <p>
+        <strong>End date: </strong>
+        <%= pretty_date(@unit.ended_at) %>
+      </p>
+
+      <h3>Exit Tickets</h3>
+      <p><strong>Completion: </strong><%= @et_completion_rate %>%</p>
+      <p><strong>Accuracy: </strong><%= @et_accuracy_rate %>%</p>
+
+      <h3>Attendance</h3>
+      <p><strong>Present: </strong><%= @attendance_rate %>%</p>
+      <p><strong>On time: </strong><%= @on_time %>%</p>
+    </div>
+  </div>
+</div>

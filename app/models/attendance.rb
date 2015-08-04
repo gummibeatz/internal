@@ -5,7 +5,7 @@ class Attendance < ActiveRecord::Base
   # to determine the date of attendance. This may or may not
   # cause problems in the future
 
-  enum status: [:on_time, :excused_lateness, :late_5_minues, :late_10_minutes, :absence_excused, :absence_unexcused]
+  enum status: [:on_time, :late_excused, :late_5_minues, :late_10_minutes, :absent_excused, :absent_unexcused]
 
   belongs_to :developer
 
