@@ -1,30 +1,22 @@
 class Attendance < ActiveRecord::Base
 
-  #TODO
-  # This model currently relies on the created_at timestamp
-  # to determine the date of attendance. This may or may not
-  # cause problems in the future
-
   enum status: [:on_time, :late_excused, :late_5_minues, :late_10_minutes, :absent_excused, :absent_unexcused]
 
+  scope :present, -> { where("status != 4 AND status != 5") }
+  scope :absent,  -> { where("status = 4 OR status = 5") }
+  scope :late,    -> { where("status = 1 OR status = 2 OR status = 3") }
+  scope :on_time, -> { where ("status = 1") }
+
   belongs_to :developer
-
-  def self.absent
-    where("status = 4 OR status = 5")
-  end
-
-  def self.late
-    where("status = 1 OR status = 2 OR status = 3")
-  end
-
-  def self.present
-    where("status != 4 AND status != 5")
-  end
 
   def self.rate_in_range(range)
     all = where("timestamp >= ? and timestamp <= ?", range.begin, range.end)
     present = all.present
     return present.count / all.count.to_f
+  end
+
+  def self.rate_on_day(day)
+    where("timestamp = ?", day).present.count / 32.0
   end
 
   def self.find_or_create(json)
