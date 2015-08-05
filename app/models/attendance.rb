@@ -5,7 +5,7 @@ class Attendance < ActiveRecord::Base
   scope :present, -> { where("status != 4 AND status != 5") }
   scope :absent,  -> { where("status = 4 OR status = 5") }
   scope :late,    -> { where("status = 1 OR status = 2 OR status = 3") }
-  scope :on_time, -> { where ("status = 1") }
+  scope :on_time, -> { where ("status = 0") }
 
   belongs_to :developer
 
