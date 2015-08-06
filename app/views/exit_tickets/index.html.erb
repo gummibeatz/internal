@@ -13,9 +13,13 @@
         </div>
       </div>
     <div class="col-md-12">
-      <% @exit_tickets.each do |key, val| %>
-        <p><%= pretty_date(key) %></p>
-      <% end %>
+	
     </div>
   </div>
+</div>
+
+<!--div for d3 chart, added by Veena 20150808 -->
+<div id="chart">
+	<script src="/app/assets/javascripts/exit_tickets/exit_ticket_graphs.js">
+	</script>
 </div>

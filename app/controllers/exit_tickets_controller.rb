@@ -3,7 +3,10 @@ class ExitTicketsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :import]
 
   def index
-      @exit_tickets = ExitTicket.all.sort_by(&:submitted_at).reverse.group_by(&:submitted_at).sort_by
+	  # TODO: not verifying auth token?
+	  if request.xhr?
+		  render json: ExitTicket.all.as_json
+	  end
   end
 
   def show
