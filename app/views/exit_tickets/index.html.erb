@@ -13,13 +13,15 @@
         </div>
       </div>
     <div class="col-md-12">
-	
+
     </div>
   </div>
 </div>
 
 <!--div for d3 chart, added by Veena 20150808 -->
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "exit_ticket_graphs" %>
+<% end %>
 <div id="chart">
-	<script src="/app/assets/javascripts/exit_tickets/exit_ticket_graphs.js">
-	</script>
+
 </div>
