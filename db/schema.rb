@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803162622) do
+ActiveRecord::Schema.define(version: 20150803162538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20150803162622) do
     t.integer  "number_of_graduate_credits_cents"
     t.integer  "graduate_gpa_cents"
     t.boolean  "is_current_student"
-    t.integer  "coding_background",                 default: 0
     t.string   "linkedin_url"
+    t.integer  "coding_background",                 default: 0
     t.integer  "cohort_id"
     t.string   "full_name"
   end
@@ -132,9 +132,9 @@ ActiveRecord::Schema.define(version: 20150803162622) do
   create_table "units", force: :cascade do |t|
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.integer  "cohort_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "cohort_id"
   end
 
   add_index "units", ["cohort_id"], name: "index_units_on_cohort_id", using: :btree
