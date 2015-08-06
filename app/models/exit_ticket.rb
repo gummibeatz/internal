@@ -1,5 +1,9 @@
 class ExitTicket < ActiveRecord::Base
 
+  self.inheritance_column = "inheritance_type"
+
+  enum type: [:technical, :nontechnical]
+
   belongs_to :developer
 
   def self.completion_rate_in_range(range)
