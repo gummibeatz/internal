@@ -9,11 +9,11 @@ $.ajax({
   response: "{}",
   success: function(response) {
     console.log(response);
-	dataValidation(response);
+    dataValidation(response);
   },
-	
+
   error: function(error) {
-	console.log("THERE WAS AN AJAX ERROR");
+    console.log("THERE WAS AN AJAX ERROR");
     console.log(error);
   }
 })
@@ -37,15 +37,15 @@ function dataValidation(jsonData) {
 
 // D3/dimple function that gets called after data validation
 function graphData(jsonData) {
-	
-	
+
+
 	//d3.json(jsonData, function(error, data) {
 		//var filteredValues = dimple.filterData(data, "Instructor", "Amy")...nb: this is how you filter out data if you need to use it eventually...
-		
+
 		var svg = dimple.newSvg("#chart", 900, 600),
 			chart = new dimple.chart(svg, jsonData);
 		chart.setBounds(60,50,600,450); //play around w this
-		
+
 		var x = chart.addCategoryAxis("x", "submitted_at"),
 			y = chart.addMeasureAxis("y", "certainty"),
 			y2 = chart.addMeasureAxis(y, "score"),
@@ -56,7 +56,7 @@ function graphData(jsonData) {
 			y7 = chart.addMeasureAxis(y, "pace_and_speed"),
 			y8 = chart.addMeasureAxis(y, "understanding"),
 			y9 = chart.addMeasureAxis(y, "recall_information_from_previous_class");
-		
+
 		x.outputFormat = "%m/%d";
 		x.title = "Date";
 		y.title = "Quantitative Questions";
@@ -68,8 +68,8 @@ function graphData(jsonData) {
 	chart.addSeries(["Speed"], dimple.plot.line, [x, y7]).aggregate = dimple.aggregateMethod.avg;
 	chart.addSeries(["Understanding"], dimple.plot.line, [x, y8]).aggregate = dimple.aggregateMethod.avg;
 	chart.addSeries(["Recall"], dimple.plot.line, [x, y9]).aggregate = dimple.aggregateMethod.avg;
-		
-	
+
+
 		chart.draw();
-	//}); 
-} 
+	//});
+}
