@@ -6,8 +6,10 @@ class UnitsController < ApplicationController
     @percentage_complete = (((Date.today - unit.range.begin.to_date).to_i / (unit.range.end.to_date - unit.range.begin.to_date).to_f) * 100).round(2)
 
     # exit tickets
+    et_all = ExitTicket.where("submitted_at >= ? and submitted_at <= ?", unit.range.begin, unit.range.end)
     @et_completion_rate = (ExitTicket.completion_rate_in_range(unit.range) * 100).round(2)
     @et_accuracy_rate = (ExitTicket.accuracy_rate_in_range(unit.range) * 100).round(2)
+    @et_unscored = et_all.where(score: nil).count
 
     # attendance
     all_in_unit = Attendance.where("timestamp >= ? and timestamp <= ?", unit.range.begin, unit.range.end)

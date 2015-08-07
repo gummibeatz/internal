@@ -22,13 +22,13 @@ class ExitTicket < ActiveRecord::Base
 
   def self.accuracy_rate_in_range(range)
     tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
-    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el unless el.nil? }.to_f / tickets.count unless tickets.count == 0
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
 
   def self.accuracy_rate_on_day(day)
     tickets = where(submitted_at: day)
-    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el unless el.nil? }.to_f / tickets.count unless tickets.count == 0
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
 
