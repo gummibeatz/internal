@@ -133,9 +133,9 @@ ActiveRecord::Schema.define(version: 20150806153228) do
   create_table "units", force: :cascade do |t|
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.integer  "cohort_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "cohort_id"
   end
 
   add_index "units", ["cohort_id"], name: "index_units_on_cohort_id", using: :btree
