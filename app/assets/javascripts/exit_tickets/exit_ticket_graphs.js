@@ -13,19 +13,18 @@ $.ajax({
   },
 
   error: function(error) {
-    console.log("THERE WAS AN AJAX ERROR");
     console.log(error);
   }
 })
 
 
 
+// TODO: error catching?
 // Clean up data; gets called in the ajax success. Then calls graphData(jsonData).
 //cause sometimes people are 1000000% confident
 function dataValidation(jsonData) {
 	jsonData.forEach(function(j) {
 		if ( parseInt(j.certainty) > 100 ) {
-			console.log(j.certainty);
 			j.certainty = "100";
 		}
 	});
@@ -35,6 +34,12 @@ function dataValidation(jsonData) {
 }
 
 
+//these are the things we'll need when updating the chart from html forms
+var svg;
+var chart;
+var x; 
+
+// TODO: scrollable x range
 // TODO: error catching?
 // D3/dimple function that gets called after data validation
 function graphData(jsonData) {
@@ -42,13 +47,14 @@ function graphData(jsonData) {
 		//var filteredValues = dimple.filterData(data, "Instructor", "Amy")...nb: this is how you filter out data if you need to use it eventually...
 
 	//create svg, chart....will show up in the div "#chart" in index.html.erb
-		var svg = dimple.newSvg("#chart", 900, 600),
-			chart = new dimple.chart(svg, jsonData);
+		svg = dimple.newSvg("#chart", 900, 600);
+		chart = new dimple.chart(svg, jsonData);
 		chart.setBounds(60,50,600,450); //play around w this
 
 	// create series from the json data
-		var x = chart.addCategoryAxis("x", "submitted_at"),
-			y = chart.addMeasureAxis("y", "certainty"),
+		x = chart.addTimeAxis("x", "submitted_at");
+		x.overrideMin = 1436227200000;
+		var	y = chart.addMeasureAxis("y", "certainty"),
 			y2 = chart.addMeasureAxis(y, "score"),
 			y3 = chart.addMeasureAxis(y, "overall_quality"),
 			y4 = chart.addMeasureAxis(y, "difficulty"),
@@ -79,13 +85,14 @@ function graphData(jsonData) {
 	chart.draw();
 	
 	
-	
+	//----------------------------------------------------
 	// Below section for toggling series on the chart
 	
 	// How this works: toggleIdxs is a bool[] for knowing which chart.series is on/off by series index (series get added in order of chart.addSeries in the section above). toggleOn is the name of the series ("Quality"), grabbed from the name of the legend item (aggField slice) and matches with the appropriate series index using categoryNames[].
 	var toggleIdxs = [0,0,0,0,0,0,0], //7 of them
 	 	toggleOn = [],
 	 	categoryNames = ["Quality", "Difficulty", "Communication", "Interest", "Speed", "Understading", "Recall"];
+	
 	// .on(click) event for each rectange in the legend
 	legend.shapes.selectAll("rect")
 		.on("click", function(e) {
@@ -108,4 +115,33 @@ function graphData(jsonData) {
 	
 	
 	
+	//----------------------------------------------------
+	
+	
+	//Below is the section for the time range scrolling
+	
+	//using d3.slider, created by benheb.github.io/d3.slider/
+	d3.select('#slider1').call(d3.slider());
+	
+	
 }
+
+
+function startRange(form) {
+
+	console.log(form.startDate.value);
+	console.log(form.endDate.value);
+	
+	if (form.startDate) {
+		var startDate = new Date(form.startDate.value);
+		console.log(startDate.getUTCMilliseconds);
+		x.overrideMin = 1436832000000;
+	}
+	if (form.endDate)	{
+		var endDate = new Date(form.endDate.value);
+		console.log(endDate);
+		x.overrideMax = 1437609600000;
+	}
+
+	chart.draw(0, true);
+}	

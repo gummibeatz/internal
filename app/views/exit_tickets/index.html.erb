@@ -18,10 +18,27 @@
   </div>
 </div>
 
+
+	
 <!--div for d3 chart, added by Veena 20150808 -->
 <% content_for :javascripts do %>
   <%= javascript_include_tag "exit_ticket_graphs" %>
 <% end %>
-<div id="chart">
 
+
+<!-- dumb thing doesn't work :( 
+<div id="slider1" class="d3-slider d3-slider-horizontal">
 </div>
+	<link rel="stylesheet" href="/app/assets/stylesheets/d3.slider.css">
+-->
+<div id="chart"></div>
+
+	
+
+	<!-- backup: date picker for chart range. this breaks in IE -->
+	<form action="" method="get">
+		Starting Week:
+		<input type="date" name="startDate" value=""  onChange="startRange(this.form)">
+		Ending week:
+		<input type="date" name="endDate" value=""  onChange="startRange(this.form)">
+	</form>
