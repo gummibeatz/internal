@@ -128,20 +128,16 @@ function graphData(jsonData) {
 
 
 function startRange(form) {
-
-	console.log(form.startDate.value);
-	console.log(form.endDate.value);
-	
-	if (form.startDate) {
-		var startDate = new Date(form.startDate.value);
-		console.log(startDate.getUTCMilliseconds);
-		x.overrideMin = 1436832000000;
-	}
-	if (form.endDate)	{
-		var endDate = new Date(form.endDate.value);
-		console.log(endDate);
-		x.overrideMax = 1437609600000;
-	}
-
+	var startDate = new Date(form.startDate.value);
+	var startDateUTC = Date.parse(startDate);
+	x.overrideMin = startDateUTC;
 	chart.draw(0, true);
 }	
+
+
+function endRange(form) {
+	var endDate = new Date(form.endDate.value);
+	var endDateUTC = Date.parse(endDate);
+	x.overrideMax = endDateUTC;
+	chart.draw(0,true);
+}
