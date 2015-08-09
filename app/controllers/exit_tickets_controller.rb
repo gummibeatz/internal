@@ -30,7 +30,7 @@ class ExitTicketsController < ApplicationController
     if developer = Developer.where(full_name: t["name"].downcase).first
       date = Date.parse(t["date"]).to_datetime
       if ticket = ExitTicket.where(submitted_at: date).first
-        ticket.update_attributes(:score, t["score"])
+        ticket.update_attribute(:score, t["score"])
         head :ok
       else
         render status: 500
