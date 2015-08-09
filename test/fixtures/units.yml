@@ -7,3 +7,15 @@ one:
 two:
   started_at: 2015-08-03 12:25:38
   ended_at: 2015-08-03 12:25:38
+
+# == Schema Information
+#
+# Table name: units
+#
+#  id         :integer          not null, primary key
+#  started_at :datetime
+#  ended_at   :datetime
+#  cohort_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

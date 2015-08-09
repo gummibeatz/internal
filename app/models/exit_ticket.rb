@@ -95,4 +95,5 @@ end
 #  questions                              :text
 #  score                                  :float
 #  summary_form_url                       :string
+#  type                                   :integer          default(0)
 #
