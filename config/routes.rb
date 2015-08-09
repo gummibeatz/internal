@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   post '/exit_tickets/create', to: 'exit_tickets#create'
   post '/exit_tickets/import', to: 'exit_tickets#import'
+  post '/exit_tickets/grade', to: 'exit_tickets#grade', as: "exit_tickets_grade"
   resources :exit_tickets do
     collection { post :upload }
   end
