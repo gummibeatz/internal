@@ -1,6 +1,6 @@
 class ExitTicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :import]
-  skip_before_filter :authenticate_user!, only: [:create, :import]
+  skip_before_action :verify_authenticity_token, only: [:create, :import, :grade]
+  skip_before_filter :authenticate_user!, only: [:create, :import, :grade]
 
   def index
       @exit_tickets = ExitTicket.all.sort_by(&:submitted_at).reverse.group_by(&:submitted_at).sort_by
