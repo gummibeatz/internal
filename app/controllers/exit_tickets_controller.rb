@@ -25,12 +25,12 @@ class ExitTicketsController < ApplicationController
   end
 
   def grade
-    json = JSON.parse(form_data["exit_ticket"])
-    att = json["ticket"]
-    if developer = Developer.where(full_name: json["name"].downcase).first
-      date = Date.parse(json["date"]).to_datetime
+    json = JSON.parse(params["exit_ticket"])
+    t = json["ticket"]
+    if developer = Developer.where(full_name: t["name"].downcase).first
+      date = Date.parse(t["date"]).to_datetime
       if ticket = ExitTicket.where(submitted_at: date).first
-        ticket.update_attributes(:score, json["score"])
+        ticket.update_attributes(:score, t["score"])
         head :ok
       else
         render status: 500
