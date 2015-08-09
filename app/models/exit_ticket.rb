@@ -42,7 +42,7 @@ class ExitTicket < ActiveRecord::Base
         tck["submitted_at"] = Date.parse(tck["submitted_at"]).to_datetime
         tck.delete("name")
         tck["questions"] = tck["questions"].to_json
-        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, tck["submitted_at"]).last
+        if t = ExitTicket.where("developer_id = ? and submitted_at = ? and type = ?", developer.id, tck["submitted_at"], (tck["type"] || 0)).last
           t.update_attributes(tck)
         else
           ticket = ExitTicket.new(tck)
