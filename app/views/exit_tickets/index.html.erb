@@ -21,9 +21,20 @@
 
 <!-- div for accuracy and completion data, added Veena 20150810 -->
 <div id="stats">
-	Accuracy: <p id="accuracy"></p>
-	Completion: <p id="completion"></p>
+	Accuracy: <p style="display:inline" id="accuracy"></p>% 
+	<br>
+	Completion: <p style="display:inline" id="completion"></p>%
 </div>
+<hr>
+
+<!-- form for selecting date range -->
+<!-- backup: date picker for chart range. this breaks in IE -->
+<form action="" method="get">
+	Starting Date:
+	<input type="date" name="startDate" value=""  onChange="startRange(this.form)">
+	Ending Date:
+	<input type="date" name="endDate" value=""  onChange="endRange(this.form)">
+</form>
 	
 <!--div for d3 chart, added by Veena 20150808 -->
 <% content_for :javascripts do %>
@@ -39,10 +50,4 @@
 
 	
 
-	<!-- backup: date picker for chart range. this breaks in IE -->
-	<form action="" method="get">
-		Starting Date:
-		<input type="date" name="startDate" value=""  onChange="startRange(this.form)">
-		Ending Date:
-		<input type="date" name="endDate" value=""  onChange="endRange(this.form)">
-	</form>
+
