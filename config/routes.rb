@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  get '/exit_tickets/report', to: 'exit_tickets#report'
   post '/exit_tickets/create', to: 'exit_tickets#create'
   post '/exit_tickets/import', to: 'exit_tickets#import'
   post '/exit_tickets/grade', to: 'exit_tickets#grade'

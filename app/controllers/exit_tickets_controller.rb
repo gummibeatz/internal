@@ -1,6 +1,6 @@
 class ExitTicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :import, :grade]
-  skip_before_filter :authenticate_user!, only: [:create, :import, :grade]
+  skip_before_action :verify_authenticity_token, only: [:create, :import, :grade, :report]
+  skip_before_filter :authenticate_user!, only: [:create, :import, :grade, :report]
 
   def index
 	  # TODO: not verifying auth token?
@@ -41,6 +41,17 @@ class ExitTicketsController < ApplicationController
     else
       render status: 500
     end
+  end
+
+  def report
+    start_date = Date.parse(params[:start_date]).to_datetime
+    end_date = Date.parse(params[:end_date]).to_datetime
+    range = Range.new(start_date, end_date)
+
+    render json: {
+      accuracy: ExitTicket.accuracy_rate_in_range(range),
+      completion: ExitTicket.completion_rate_in_range(range)
+    }
   end
 
   protected
