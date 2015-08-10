@@ -19,19 +19,23 @@
 </div>
 
 
+<!-- div for accuracy and completion data, added Veena 20150810 -->
+<div id="stats">
+	Accuracy: <p id="accuracy"></p>
+	Completion: <p id="completion"></p>
+</div>
 	
 <!--div for d3 chart, added by Veena 20150808 -->
 <% content_for :javascripts do %>
   <%= javascript_include_tag "exit_ticket_graphs" %>
 <% end %>
-
+<div id="chart"></div>
 
 <!-- dumb thing doesn't work :( 
 <div id="slider1" class="d3-slider d3-slider-horizontal">
 </div>
 	<link rel="stylesheet" href="/app/assets/stylesheets/d3.slider.css">
 -->
-<div id="chart"></div>
 
 	
 
