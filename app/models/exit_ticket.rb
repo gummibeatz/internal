@@ -8,7 +8,7 @@ class ExitTicket < ActiveRecord::Base
 
   def self.completion_rate_in_range(range)
     times = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).map(&:submitted_at)
-    a = Attendance.where("timestamp in (?)", times)
+    a = Attendance.where("timestamp in (?)", times).present
     return (times.count / a.count.to_f) unless count == 0
     return -1
   end
