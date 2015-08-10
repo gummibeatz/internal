@@ -19,14 +19,7 @@
 </div>
 
 
-<!-- div for accuracy and completion data, added Veena 20150810 -->
-<div id="stats">
-	Accuracy: <p style="display:inline" id="accuracy"></p>% 
-	<br>
-	Completion: <p style="display:inline" id="completion"></p>%
-</div>
-<hr>
-
+<h3>Quantitative Exit Ticket Data over Date Range (selected below)</h3> <br>
 <!-- form for selecting date range -->
 <!-- backup: date picker for chart range. this breaks in IE -->
 <form action="" method="get">
@@ -35,6 +28,16 @@
 	Ending Date:
 	<input type="date" name="endDate" value=""  onChange="endRange(this.form)">
 </form>
+<hr>
+	
+	
+<!-- div for accuracy and completion data, added Veena 20150810 -->
+<div id="stats">
+	Accuracy over Range: <p style="display:inline" id="accuracy"></p>% 
+	<br>
+	Completion over Range: <p style="display:inline" id="completion"></p>%
+</div>
+
 	
 <!--div for d3 chart, added by Veena 20150808 -->
 <% content_for :javascripts do %>
@@ -47,7 +50,4 @@
 </div>
 	<link rel="stylesheet" href="/app/assets/stylesheets/d3.slider.css">
 -->
-
-	
-
 
