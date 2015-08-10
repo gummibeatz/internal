@@ -29,7 +29,7 @@ class ExitTicketsController < ApplicationController
     t = json["ticket"]
     if developer = Developer.where(full_name: t["name"].downcase).first
       date = Date.parse(t["date"]).to_datetime
-      if ticket = developer.exit_tickets.where(submitted_at: date).first
+      if ticket = developer.exit_tickets.where(submitted_at: date, type: t["type"]).first
         ticket.update_attribute(:score, t["score"])
         head :ok
       else
