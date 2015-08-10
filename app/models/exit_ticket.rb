@@ -8,7 +8,7 @@ class ExitTicket < ActiveRecord::Base
 
   def self.completion_rate_in_range(range)
     times = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).map(&:submitted_at)
-    a = Attendance.where("timestamp in (?)", times)
+    a = Attendance.where("timestamp in (?)", times).present
     return (times.count / a.count.to_f) unless count == 0
     return -1
   end
@@ -22,13 +22,13 @@ class ExitTicket < ActiveRecord::Base
 
   def self.accuracy_rate_in_range(range)
     tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
-    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el }.to_f / tickets.count unless tickets.count == 0
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
 
   def self.accuracy_rate_on_day(day)
     tickets = where(submitted_at: day)
-    return tickets.map(&:score).inject(0.0) { |sum, el| sum + el }.to_f / tickets.count unless tickets.count == 0
+    return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
 
@@ -42,7 +42,7 @@ class ExitTicket < ActiveRecord::Base
         tck["submitted_at"] = Date.parse(tck["submitted_at"]).to_datetime
         tck.delete("name")
         tck["questions"] = tck["questions"].to_json
-        if t = ExitTicket.where("developer_id = ? AND submitted_at = ?", developer.id, tck["submitted_at"]).last
+        if t = ExitTicket.where("developer_id = ? and submitted_at = ? and type = ?", developer.id, tck["submitted_at"], (tck["type"] || 0)).last
           t.update_attributes(tck)
         else
           ticket = ExitTicket.new(tck)
@@ -95,4 +95,5 @@ end
 #  questions                              :text
 #  score                                  :float
 #  summary_form_url                       :string
+#  type                                   :integer          default(0)
 #

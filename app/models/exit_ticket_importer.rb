@@ -14,16 +14,28 @@ class ExitTicketImporter
     "Please rate the pace & speed of the class." => "pace_and_speed",
     "Please rate your understanding of the concepts covered in class." => "understanding",
     "How well do you recall the information taught in the last class?" => "recall_information_from_previous_class",
-    "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments"
+    "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments",
+
+    #non-technical
+    "Speaker's ability to communicate the subject matter." => "instructors_ability_to_communicate",
+    "Speaker's ability to stimulate student interest." => "instructors_ability_to_stimulate",
+    "Please list any additional comments about the event/instructor and/or questions for your instructors." => "additional_comments"
   }
 
   # from csv file
   def self.import_from_file(file)
+    type = 0
     headers = []
     devs = []
     CSV.foreach(file.path) do |row|
       if $. == 1
-        row.each { |col| headers << ExitTicketImporter::MAPPER[col] }
+        row.each do |col|
+          if col[/Speaker/] == "Speaker"
+            type = 1
+          end
+          headers << ExitTicketImporter::MAPPER[col]
+        end
+        headers << "type"
         next
       end
       devs << row
@@ -47,6 +59,8 @@ class ExitTicketImporter
             question: "question",
             answer: col
           }
+        elsif headers[idx] == "type"
+          d["type"] = type
         else
           d[headers[idx]] = col
         end
@@ -57,7 +71,7 @@ class ExitTicketImporter
     data.each do  |ticket_data|
       if developer = Developer.where("full_name = ?", ticket_data["name"].downcase).last
         ticket_data.delete("name")
-        if t = ExitTicket.where("submitted_at = ? AND developer_id = ?", ticket_data["submitted_at"], developer.id).first
+        if t = ExitTicket.where("submitted_at = ? and developer_id = ? and type = ?", ticket_data["submitted_at"], developer.id, type).first
           t.update_attributes(ticket_data)
         else
           ticket = ExitTicket.new(ticket_data)

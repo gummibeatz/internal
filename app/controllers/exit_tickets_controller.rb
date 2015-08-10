@@ -1,4 +1,5 @@
 class ExitTicketsController < ApplicationController
+<<<<<<< HEAD
   skip_before_action :verify_authenticity_token, only: [:create, :import, :report]
   skip_before_filter :authenticate_user!, only: [:create, :import, :report]
 
@@ -7,6 +8,13 @@ class ExitTicketsController < ApplicationController
     if request.xhr? 
       render json: ExitTicket.all.as_json
     end
+=======
+  skip_before_action :verify_authenticity_token, only: [:create, :import, :grade]
+  skip_before_filter :authenticate_user!, only: [:create, :import, :grade]
+
+  def index
+      @exit_tickets = ExitTicket.all.sort_by(&:submitted_at).reverse.group_by(&:submitted_at).sort_by
+>>>>>>> addec0f2254a6e321013e1dde850f45db0f6ad75
   end
 
   def show
@@ -27,6 +35,7 @@ class ExitTicketsController < ApplicationController
     redirect_to exit_tickets_path
   end
 
+<<<<<<< HEAD
   def report 
     start_date = Date.parse(params[:start_date]).to_datetime
     end_date = Date.parse(params[:end_date]).to_datetime
@@ -36,6 +45,22 @@ class ExitTicketsController < ApplicationController
       accuracy: ExitTicket.accuracy_rate_in_range(range),
       completion: ExitTicket.completion_rate_in_range(range)
     }
+=======
+  def grade
+    json = JSON.parse(params["exit_ticket"])
+    t = json["ticket"]
+    if developer = Developer.where(full_name: t["name"].downcase).first
+      date = Date.parse(t["date"]).to_datetime
+      if ticket = developer.exit_tickets.where(submitted_at: date, type: t["type"]).first
+        ticket.update_attribute(:score, t["score"])
+        head :ok
+      else
+        render status: 500
+      end
+    else
+      render status: 500
+    end
+>>>>>>> addec0f2254a6e321013e1dde850f45db0f6ad75
   end
 
   protected
