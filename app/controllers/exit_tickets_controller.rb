@@ -27,6 +27,19 @@ class ExitTicketsController < ApplicationController
     redirect_to exit_tickets_path
   end
 
+<<<<<<< HEAD
+=======
+  def report
+    start_date = Date.parse(params[:start_date]).to_datetime
+    end_date = Date.parse(params[:end_date]).to_datetime
+    range = Range.new(start_date, end_date)
+
+    render json: {
+      accuracy: ExitTicket.accuracy_rate_in_range(range),
+      completion: ExitTicket.completion_rate_in_range(range)
+    }
+  end
+
   def grade
     json = JSON.parse(params["exit_ticket"])
     t = json["ticket"]

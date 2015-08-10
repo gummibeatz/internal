@@ -19,6 +19,7 @@ $.ajax({
 
 
 
+
 // TODO: error catching?
 // Clean up data; gets called in the ajax success. Then calls graphData(jsonData).
 //cause sometimes people are 1000000% confident
@@ -127,11 +128,26 @@ function graphData(jsonData) {
 }
 
 
+var start = new Date();
+var end = new Date();
+
+
 function startRange(form) {
 	var startDate = new Date(form.startDate.value);
 	var startDateUTC = Date.parse(startDate);
 	x.overrideMin = startDateUTC;
 	chart.draw(0, true);
+	
+	// Get completion/accuracy data
+/*	$.ajax({
+		url: "/exit_tickets/report",
+		data: { start_date: start,
+				end_date: end },
+		type="GET",
+		success: function(response) {
+			console.log(response); }
+		   });
+*/	
 }	
 
 
@@ -140,4 +156,6 @@ function endRange(form) {
 	var endDateUTC = Date.parse(endDate);
 	x.overrideMax = endDateUTC;
 	chart.draw(0,true);
+	
+
 }
