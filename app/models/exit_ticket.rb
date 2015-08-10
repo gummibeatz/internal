@@ -7,9 +7,10 @@ class ExitTicket < ActiveRecord::Base
   belongs_to :developer
 
   def self.completion_rate_in_range(range)
-    times = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).map(&:submitted_at)
-    a = Attendance.where("timestamp in (?)", times).present
-    return (times.count / a.count.to_f) unless count == 0
+    tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).technical
+    timestamps = tickets.map(&:submitted_at).uniq
+    a = Attendance.where("timestamp in (?)", timestamps).present
+    return (tickets.count / a.count.to_f) unless count == 0
     return -1
   end
 
