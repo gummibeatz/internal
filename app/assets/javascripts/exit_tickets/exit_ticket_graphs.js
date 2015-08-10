@@ -10,7 +10,7 @@ $.ajax({
   success: function(response) {
     console.log(response);
     dataValidation(response);
-  },
+	},
 
   error: function(error) {
     console.log(error);
@@ -116,20 +116,18 @@ function graphData(jsonData) {
 	
 	
 	
-	//----------------------------------------------------
-	
-	
-	//Below is the section for the time range scrolling
-	
-	//using d3.slider, created by benheb.github.io/d3.slider/
-	d3.select('#slider1').call(d3.slider());
-	
+	//make sure we call the display...() fn at the start
+	displayAccuracyAndCompletion();
+
 	
 }
 
 
-var start = new Date();
+//initialize start and end dates for range
+var start = new Date("07/07/2015");
 var end = new Date();
+
+
 
 
 function startRange(form) {
@@ -137,17 +135,8 @@ function startRange(form) {
 	var startDateUTC = Date.parse(startDate);
 	x.overrideMin = startDateUTC;
 	chart.draw(0, true);
-	
-	// Get completion/accuracy data
-/*	$.ajax({
-		url: "/exit_tickets/report",
-		data: { start_date: start,
-				end_date: end },
-		type="GET",
-		success: function(response) {
-			console.log(response); }
-		   });
-*/	
+	start = startDate;
+	displayAccuracyAndCompletion();
 }	
 
 
@@ -156,6 +145,29 @@ function endRange(form) {
 	var endDateUTC = Date.parse(endDate);
 	x.overrideMax = endDateUTC;
 	chart.draw(0,true);
+	end = endDate;
+	displayAccuracyAndCompletion();
+}
+
+
+//display accuracy and completion data
+function displayAccuracyAndCompletion() {
+
+	
+	//get the accuracy and completion data
+	$.ajax({
+		url: "/exit_tickets/report",
+		data: { start_date: start,
+				end_date: end },
+		type: "GET",
+		success: function(response) {
+			console.log(response); 
+			document.getElementById("accuracy").innerHTML = response.accuracy;
+			document.getElementById("completion").innerHTML = response.completion;
+		},
+		error: function(error) {
+    		console.log(error); }
+	   });
 	
 
 }
