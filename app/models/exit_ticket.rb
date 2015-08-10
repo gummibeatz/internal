@@ -16,7 +16,7 @@ class ExitTicket < ActiveRecord::Base
 
   def self.completion_rate_on_day(day)
     a = Attendance.where("timestamp = ?", day).present
-    count = where(submitted_at: day).count
+    count = where(submitted_at: day).technical.count
     return (count / a.count.to_f) unless count == 0
     return -1
   end
