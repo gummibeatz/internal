@@ -1,20 +1,11 @@
 class ExitTicketsController < ApplicationController
-<<<<<<< HEAD
-  skip_before_action :verify_authenticity_token, only: [:create, :import, :report]
-  skip_before_filter :authenticate_user!, only: [:create, :import, :report]
-
-  def index	
-    # TODO: not verifying auth token?
-    if request.xhr? 
-      render json: ExitTicket.all.as_json
-    end
-=======
   skip_before_action :verify_authenticity_token, only: [:create, :import, :grade]
   skip_before_filter :authenticate_user!, only: [:create, :import, :grade]
 
   def index
-      @exit_tickets = ExitTicket.all.sort_by(&:submitted_at).reverse.group_by(&:submitted_at).sort_by
->>>>>>> addec0f2254a6e321013e1dde850f45db0f6ad75
+	  if request.xhr?
+		  render json: ExitTicket.all.as_json
+	  end
   end
 
   def show
@@ -35,7 +26,6 @@ class ExitTicketsController < ApplicationController
     redirect_to exit_tickets_path
   end
 
-<<<<<<< HEAD
   def report 
     start_date = Date.parse(params[:start_date]).to_datetime
     end_date = Date.parse(params[:end_date]).to_datetime
@@ -45,7 +35,8 @@ class ExitTicketsController < ApplicationController
       accuracy: ExitTicket.accuracy_rate_in_range(range),
       completion: ExitTicket.completion_rate_in_range(range)
     }
-=======
+  end
+
   def grade
     json = JSON.parse(params["exit_ticket"])
     t = json["ticket"]
@@ -60,7 +51,6 @@ class ExitTicketsController < ApplicationController
     else
       render status: 500
     end
->>>>>>> addec0f2254a6e321013e1dde850f45db0f6ad75
   end
 
   protected
