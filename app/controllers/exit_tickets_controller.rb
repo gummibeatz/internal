@@ -1,12 +1,12 @@
 class ExitTicketsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :import]
-  skip_before_filter :authenticate_user!, only: [:create, :import]
+  skip_before_action :verify_authenticity_token, only: [:create, :import, :report]
+  skip_before_filter :authenticate_user!, only: [:create, :import, :report]
 
-  def index
-	  # TODO: not verifying auth token?
-	  if request.xhr?
-		  render json: ExitTicket.all.as_json
-	  end
+  def index	
+    # TODO: not verifying auth token?
+    if request.xhr? 
+      render json: ExitTicket.all.as_json
+    end
   end
 
   def show
@@ -25,6 +25,17 @@ class ExitTicketsController < ApplicationController
   def upload
     ExitTicket.import(params[:file])
     redirect_to exit_tickets_path
+  end
+
+  def report 
+    start_date = Date.parse(params[:start_date]).to_datetime
+    end_date = Date.parse(params[:end_date]).to_datetime
+    range = Range.new(start_date, end_date)
+
+    render json: {
+      accuracy: ExitTicket.accuracy_rate_in_range(range),
+      completion: ExitTicket.completion_rate_in_range(range)
+    }
   end
 
   protected
