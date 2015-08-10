@@ -162,8 +162,10 @@ function displayAccuracyAndCompletion() {
 		type: "GET",
 		success: function(response) {
 			console.log(response); 
-			document.getElementById("accuracy").innerHTML = response.accuracy;
-			document.getElementById("completion").innerHTML = response.completion;
+			var displayAcc = Math.floor(response.accuracy*100);
+			var displayCompl = Math.floor(response.completion*100);
+			document.getElementById("accuracy").innerHTML = displayAcc;
+			document.getElementById("completion").innerHTML = displayCompl;
 		},
 		error: function(error) {
     		console.log(error); }
