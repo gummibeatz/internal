@@ -9,7 +9,7 @@ class UnitsController < ApplicationController
     et_all = ExitTicket.where("submitted_at >= ? and submitted_at <= ?", unit.range.begin, unit.range.end)
     @et_completion_rate = (ExitTicket.completion_rate_in_range(unit.range) * 100).round(2)
     @et_accuracy_rate = (ExitTicket.accuracy_rate_in_range(unit.range) * 100).round(2)
-    @et_unscored = et_all.where(score: nil).count
+    @et_unscored = et_all.technical.where(score: nil).count
 
     # attendance
     all_in_unit = Attendance.where("timestamp >= ? and timestamp <= ?", unit.range.begin, unit.range.end)
