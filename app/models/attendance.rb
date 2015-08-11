@@ -10,9 +10,24 @@ class Attendance < ActiveRecord::Base
   belongs_to :developer
 
   def self.rate_in_range(range)
-    all = where("timestamp >= ? and timestamp <= ?", range.begin, range.end)
+    all = self.all_in_range(range)
+    return all.present.count / all.count.to_f unless all.count == 0
+    return -1
+  end
+
+  def self.percentage_late_in_range(range)
+    all = self.all_in_range(range)
     present = all.present
-    return present.count / all.count.to_f
+    late = all.late
+    late.count.to_f / present.count
+  end
+
+  def self.percentage_on_time_in_range(range)
+    1 - self.percentage_late_in_range(range)
+  end
+
+  def self.all_in_range(range)
+    where("timestamp >= ? and timestamp <= ?", range.begin, range.end)
   end
 
   def self.rate_on_day(day)
