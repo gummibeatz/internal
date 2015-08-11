@@ -1,6 +1,6 @@
 class Attendance < ActiveRecord::Base
 
-  enum status: [:on_time, :late_excused, :late_5_minues, :late_10_minutes, :absent_excused, :absent_unexcused]
+  enum status: [:on_time, :late_excused, :late_unexcused_5_minues, :late_unexcused_10_minutes, :absent_excused, :absent_unexcused]
 
   scope :present, -> { where("status != 4 AND status != 5") }
   scope :absent,  -> { where("status = 4 OR status = 5") }

@@ -3,6 +3,7 @@
 <head>
   <title>Website</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= yield :stylesheets %>
   <%= javascript_include_tag 'application' %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
 <%= render "shared/header" %>
 
 <%= yield %>
-	
+
 <%= yield :javascripts %>
 
 </body>

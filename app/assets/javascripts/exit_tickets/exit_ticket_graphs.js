@@ -22,7 +22,7 @@ $.ajax({
 // Clean up data; gets called in the ajax success. Then calls graphData(jsonData).
 // Cause sometimes people are 1000000% confident
 function dataValidation(jsonData) {
-// TODO: error catching? What if it's not even a number? 
+// TODO: error catching? What if it's not even a number?
 	jsonData.forEach(function(j) {
 		if ( parseInt(j.certainty) > 100 ) {
 			j.certainty = "100";
@@ -37,7 +37,7 @@ function dataValidation(jsonData) {
 //these are the things we'll need when updating the chart from html forms
 var svg;
 var chart;
-var x; 
+var x;
 
 // D3/dimple function that gets called after data validation
 function graphData(jsonData) {
@@ -67,7 +67,7 @@ function graphData(jsonData) {
 		x.ouputFormat = "%m/%d";
 		x.title = "Date";
 		y.title = "Quantitative Questions";
-	
+
 	//Add all the series you want! These get added to the chart in this order. (i.e. chart[0] is the "Quality" line, chart[1] is the "Difficulty" line etc)
 		chart.addSeries(["Quality"], dimple.plot.line, [x, y3]).aggregate = dimple.aggregateMethod.avg;
 		chart.addSeries(["Difficulty"], dimple.plot.line, [x, y4]).aggregate = dimple.aggregateMethod.avg;
@@ -79,21 +79,21 @@ function graphData(jsonData) {
 
 	//add a legend
 	var legend = chart.addLegend("70%", "60%", 0, 200);
-	
+
 	chart.draw();
-	
-	
+
+
 	// Below section for toggling series on the chart
-	
+
 	// HOW THIS WORKS: toggleIdxs is a bool[] for knowing which chart.series is on/off by series index (series get added in order of chart.addSeries in the section above). toggleOn is the name of the series ("Quality"), grabbed from the name of the legend item (aggField slice) and matches with the appropriate series index using categoryNames[].
 	var toggleIdxs = [0,0,0,0,0,0,0], //7 of them
 	 	toggleOn = [],
 	 	categoryNames = ["Quality", "Difficulty", "Communication", "Interest", "Speed", "Understading", "Recall"];
-	
+
 	// .on(click) event for each rectange in the legend
 	legend.shapes.selectAll("rect")
 		.on("click", function(e) {
-		
+
 		//get the name of the legend item that has been clicked
 		toggleOn = e.aggField.slice(-1)[0];
 		for (var i=0; i<categoryNames.length; i++) {
@@ -110,7 +110,7 @@ function graphData(jsonData) {
 		}
 	});
 
-	
+
 }
 
 
@@ -132,7 +132,7 @@ function startRange(form) {
 	chart.draw(0, true);
 	start = startDate;
 	displayAccuracyAndCompletion();
-}	
+}
 
 // set end of date range from date picker
 function endRange(form) {
@@ -158,7 +158,7 @@ function displayAccuracyAndCompletion() {
 				end_date: end },
 		type: "GET",
 		success: function(response) {
-			console.log(response); 
+			console.log(response);
 			var displayAcc = Math.floor(response.accuracy*100);
 			var displayCompl = Math.floor(response.completion*100);
 			document.getElementById("accuracy").innerHTML = displayAcc;

@@ -1,0 +1,42 @@
+function Report() {
+  this.attendances = new Attendances();
+  this.exitTickets = new ExitTickets();
+  this.dateRange = {begin: null, end: null};
+}
+
+Report.prototype = {
+  fetch: function(range, callback) {
+    this.dateRange = range;
+    var self = this;
+    $.ajax({
+      url: '/reports',
+      data: range,
+      type: 'get',
+      success: function(response) {
+        self._formatResponse(response);
+        callback();
+      },
+      error: function(error) {
+        console.log(response);
+      }
+    });
+  },
+
+  // returns decimal. toFixed casts to string and
+  // that's not what we want
+  attendanceRate: function() {
+    return this.attendances.present().length / this.attendances.length;
+  },
+
+  _formatResponse: function(response) {
+    var self = this;
+    _.each(response.attendance, function(a) {
+      self.attendances.add(new Attendance(a));
+    });
+    _.each(response.exit_tickets, function(e) {
+      self.exitTickets.add(new ExitTicket(e));
+    });
+  },
+
+
+}

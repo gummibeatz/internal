@@ -1,1 +1,19 @@
 //=require ./report.js
+
+var report = new Report();
+
+$(document).ready(function() {
+  $("form").bind('submit', function(e) {
+    e.preventDefault();
+
+    var startVal = $(this).find('#start-date').val();
+    var endVal = $(this).find('#end-date').val();
+
+    report.fetch({
+      start: DateHelper.formatParsable(startVal),
+      end: DateHelper.formatParsable(endVal)
+    }, function() {
+      console.log(report);
+    });
+  });
+});
