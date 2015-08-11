@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806153228) do
+ActiveRecord::Schema.define(version: 20150811210754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,24 +110,24 @@ ActiveRecord::Schema.define(version: 20150806153228) do
   add_index "equipment", ["reference_id"], name: "index_equipment_on_reference_id", using: :btree
 
   create_table "exit_tickets", force: :cascade do |t|
-    t.integer  "certainty",                              default: 0
-    t.integer  "overall_quality",                        default: 0
-    t.integer  "difficulty",                             default: 0
-    t.integer  "instructors_ability_to_communicate",     default: 0
-    t.integer  "instructors_ability_to_stimulate",       default: 0
-    t.integer  "pace_and_speed",                         default: 0
-    t.integer  "understanding",                          default: 0
-    t.integer  "recall_information_from_previous_class", default: 0
-    t.string   "additional_comments"
+    t.integer  "certainty",         default: 0
+    t.integer  "quality",           default: 0
+    t.integer  "difficulty",        default: 0
+    t.integer  "communication",     default: 0
+    t.integer  "stimulation",       default: 0
+    t.integer  "pace_and_speed",    default: 0
+    t.integer  "understanding",     default: 0
+    t.integer  "recall",            default: 0
+    t.string   "comments"
     t.integer  "developer_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "original_form_url"
     t.datetime "submitted_at"
     t.text     "questions"
     t.float    "score"
     t.string   "summary_form_url"
-    t.integer  "type",                                   default: 0
+    t.integer  "type",              default: 0
   end
 
   create_table "units", force: :cascade do |t|

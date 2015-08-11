@@ -7,19 +7,19 @@ class ExitTicketImporter
     "Name" => "name",
     "Correct?" => "score",
     "Assessment Question" => "questions",
-    "Please rate the overall quality of the class." => "overall_quality",
+    "Please rate the overall quality of the class." => "quality",
     "Please rate the difficulty of the class." => "difficulty",
-    "Instructor's ability to communicate the subject matter." => "instructors_ability_to_communicate",
-    "Instructor's ability to stimulate student interest." => "instructors_ability_to_stimulate",
+    "Instructor's ability to communicate the subject matter." => "communication",
+    "Instructor's ability to stimulate student interest." => "stimulation",
     "Please rate the pace & speed of the class." => "pace_and_speed",
     "Please rate your understanding of the concepts covered in class." => "understanding",
-    "How well do you recall the information taught in the last class?" => "recall_information_from_previous_class",
-    "Please list any additional comments about the class/instructor and/or questions for your instructors." => "additional_comments",
+    "How well do you recall the information taught in the last class?" => "recall",
+    "Please list any additional comments about the class/instructor and/or questions for your instructors." => "comments",
 
     #non-technical
-    "Speaker's ability to communicate the subject matter." => "instructors_ability_to_communicate",
-    "Speaker's ability to stimulate student interest." => "instructors_ability_to_stimulate",
-    "Please list any additional comments about the event/instructor and/or questions for your instructors." => "additional_comments"
+    "Speaker's ability to communicate the subject matter." => "communication",
+    "Speaker's ability to stimulate student interest." => "stimulation",
+    "Please list any additional comments about the event/instructor and/or questions for your instructors." => "comments"
   }
 
   # from csv file
