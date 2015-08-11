@@ -7,7 +7,7 @@ class ExitTicket < ActiveRecord::Base
   belongs_to :developer
 
   def self.completion_rate_in_range(range)
-    tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end).technical
+    tickets = self.all_in_range(range)
     timestamps = tickets.map(&:submitted_at).uniq
     a = Attendance.where("timestamp in (?)", timestamps).present
     return (tickets.count / a.count.to_f) unless count == 0
@@ -22,7 +22,7 @@ class ExitTicket < ActiveRecord::Base
   end
 
   def self.accuracy_rate_in_range(range)
-    tickets = where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
+    tickets = self.all_in_range(range)
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
@@ -31,6 +31,10 @@ class ExitTicket < ActiveRecord::Base
     tickets = where(submitted_at: day)
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
+  end
+
+  def self.all_in_range(range)
+    self.where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
   end
 
   # Submitted as Google Form

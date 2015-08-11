@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   resources :cohorts
 
+  resources :reports, only: [:index]
+
 end
