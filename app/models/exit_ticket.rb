@@ -7,29 +7,28 @@ class ExitTicket < ActiveRecord::Base
   belongs_to :developer
 
   def self.completion_rate_in_range(range)
-    tickets = self.all_in_range(range)
+    tickets = self.all_in_range(range).technical
     timestamps = tickets.map(&:submitted_at).uniq
-    a = Attendance.where("timestamp in (?)", timestamps).present
-    return (tickets.count / a.count.to_f) unless count == 0
+    attendance = Attendance.where("timestamp in (?)", timestamps).present
+    return (tickets.count / attendance.count.to_f) unless count == 0
     return -1
   end
 
   def self.completion_rate_on_day(day)
-    a = Attendance.where("timestamp = ?", day).present
-    count = where(submitted_at: day).technical.count
-    return (count / a.count.to_f) unless count == 0
+    attendance = Attendance.where("timestamp = ?", day).present
+    tickets = where(submitted_at: day).technical
+    return (tickets.count / attendance.count.to_f) unless tickets.count == 0
     return -1
   end
 
   def self.accuracy_rate_in_range(range)
-    tickets = self.all_in_range(range)
+    tickets = self.all_in_range(range).technical
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
 
   def self.accuracy_rate_on_day(day)
-    #TODO only considering technical
-    tickets = where(submitted_at: day).technical
+    tickets = where(submitted_at: day)
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     return -1
   end
