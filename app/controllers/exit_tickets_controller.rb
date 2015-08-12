@@ -3,10 +3,10 @@ class ExitTicketsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :import, :grade, :report]
 
   def index
-	  # TODO: not verifying auth token?
-	  if request.xhr?
-		  render json: ExitTicket.all.as_json
-	  end
+    # TODO: not verifying auth token?
+    if request.xhr?
+      render json: ExitTicket.all.as_json
+    end
   end
 
   def show
