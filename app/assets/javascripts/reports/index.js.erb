@@ -1,8 +1,9 @@
 //=require ./report.js
 
-var report = new Report();
+var report;
 
 $(document).ready(function() {
+  report = new Report();
   $("form").bind('submit', function(e) {
     e.preventDefault();
 
