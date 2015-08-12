@@ -55,13 +55,13 @@ function graphData(jsonData) {
     x.overrideMin = 1436227200000; // June 7 2015
     var  y = chart.addMeasureAxis("y", "certainty"),
       y2 = chart.addMeasureAxis(y, "score"),
-      y3 = chart.addMeasureAxis(y, "overall_quality"),
+      y3 = chart.addMeasureAxis(y, "quality"),
       y4 = chart.addMeasureAxis(y, "difficulty"),
-      y5 = chart.addMeasureAxis(y, "instructors_ability_to_communicate"),
-      y6 = chart.addMeasureAxis(y, "instructors_ability_to_stimulate"),
+      y5 = chart.addMeasureAxis(y, "communication"),
+      y6 = chart.addMeasureAxis(y, "stimulation"),
       y7 = chart.addMeasureAxis(y, "pace_and_speed"),
       y8 = chart.addMeasureAxis(y, "understanding"),
-      y9 = chart.addMeasureAxis(y, "recall_information_from_previous_class");
+      y9 = chart.addMeasureAxis(y, "recall");
 
   // look pretty
     x.ouputFormat = "%m/%d";
