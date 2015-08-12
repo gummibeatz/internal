@@ -22,15 +22,15 @@
         <% else %>
           <td><%= pretty_date(t.submitted_at) %></td>
         <% end %>
-        <td><%= t.overall_quality %></td>
+        <td><%= t.quality %></td>
         <td><%= t.difficulty %></td>
-        <td><%= t.instructors_ability_to_communicate %></td>
-        <td><%= t.instructors_ability_to_stimulate %></td>
+        <td><%= t.communication %></td>
+        <td><%= t.stimulation %></td>
         <td><%= t.pace_and_speed %></td>
         <td><%= t.understanding %></td>
-        <td><%= t.recall_information_from_previous_class %></td>
+        <td><%= t.recall %></td>
         <% unless comments == false %>
-          <td><%= t.additional_comments %></td>
+          <td><%= t.comments %></td>
         <% end %>
       </tr>
     <% end %>
