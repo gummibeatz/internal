@@ -2,12 +2,13 @@ class Report
 	
 	attr_accessor :range
 	
+	# constructor
 	def initialize(start, finish)
-		range = Range.new(start,finish)
+		:range = Range.new(start,finish)
 	end
 	
 	
-	# below: from exit_ticket.rb and attendance.rb
+	# below: mostly copied from exit_ticket.rb and attendance.rb
 	
 	# percent submitted
 	def self.completion_rate_in_range
