@@ -7,7 +7,6 @@ class Report
 		:range = Range.new(start,finish)
 	end
 	
-	
 	# below: mostly copied from exit_ticket.rb and attendance.rb
 	
 	# percent submitted
