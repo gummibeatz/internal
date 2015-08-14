@@ -16,6 +16,22 @@
   </div>
 </div>
 
+
 <% if defined?(@report) %>
+
+<h4>Attendance (percent present): </h4>
+<p><%= @report.attendance_present_rate %></p>
+
+<h4>Tardiness (percent late): </h4>
+<p><%= @report.attendance_late_rate %></p>
+
+<h4>Puncutality (percent on time): </h4>
+<p><%= @report.attendance_on_time_rate %></p>
+
+<h4>Exit Ticket Completion Rate in Range: </h4>
 <p><%= @report.exit_ticket_completion_rate %></p>
+
+<h4>Exit Ticket Accuracy Rate in Range: </h4>
+<p><%= @report.exit_ticket_completion_rate %></p>
+
 <% end %>
