@@ -16,6 +16,6 @@
   </div>
 </div>
 
-<% content_for :javascripts do %>
-  <%= javascript_include_tag "reports/index.js" %>
+<% if defined?(@report) %>
+<p><%= @report.exit_ticket_completion_rate %></p>
 <% end %>
