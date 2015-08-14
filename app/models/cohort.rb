@@ -3,7 +3,7 @@ class Cohort < ActiveRecord::Base
   has_many :developers, -> { order(first_name: :asc) }
   has_many :units, -> { order(started_at: :asc) }
 
-  validate :version, uniqueness: true
+  validates :version, uniqueness: true
 
   def import(file)
     ActiveRecord::Base.transaction do
