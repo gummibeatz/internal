@@ -17,11 +17,16 @@ gem "omniauth-google-oauth2"
 gem 'devise', '~> 3.5.1'
 gem 'puma'
 
+
 group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'annotate'
+end
+
+group :test do
+  gem 'rspec'
 end
 
