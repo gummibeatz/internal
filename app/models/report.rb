@@ -27,4 +27,5 @@ class Report
 		return Attendance.percentage_on_time_in_range(self.range)
 	end
 
+
 end

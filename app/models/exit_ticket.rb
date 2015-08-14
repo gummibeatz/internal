@@ -6,6 +6,8 @@ class ExitTicket < ActiveRecord::Base
 
   belongs_to :developer
 
+  validate :one_per_day_per_developer
+
   def self.completion_rate_in_range(range)
     tickets = self.all_in_range(range).technical
     timestamps = tickets.map(&:submitted_at).uniq
@@ -73,6 +75,14 @@ class ExitTicket < ActiveRecord::Base
   def self.import_from_google_form(form_data)
     ActiveRecord::Base.transaction do
       ExitTicketImporter.import_from_form(form_data)
+    end
+  end
+
+  private
+
+  def one_per_day_per_developer
+    if ExitTicket.where(developer_id: developer_id, submitted_at: submitted_at).first.nil?
+      errors.add(:exit_ticket, "An exit ticket record already exists for this developer on #{submitted_at}")
     end
   end
 
