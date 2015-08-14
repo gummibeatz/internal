@@ -14,19 +14,19 @@
       </form>
     </div>
   </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <% if defined?(@report) %>
+        <p><strong>Attendance (percent present): </strong><%= number_to_percentage(@report.attendance_present_rate * 100, precision: 2) %></p>
+        <p><strong>Tardiness (percent late): </strong><%= number_to_percentage(@report.attendance_late_rate * 100, precision: 2) %></p>
+        <p><strong>Puncutality (percent on time): </strong><%= number_to_percentage(@report.attendance_on_time_rate * 100, precision: 2) %></p>
+        <p><strong>Exit Ticket Completion Rate in Range: </strong><%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
+        <p><strong>Exit Ticket Accuracy Rate in Range: </strong><%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 
-<% if defined?(@report) %>
-<p></p>
-<p><strong>Attendance (percent present): </strong><%= @report.attendance_present_rate %></p>
-
-<p><strong>Tardiness (percent late): </strong><%= @report.attendance_late_rate %></p>
-
-<p><strong>Puncutality (percent on time): </strong><%= @report.attendance_on_time_rate %></p>
-
-<p><strong>Exit Ticket Completion Rate in Range: </strong><%= @report.exit_ticket_completion_rate %></p>
-
-<p><strong>Exit Ticket Accuracy Rate in Range: </strong><%= @report.exit_ticket_completion_rate %></p>
-
-<% end %>
