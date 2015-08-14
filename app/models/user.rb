@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     :omniauth_providers => [:google_oauth2]
 
   validate :whitelisted_email
+  validates :email, uniqueness: true
 
   def whitelisted_email
     unless WHITELIST.include? email

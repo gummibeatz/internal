@@ -9,6 +9,8 @@ class Attendance < ActiveRecord::Base
 
   belongs_to :developer
 
+  validates :one_per_day_per_developer
+
   def self.rate_in_range(range)
     all = self.all_in_range(range)
     return all.present.count / all.count.to_f unless all.count == 0
@@ -62,6 +64,14 @@ class Attendance < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         Attendance.find_or_create(a)
       end
+    end
+  end
+
+  private
+
+  def one_per_day_per_developer
+    if Attendance.where(developer_id: developer_id, timestamp: timestamp).first.nil?
+      errors.add(:attendance, "An attendance record already exists for this developer on #{submitted_at}")
     end
   end
 

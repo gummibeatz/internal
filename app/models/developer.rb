@@ -12,6 +12,8 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   belongs_to :cohort
 
+  validates :email, uniqueness: true
+
   def display_name
     full_name.split(" ").map(&:capitalize).join(" ")
   end
