@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def sum(a, b)
+    a + b
+  end
+
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(:email => data["email"]).first
