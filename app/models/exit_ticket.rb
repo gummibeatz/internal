@@ -1,42 +1,42 @@
 class ExitTicket < ActiveRecord::Base
 
-  self.inheritance_column = "inheritance_type"
+  scope :in_range, -> (range) { where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end) }
 
   enum type: [:technical, :nontechnical]
 
   belongs_to :developer
 
-  validate :one_per_day_per_developer
+  validate :one_per_day_per_developer, on: :create
+
+  def self.inheritance_column
+    "inheritance_type"
+  end
 
   def self.completion_rate_in_range(range)
-    tickets = self.all_in_range(range).technical
+    tickets = self.in_range(range).technical.all
     timestamps = tickets.map(&:submitted_at).uniq
     attendance = Attendance.where("timestamp in (?)", timestamps).present
     return (tickets.count / attendance.count.to_f) unless count == 0
-    return -1
+    -1
   end
 
   def self.completion_rate_on_day(day)
     attendance = Attendance.where("timestamp = ?", day).present
     tickets = where(submitted_at: day).technical
     return (tickets.count / attendance.count.to_f) unless tickets.count == 0
-    return -1
+    -1
   end
 
   def self.accuracy_rate_in_range(range)
-    tickets = self.all_in_range(range).technical
+    tickets = self.in_range(range).technical.all
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
-    return -1
+    -1
   end
 
   def self.accuracy_rate_on_day(day)
     tickets = where(submitted_at: day)
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
-    return -1
-  end
-
-  def self.all_in_range(range)
-    self.where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end)
+    -1
   end
 
   # Submitted as Google Form
@@ -81,8 +81,8 @@ class ExitTicket < ActiveRecord::Base
   private
 
   def one_per_day_per_developer
-    if ExitTicket.where(developer_id: developer_id, submitted_at: submitted_at).first.nil?
-      errors.add(:exit_ticket, "An exit ticket record already exists for this developer on #{submitted_at}")
+    if ExitTicket.where(developer_id: developer_id, submitted_at: submitted_at).first.present?
+      errors.add(:exit_ticket, "An exit ticket record already exists for this developer (#{developer_id}) on #{submitted_at}")
     end
   end
 
