@@ -15,10 +15,10 @@ class ExitTicket < ActiveRecord::Base
   def self.completion_rate_in_range(range)
     tickets = self.in_range(range).technical.all
     timestamps = tickets.map(&:submitted_at).uniq
-	 unless timestamps.empty?
-		attendance = Attendance.where("timestamp in (?)", timestamps).present
-    	return (tickets.count / attendance.count.to_f) unless count == 0
-	 end
+    unless timestamps.empty?
+      attendance = Attendance.where("timestamp in (?)", timestamps).present
+      return (tickets.count / attendance.count.to_f) unless count == 0
+    end
     -1
   end
 

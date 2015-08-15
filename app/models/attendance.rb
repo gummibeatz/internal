@@ -71,7 +71,7 @@ class Attendance < ActiveRecord::Base
 
   def one_per_day_per_developer
     if Attendance.where(developer_id: developer_id, timestamp: timestamp).first.nil?
-      errors.add(:attendance, "An attendance record already exists for this developer on #{submitted_at}")
+      errors.add(:attendance, "An attendance record already exists for this developer on #{timestamp}")
     end
   end
 
