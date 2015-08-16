@@ -10,7 +10,7 @@ FactoryGirl.define do
     recall 3
     comments "Hi mike"
     original_form_url "https://docs.google.com/forms/d/1UC8AkYWjrz3dzuhFGTZt6vthL2Ap1s4c03CdM2nvAlk/viewform"
-    submitted_at { Date.parse(Time.now.to_s).to_datetime }
+    submitted_at { Date.today.to_datetime }
     questions "[{\"question\":\"In which method can you pass data from one view controller to another?\"\"answer\":\"prepare for segue\"}]"
     score 1.0
     summary_form_url "https://docs.google.com/a/c4q.nyc/forms/d/1UC8AkYWjrz3dzuhFGTZt6vthL2Ap1s4c03CdM2nvAlk/viewanalytics"
