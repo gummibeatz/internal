@@ -9,7 +9,7 @@ class Attendance < ActiveRecord::Base
 
   belongs_to :developer
 
-  validate :one_per_day_per_developer
+  # validate :one_per_day_per_developer
 
   def self.rate_in_range(range)
     all = self.all_in_range(range)
