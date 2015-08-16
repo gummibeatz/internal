@@ -18,4 +18,12 @@ RSpec.describe Attendance, type: :model do
     expect(attendance_two).to_not be_valid
   end
 
+  it "creates entry from google form" do
+    json = {"attendance"=>"{\"attendance\":{\"name\":\"Shena Yoshida\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    expect {
+      create(:developer, full_name: "shena yoshida")
+      Attendance.create_from_google_form(json)
+    }.to change(Attendance, :count).by(1)
+  end
+
 end

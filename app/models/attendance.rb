@@ -37,23 +37,24 @@ class Attendance < ActiveRecord::Base
   end
 
   def self.find_or_create(json)
-    developer = Developer.where(full_name: json["name"].downcase).first
-
-    date = Date.parse(json["date"]).to_datetime.midnight
-    if attendance = Attendance.where("timestamp = ? AND developer_id = ?", date , developer.id).first
-      attendance.update_attribute(:status, json["status"])
-    else
-      attendance = developer.attendances.create( status: json["status"], timestamp: date)
+    if developer = Developer.where(full_name: json["name"].downcase).first
+      date = Date.parse(json["date"]).to_datetime.midnight
+      if attendance = Attendance.where("timestamp = ? AND developer_id = ?", date , developer.id).first
+        attendance.update_attribute(:status, json["status"])
+      else
+        attendance = developer.attendances.create( status: json["status"], timestamp: date)
+      end
+      return true
     end
+    false
   end
 
   def self.create_from_google_form(form_data)
     json = JSON.parse(form_data["attendance"])
-    att = json["attendance"]
-
     ActiveRecord::Base.transaction do
-      Attendance.find_or_create(att)
+      return true if Attendance.find_or_create(json["attendance"])
     end
+    false
   end
 
   def self.import_all(form_data)

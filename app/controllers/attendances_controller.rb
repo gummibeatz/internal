@@ -3,8 +3,12 @@ class AttendancesController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:create, :import_all]
 
   def create
-    Attendance.create_from_google_form(params)
-    head :ok
+    if attendance = Attendance.create_from_google_form(params)
+      head :ok
+    else
+      render status: 500
+    end
+
   end
 
   def import_all
