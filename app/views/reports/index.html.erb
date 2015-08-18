@@ -4,11 +4,11 @@
       <form action="" method="">
         <div class="form-group">
           <label for="start-date">Start Date</label>
-          <input type="date" name="start_date" value="" id="start-date" placeholder="mm/dd/yyyy" />
+          <input type="date" name="start_date" value="<%= params[:start_date] %>" id="start-date" placeholder="mm/dd/yyyy" />
         </div>
         <div class="form-group">
           <label for="end-date">End Date</label>
-          <input type="date" name="end_date" value="" id="end-date" placeholder="mm/dd/yyyy" />
+          <input type="date" name="end_date" value="<%= params[:end_date] %>" id="end-date" placeholder="mm/dd/yyyy" />
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
