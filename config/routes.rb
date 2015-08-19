@@ -27,5 +27,7 @@ Rails.application.routes.draw do
   resources :cohorts
 
   resources :reports, only: [:index]
+	
+  resources :developers, only: [:eouStats]
 
 end
