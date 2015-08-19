@@ -1,9 +1,11 @@
 class Report
 
-  attr_accessor :range
+  attr_accessor :range, :start, :finish
 
   # constructor
   def initialize(start, finish)
+	@start = start
+	@finish = finish
     @range = Range.new(start,finish)
   end
 
@@ -26,6 +28,5 @@ class Report
   def attendance_on_time_rate
     return Attendance.percentage_on_time_in_range(self.range)
   end
-
 
 end
