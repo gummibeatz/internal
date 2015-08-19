@@ -18,7 +18,6 @@ class Developer < ActiveRecord::Base
     full_name.split(" ").map(&:capitalize).join(" ")
   end
 	
-
 	
 
 

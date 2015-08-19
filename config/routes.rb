@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :developers do
     collection { post :import }
   end
+	
+	get '/developers/:id/eouStats', to: 'developers#eouStats'
 
   get '/exit_tickets/report', to: 'exit_tickets#report'
   post '/exit_tickets/create', to: 'exit_tickets#create'
