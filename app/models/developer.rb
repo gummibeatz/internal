@@ -17,6 +17,10 @@ class Developer < ActiveRecord::Base
   def display_name
     full_name.split(" ").map(&:capitalize).join(" ")
   end
+	
+
+	
+
 
 end
 
