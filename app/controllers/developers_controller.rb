@@ -36,14 +36,26 @@ class DevelopersController < ApplicationController
 	
 	#get all attendacne records for that dev (specified in url)
 	dev_all_attendances = Developer.find(params[:id]).attendances.where("timestamp >= ? and timestamp <= ?", range.begin, range.end)
-	dev_all_tickets = ExitTicket.where("developer_id = ? and timestamp >= ? and timestamp <= ?",params[:id], range.begin, range.end)
+	  dev_all_tickets = ExitTicket.where("developer_id = ? and submitted_at >= ? and submitted_at <= ?",params[:id], range.begin, range.end)
+	  
+	  #completion = (dev_all_tickets.count / dev_all_attendances.present.count.to_f) 
+
+	  unless dev_all_tickets.count == 0 then
+		  accuracy = 100*dev_all_tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0)}.to_f / dev_all_tickets.count
+		  completion = 100*dev_all_tickets.count / dev_all_attendances.present.count.to_f
+	  else
+		  accuracy = "NaN"
+		  completion = "NaN"
+	  end
 
 	#render json with attendance information
 	render json: {
 		num_present: dev_all_attendances.present.count,
 		num_absent: dev_all_attendances.absent.count,
 		num_late: dev_all_attendances.late.count,
-		num_on_time: dev_all_attendances.on_time.count
+		num_on_time: dev_all_attendances.on_time.count,
+		ticket_completion: completion,
+		ticket_accuracy: accuracy
 	}
 	
   end

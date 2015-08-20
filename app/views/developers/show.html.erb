@@ -50,16 +50,16 @@
 		</tr>
 		<tr>
 			<th colspan="2" bgcolor="#404040">
-				<font color="#FFFFFF">Attendance Report</font>
+				<font color="#FFFFFF">Exit Ticket Report</font>
 			</th>
 		</tr>
 		<tr>
 			<td>Percent Completion: </td>
-			<td id="ticket_completion">tbd</td>
+			<td id="ticket_completion"></td>
 		</tr>
 		<tr>
 			<td>Percent Accuracy: </td>
-			<td id="ticket_accuracy">tbd</td>
+			<td id="ticket_accuracy"></td>
 		</tr>
 		<tr>
 			<th colspan="2" bgcolor="#404040">
@@ -96,11 +96,13 @@ function displayStats(response) {
 	document.getElementById("num_absent").innerHTML = response.num_absent;
 	document.getElementById("num_late").innerHTML = response.num_late;
 	
-	var percent_present = response.num_present / (response.num_present + response.num_absent),
-		percent_on_time = response.num_on_time / (response.num_on_time + response.num_late);
+	var percent_present = 100 * response.num_present / (response.num_present + response.num_absent),
+		percent_on_time = 100 * response.num_on_time / (response.num_on_time + response.num_late);
 	
-	document.getElementById("percent_present").innerHTML = percent_present;
-	document.getElementById("percent_on_time").innerHTML = percent_on_time;
+	document.getElementById("percent_present").innerHTML = percent_present + "%";
+	document.getElementById("percent_on_time").innerHTML = percent_on_time + "%";
+	document.getElementById("ticket_completion").innerHTML = response.ticket_completion.toFixed(2) + "%";
+	document.getElementById("ticket_accuracy").innerHTML = response.ticket_accuracy.toFixed(2) + "%";
 	
 }
 	
