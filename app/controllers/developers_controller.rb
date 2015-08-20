@@ -37,8 +37,6 @@ class DevelopersController < ApplicationController
 	#get all attendacne records for that dev (specified in url)
 	dev_all_attendances = Developer.find(params[:id]).attendances.where("timestamp >= ? and timestamp <= ?", range.begin, range.end)
 	  dev_all_tickets = ExitTicket.where("developer_id = ? and submitted_at >= ? and submitted_at <= ?",params[:id], range.begin, range.end)
-	  
-	  #completion = (dev_all_tickets.count / dev_all_attendances.present.count.to_f) 
 
 	  unless dev_all_tickets.count == 0 then
 		  accuracy = 100*dev_all_tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0)}.to_f / dev_all_tickets.count
