@@ -35,9 +35,7 @@ function dataValidation(jsonData) {
 
 
 //these are the things we'll need when updating the chart from html forms
-var svg;
-var chart;
-var x;
+var svg, chart, x, legend;
 
 // D3/dimple function that gets called after data validation
 function graphData(jsonData) {
@@ -78,11 +76,15 @@ function graphData(jsonData) {
   chart.addSeries(["Recall"], dimple.plot.line, [x, y9]).aggregate = dimple.aggregateMethod.avg;
 
   //add a legend
-  var legend = chart.addLegend("70%", "60%", 0, 200);
+  legend = chart.addLegend("70%", "60%", 0, 200);
 
   chart.draw();
+  toggleSeries();
+	
+}
 
 
+function toggleSeries() {
   // Below section for toggling series on the chart
 
   // HOW THIS WORKS: toggleIdxs is a bool[] for knowing which chart.series is on/off by series index (series get added in order of chart.addSeries in the section above). toggleOn is the name of the series ("Quality"), grabbed from the name of the legend item (aggField slice) and matches with the appropriate series index using categoryNames[].
@@ -130,6 +132,7 @@ function startRange(form) {
   var startDateUTC = Date.parse(startDate);
   x.overrideMin = startDateUTC;
   chart.draw(0, true);
+  toggleSeries();
   start = startDate;
   displayAccuracyAndCompletion();
 }
@@ -144,6 +147,7 @@ function endRange(form) {
   var endDateUTC = Date.parse(endDate);
   x.overrideMax = endDateUTC;
   chart.draw(0,true);
+  toggleSeries();
   end = endDate;
   displayAccuracyAndCompletion();
 }
