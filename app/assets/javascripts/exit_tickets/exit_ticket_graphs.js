@@ -90,7 +90,7 @@ function toggleSeries() {
   // HOW THIS WORKS: toggleIdxs is a bool[] for knowing which chart.series is on/off by series index (series get added in order of chart.addSeries in the section above). toggleOn is the name of the series ("Quality"), grabbed from the name of the legend item (aggField slice) and matches with the appropriate series index using categoryNames[].
   var toggleIdxs = [0,0,0,0,0,0,0], //7 of them
      toggleOn = [],
-     categoryNames = ["Quality", "Difficulty", "Communication", "Interest", "Speed", "Understading", "Recall"];
+     categoryNames = ["Quality", "Difficulty", "Communication", "Interest", "Speed", "Understanding", "Recall"];
 
   // .on(click) event for each rectange in the legend
   legend.shapes.selectAll("rect")
