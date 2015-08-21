@@ -11,6 +11,18 @@ class Attendance < ActiveRecord::Base
 
   validate :one_per_day_per_developer, on: :create
 
+  def self.num_days_absent_in_range(range)
+	 all = self.all_in_range(range)
+	 return all.count - self.rate_in_range(range) * all.count unless all.count == 0
+	  return -1
+  end
+		  
+  def self.num_days_late_in_range(range)
+	  all = self.all_in_range(range)
+	  return self.percentage_late_in_range(range) * all.count unless all.count == 0
+	  return -1
+  end
+	
   def self.rate_in_range(range)
     all = self.all_in_range(range)
     return all.present.count / all.count.to_f unless all.count == 0
