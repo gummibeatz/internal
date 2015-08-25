@@ -1,32 +1,46 @@
 class Report
 
-  attr_accessor :range, :start, :finish
+  attr_accessor :range
 
   # constructor
   def initialize(start, finish)
-	@start = start
-	@finish = finish
-    @range = Range.new(start,finish)
+    @range = Range.new(start, finish)
   end
 
   def exit_ticket_completion_rate
-    return ExitTicket.completion_rate_in_range(self.range)
+    return tickets.completion_rate
   end
 
   def exit_ticket_accuracy_rate
-    return ExitTicket.accuracy_rate_in_range(self.range)
+    return tickets.accuracy_rate
   end
 
-  def attendance_present_rate
-    return Attendance.rate_in_range(self.range)
+  def exit_ticket_unscored
+    return tickets.unscored
   end
 
-  def attendance_late_rate
-    return Attendance.percentage_late_in_range(self.range)
+  def attendance_rate_present
+    return attendance.percentage_present
   end
 
-  def attendance_on_time_rate
-    return Attendance.percentage_on_time_in_range(self.range)
+  def attendance_rate_late
+    return attendance.percentage_late
+  end
+
+  def attendance_rate_on_time
+    return attendance.percentage_on_time
+  end
+
+  private
+
+  def tickets
+    @tickets if defined?(@tickets)
+    @tickets = ExitTicket.in_range(@range)
+  end
+
+  def attendance
+    @attendance if defined?(@attendance)
+    @attendance = Attendance.in_range(@range)
   end
 
 end

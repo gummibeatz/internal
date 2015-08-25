@@ -19,13 +19,18 @@
   <div class="row">
     <div class="col-md-12">
       <% if defined?(@report) %>
-		<p> <u> Range:
-			<%= @report.start.strftime('%a %b %d %Y') %> to <%= @report.finish.strftime('%a %b %d %Y') %> </u></p><br>
-        <p><strong>Attendance (percent present): </strong><%= number_to_percentage(@report.attendance_present_rate * 100, precision: 2) %></p>
-        <p><strong>Puncutality (percent on time): </strong><%= number_to_percentage(@report.attendance_on_time_rate * 100, precision: 2) %></p>
-        <p><strong>Tardiness (percent late): </strong><%= number_to_percentage(@report.attendance_late_rate * 100, precision: 2) %></p>
-        <p><strong>Exit Ticket Completion Rate in Range: </strong><%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
-        <p><strong>Exit Ticket Accuracy Rate in Range: </strong><%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %></p>
+        <p>
+          <u> Range:
+            <%= @report.range.begin.strftime('%a %b %d %Y') %> to <%= @report.range.end.strftime('%a %b %d %Y') %>
+          </u>
+        </p>
+        <br>
+        <h4>Attendance</h4>
+        <p>Present: <%= number_to_percentage(@report.attendance_rate_present * 100, precision: 2) %></p>
+        <p>Puncutality: <%= number_to_percentage(@report.attendance_rate_on_time * 100, precision: 2) %></p>
+        <h4>Exit Tickets</h4>
+        <p>Completion: <%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
+        <p>Accuracy: <%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %></p>
       <% end %>
     </div>
   </div>

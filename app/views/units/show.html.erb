@@ -12,15 +12,15 @@
       </p>
 
       <h3>Exit Tickets</h3>
-      <p><strong>Completion: </strong><%= number_to_percentage(@et_completion_rate * 100, precision: 2) %></p>
+      <p><strong>Completion: </strong><%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
       <p>
         <strong>Accuracy: </strong>
-        <%= number_to_percentage(@et_accuracy_rate * 100, precision: 2) %> (<%= "#{pluralize(@et_unscored, 'ticket')} unscored" %>)
+        <%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %> (<%= "#{pluralize(@report.exit_ticket_unscored.count, 'ticket')} unscored" %>)
       </p>
 
       <h3>Attendance</h3>
-      <p><strong>Present: </strong><%= number_to_percentage(@attendance_rate * 100, precision: 2) %></p>
-      <p><strong>On time: </strong><%= number_to_percentage(@on_time * 100, precision: 2) %></p>
+      <p><strong>Present: </strong><%= number_to_percentage(@report.attendance_rate_present * 100, precision: 2) %></p>
+      <p><strong>On time: </strong><%= number_to_percentage(@report.attendance_rate_on_time * 100, precision: 2) %></p>
     </div>
   </div>
 </div>

@@ -13,9 +13,9 @@ class ExitTicket < ActiveRecord::Base
     "inheritance_type"
   end
 
-  def self.completion_rate_in_range(range)
-    tickets = in_range(range).technical.all
-    timestamps = tickets.map(&:submitted_at).uniq
+  def self.completion_rate
+    tickets = all.technical
+    timestamps = all.technical.map(&:submitted_at).uniq
     unless timestamps.empty?
       attendance = Attendance.where("timestamp in (?)", timestamps).present
       return (tickets.count / attendance.count.to_f) unless count == 0
@@ -23,21 +23,8 @@ class ExitTicket < ActiveRecord::Base
     -1
   end
 
-  def self.completion_rate_on_day(day)
-    attendance = Attendance.where("timestamp = ?", day).present
-    tickets = where(submitted_at: day).technical
-    return (tickets.count / attendance.count.to_f) unless tickets.count == 0
-    -1
-  end
-
-  def self.accuracy_rate_in_range(range)
-    tickets = self.in_range(range).technical.all
-    return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
-    -1
-  end
-
-  def self.accuracy_rate_on_day(day)
-    tickets = where(submitted_at: day)
+  def self.accuracy_rate
+    tickets = all.technical
     return tickets.map(&:score).inject(0.0) { |sum, el| sum + (el || 0) }.to_f / tickets.count unless tickets.count == 0
     -1
   end
