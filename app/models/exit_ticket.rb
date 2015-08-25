@@ -1,6 +1,7 @@
 class ExitTicket < ActiveRecord::Base
 
   scope :in_range, -> (range) { where("submitted_at >= ? AND submitted_at <= ?", range.begin, range.end) }
+  scope :unscored, -> { where("score is null") }
 
   enum type: [:technical, :nontechnical]
 
