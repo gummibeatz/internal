@@ -28,6 +28,8 @@
         <h4>Attendance</h4>
         <p>Present: <%= number_to_percentage(@report.attendance_rate_present * 100, precision: 2) %></p>
         <p>Puncutality: <%= number_to_percentage(@report.attendance_rate_on_time * 100, precision: 2) %></p>
+        <p>Late excused: <%= number_to_percentage(@report.attendance_rate_late_excused * 100, precision: 2) %></p>
+        <p>Late unexcused: <%= number_to_percentage(@report.attendance_rate_late_unexcused * 100, precision: 2) %></p>
         <h4>Exit Tickets</h4>
         <p>Completion: <%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
         <p>Accuracy: <%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %></p>

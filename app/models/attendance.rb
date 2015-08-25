@@ -7,7 +7,7 @@ class Attendance < ActiveRecord::Base
   scope :absent,  -> { where("status = 4 and status = 5") }
   scope :late,    -> { where("status = 1 or status = 2 or status = 3") }
   scope :on_time, -> { where ("status = 0") }
-  scope :late_excused, -> { where ("status = 2 or status = 3") }
+  scope :late_unexcused, -> { where ("status = 2 or status = 3") }
 
   belongs_to :developer
 
@@ -20,12 +20,20 @@ class Attendance < ActiveRecord::Base
 
   def self.percentage_late
     present = all.present
-    late = all.late
-    late.count.to_f / present.count
+    all.late.count / present.count.to_f
   end
 
   def self.percentage_on_time
     1 - self.percentage_late
+  end
+
+  def self.percentage_late_excused
+    late = all.late
+    late.late_excused.count / late.count.to_f
+  end
+
+  def self.percentage_late_unexcused
+    1 - percentage_late_excused
   end
 
   def self.find_or_create(json)

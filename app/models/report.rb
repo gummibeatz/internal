@@ -31,6 +31,14 @@ class Report
     return attendance.percentage_on_time
   end
 
+  def attendance_rate_late_excused
+    return attendance.percentage_late_excused
+  end
+
+  def attendance_rate_late_unexcused
+    return attendance.percentage_late_unexcused
+  end
+
   private
 
   def tickets
