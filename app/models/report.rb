@@ -1,5 +1,4 @@
 class Report
-
   attr_accessor :range
 
   # constructor

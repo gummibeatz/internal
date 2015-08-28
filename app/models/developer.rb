@@ -18,6 +18,22 @@ class Developer < ActiveRecord::Base
     full_name.split(" ").map(&:capitalize).join(" ")
   end
 
+  def attendance
+    all = attendances
+    present = all.present
+    absent = all.absent
+    late = all.late
+    return {
+      present: present.count,
+      absent: absent.count,
+      late: {
+        total: a.late.count,
+        percentage: a.late.count / a.count.to_f,
+        trends: a.late.group_by
+      }
+    }
+  end
+
 end
 
 # == Schema Information
