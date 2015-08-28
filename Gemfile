@@ -31,5 +31,6 @@ end
 group :test do
   gem 'guard-rspec', require: false
   gem 'fuubar'
+  gem 'terminal-notifier-guard', '~> 1.6.1'
 end
 
