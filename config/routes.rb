@@ -9,14 +9,11 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  resources :units, only: [:show]
 
-  resources :cohorts
-
-  resources :reports, only: [:index]
-
-  resources :exit_tickets do
-    collection { post :upload }
+  namespace :api do
+    namespace :v1 do
+      resources :developers, only: [:show]
+    end
   end
 
   get '/exit_tickets/report', to: 'exit_tickets#report'
@@ -27,4 +24,9 @@ Rails.application.routes.draw do
   post '/attendances/create', to: 'attendances#create'
   post '/attendances/import', to: 'attendances#import_all' 
 
+  resources :units, only: [:show]
+
+  resources :cohorts
+
+  resources :reports, only: [:index]
 end

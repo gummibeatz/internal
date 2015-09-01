@@ -38,3 +38,4 @@ bower.json
 .sass-cache/*
 latest.dump
 notes/*
+scripts/*
