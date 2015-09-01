@@ -18,6 +18,10 @@ class Attendance < ActiveRecord::Base
     return -1
   end
 
+  def self.stats
+    self.group(:status).select("count(*) as stat_count, status").map { |r| {status: r.status, count: r.stat_count} }
+  end
+
   def self.percentage_late
     present = all.present
     all.late.count / present.count.to_f

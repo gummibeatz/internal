@@ -18,6 +18,9 @@ class Developer < ActiveRecord::Base
     full_name.split(" ").map(&:capitalize).join(" ")
   end
 
+  def attedance_stats
+  end
+
   def attendance
     all = attendances
     present = all.present
