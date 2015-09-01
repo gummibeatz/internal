@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :developers, only: [:show]
+    end
+  end
+
   get '/exit_tickets/report', to: 'exit_tickets#report'
   post '/exit_tickets/create', to: 'exit_tickets#create'
   post '/exit_tickets/import', to: 'exit_tickets#import'
@@ -25,5 +31,5 @@ Rails.application.routes.draw do
   resources :cohorts
 
   resources :reports, only: [:index]
-	
+
 end

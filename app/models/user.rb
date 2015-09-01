@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     "max@c4q.nyc",
     "franklin@c4q.nyc",
     "veena@c4q.nyc",
-    "linushliang@gmail.com"
+    "lhl260@nyu.edu"
   ]
 
   devise :omniauthable,
