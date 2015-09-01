@@ -8,6 +8,7 @@ gem 'sass-rails', '>= 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'awesome_print'
 gem 'rails_12factor'
+gem 'rails-api' , require: 'rails-api/action_controller/api'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
