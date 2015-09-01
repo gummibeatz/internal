@@ -9,6 +9,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'awesome_print'
 gem 'rails_12factor'
 
+gem 'figaro', '~> 0.7.0'
+gem 'omniauth'
+gem 'omniauth-github'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'

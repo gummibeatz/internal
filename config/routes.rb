@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  get '/login' => 'sessions#new'
+  get '/auth/github/callback' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 
   namespace :api do
     namespace :v1 do
