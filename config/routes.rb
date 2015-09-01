@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   post '/exit_tickets/grade', to: 'exit_tickets#grade'
 
   post '/attendances/create', to: 'attendances#create'
-  post '/attendances/import', to: 'attendances#import_all' 
+  post '/attendances/import', to: 'attendances#import_all'
+
+  resources :exit_tickets do
+    collection { post :upload }
+  end
 
   resources :units, only: [:show]
 
