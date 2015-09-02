@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   def github
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors.full_messages
       redirect_to root_path
     end
+
   end
 
 end
