@@ -16,6 +16,7 @@
 
   <% else %>
     <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
-    <%= link_to "Sign in with Github", "#" %>
+    <br>
+    <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github) %>
   <% end %>
 </div>

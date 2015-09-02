@@ -8,11 +8,7 @@ Rails.application.routes.draw do
   resources :developers do
     collection { post :import }
   end
-
-  get '/login' => 'sessions#new'
-  get '/auth/github/callback' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
-
+  
   namespace :api do
     namespace :v1 do
       resources :developers, only: [:show]

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     :rememberable,
     :trackable,
     :validatable,
-    :omniauth_providers => [:google_oauth2]
+    :omniauth_providers => [:google_oauth2,:github]
 
   validate :whitelisted_email
   validates :email, uniqueness: true
