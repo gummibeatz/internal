@@ -19,29 +19,68 @@ class User < ActiveRecord::Base
     :omniauth_providers => [:google_oauth2,:github]
 
   validate :whitelisted_email
+  validate :whitelisted_github_username
   validates :email, uniqueness: true
 
   belongs_to :developer
 
   def whitelisted_email
+    return if is_developer?
     unless C4Q_WHITELIST.include? email
       errors.add(:email, "This email address does not have valid permissions")
     end
   end
 
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(:email => data["email"]).first
+  def whitelisted_github_username
+    return unless is_developer?
+    unless Developer.all.map(&:github_username).include? developer.github_username
+      errors.add(:username, "This github account does not have valid permissions")
+    end
+  end
+
+  def self.from_omniauth(auth_hash)
+    provider = auth_hash["provider"]
+    if provider == "github"
+      user = self.from_github_omniauth(auth_hash)
+    elsif provider == "google_oauth2"
+      user = self.from_google_omniauth(auth_hash)
+    end
+    user
+  end
+
+  def self.from_google_omniauth(auth_hash)
+    data = auth_hash.info
+    user = User.where(email: data["email"]).first
 
     unless user
-        user = User.create(name: data["name"],
-           email: data["email"],
-           image: data["image"],
-           password: Devise.friendly_token[0,20]
-        )
+      user = User.create(name: data["name"],
+         email: data["email"],
+         image: data["image"],
+         password: Devise.friendly_token[0,20]
+      )
     end
 
     user
+  end
+
+  def self.from_github_omniauth(auth_hash)
+    data = auth_hash.info
+    developer = Developer.where(github_username: data["nickname"]).first
+    user = developer.user
+
+    unless user
+      user = developer.create_user(name: developer.full_name,
+         email: developer.email,
+         image: data["image"],
+         password: Devise.friendly_token[0,20]
+      )
+    end
+
+    user
+  end
+
+  def is_developer?
+    developer_id.present?
   end
 
 end

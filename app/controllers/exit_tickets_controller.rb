@@ -1,4 +1,4 @@
-class ExitTicketsController < ApplicationController 
+class ExitTicketsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :import, :grade, :report]
   skip_before_filter :authenticate_user!, only: [:create, :import, :grade, :report]
 
@@ -32,9 +32,10 @@ class ExitTicketsController < ApplicationController
     end_date = Date.parse(params[:end_date]).to_datetime
     range = Range.new(start_date, end_date)
 
+    tickets = ExitTicket.all.in_range(range)
     render json: {
-      accuracy: ExitTicket.accuracy_rate_in_range(range),
-      completion: ExitTicket.completion_rate_in_range(range)
+      accuracy: tickets.accuracy_rate,
+      completion: tickets.completion_rate
     }
   end
 

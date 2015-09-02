@@ -14,6 +14,8 @@ class Developer < ActiveRecord::Base
 
   validates :email, uniqueness: true
 
+  has_one :user
+
   def display_name
     full_name.split(" ").map(&:capitalize).join(" ")
   end

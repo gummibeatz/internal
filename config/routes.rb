@@ -3,12 +3,15 @@ Rails.application.routes.draw do
 
   devise_for :users,
     skip: [:registrations, :passwords],
-    controllers: { :omniauth_callbacks => "users#omniauth_callbacks" }
+    controllers: {
+      omniauth_callbacks: "users#omniauth_callbacks",
+      sessions: "sessions"
+    }
 
   resources :developers do
     collection { post :import }
   end
-  
+
   namespace :api do
     namespace :v1 do
       resources :developers, only: [:show]
