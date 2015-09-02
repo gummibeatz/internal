@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# creating fake developer
+dev = Developer.create(email: 'lhl260@nyu.edu',
+                       github_username: 'gummibeatz')

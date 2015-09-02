@@ -39,3 +39,6 @@ bower.json
 latest.dump
 notes/*
 scripts/*
+
+# Ignore application configuration
+/config/application.yml

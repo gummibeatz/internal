@@ -1,4 +1,4 @@
-class ExitTicketsController < ApplicationController
+class ExitTicketsController < ApplicationController 
   skip_before_action :verify_authenticity_token, only: [:create, :import, :grade, :report]
   skip_before_filter :authenticate_user!, only: [:create, :import, :grade, :report]
 

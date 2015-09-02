@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :developers do
     collection { post :import }
   end
-
+  
   namespace :api do
     namespace :v1 do
       resources :developers, only: [:show]
@@ -19,17 +19,17 @@ Rails.application.routes.draw do
   post '/exit_tickets/create', to: 'exit_tickets#create'
   post '/exit_tickets/import', to: 'exit_tickets#import'
   post '/exit_tickets/grade', to: 'exit_tickets#grade'
-  resources :exit_tickets do
-    collection { post :upload }
-  end
 
   post '/attendances/create', to: 'attendances#create'
   post '/attendances/import', to: 'attendances#import_all'
+
+  resources :exit_tickets do
+    collection { post :upload }
+  end
 
   resources :units, only: [:show]
 
   resources :cohorts
 
   resources :reports, only: [:index]
-
 end
