@@ -37,8 +37,13 @@ RSpec.describe Developer, type: :model do
   it "should be able to display name" do
     developer = build(:developer)
     expect(developer.display_name == "Text Example").to be_truthy
-  end
+ end
 
+  it "does not allow duplicates" do
+    expect(Developer.create(github_username: "testbot")).to be_valid
+    expect(Developer.create(github_username: "testbot")).to_not be_valid
+  end
+  
 end
 
 # == Schema Information
