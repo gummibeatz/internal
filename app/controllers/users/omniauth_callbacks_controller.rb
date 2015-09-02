@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
   end
 
-  def github
+  def github_oauth2
      @user = User.from_omniauth(request.env["omniauth.auth"])
 
       if @user.persisted?

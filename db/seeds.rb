@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # creating fake developer
-dev = Developer.create(email: 'test@testing.com',
-                       github_username: 'test@testing.com')
+dev = Developer.create(email: 'lhl260@nyu.edu',
+                       github_username: 'gummibeatz')

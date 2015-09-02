@@ -10,6 +10,13 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     }
   }
 
-  provider :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET']
+  provider :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
+    :client_options => {
+      :ssl => {
+            :ca_file => "/usr/local/etc/openssl/certs/ca-bundle.crt",
+            :ca_path => "/etc/openssl/certs"
+        }
+    }
+  }
   
 end

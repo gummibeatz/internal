@@ -13,6 +13,8 @@ class UsersController < ApplicationController
   end
 
   def github 
+      puts request.env["omniauth.auth"].info
+      
       @user = User.from_omniauth(request.env["omniauth.auth"])
 
       if @user.persisted?
