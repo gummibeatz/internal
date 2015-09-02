@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  WHITELIST = [
+  C4Q_WHITELIST = [
     "rachel@c4q.nyc",
     "mike@c4q.nyc",
     "max@c4q.nyc",
@@ -21,8 +21,10 @@ class User < ActiveRecord::Base
   validate :whitelisted_email
   validates :email, uniqueness: true
 
+  belongs_to :developer
+
   def whitelisted_email
-    unless WHITELIST.include? email
+    unless C4Q_WHITELIST.include? email
       errors.add(:email, "This email address does not have valid permissions")
     end
   end

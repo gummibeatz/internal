@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811210754) do
+ActiveRecord::Schema.define(version: 20150902050501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20150811210754) do
     t.integer  "number_of_graduate_credits_cents"
     t.integer  "graduate_gpa_cents"
     t.boolean  "is_current_student"
-    t.string   "linkedin_url"
     t.integer  "coding_background",                 default: 0
+    t.string   "linkedin_url"
     t.integer  "cohort_id"
     t.string   "full_name"
   end
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20150811210754) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.string   "image"
+    t.integer  "developer_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
