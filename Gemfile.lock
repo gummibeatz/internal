@@ -77,9 +77,6 @@ GEM
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
-    figaro (0.7.0)
-      bundler (~> 1.0)
-      rails (>= 3, < 5)
     formatador (0.2.5)
     fuubar (2.0.0)
       rspec (~> 3.0)
@@ -267,7 +264,6 @@ DEPENDENCIES
   devise (~> 3.5.1)
   dotenv-rails
   factory_girl_rails
-  figaro (~> 0.7.0)
   fuubar
   guard-rspec
   jbuilder (~> 2.0)
