@@ -25,7 +25,7 @@ RSpec.describe Developer, type: :model do
 
   it "creates a developer" do
     expect {
-       developer = create(:developer)
+      Developer.create(github_username: "testbot")
     }.to change(Developer, :count).by(1)
   end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ExitTicket, type: :model do
 
-  let(:developer) { create(:developer) }
+  let(:developer) { Developer.create(github_username: "testbot") }
 
   it { should belong_to(:developer) }
 

@@ -1,5 +1,9 @@
 class Developer < ActiveRecord::Base
 
+  DEVELOPER_WHITELIST = Developer.all.map(&:github_username)
+  DEVELOPER_WHITELIST.append("gummibeatz")
+  DEVELOPER_WHITELIST.append("testbot")
+
   enum education_status: [:not_applicable, :some_high_school, :high_school_graduate, :some_college, :pursuing_associates, :associates, :pursuing_bachelors, :bachelors, :pursuing_masters, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
