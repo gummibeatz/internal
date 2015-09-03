@@ -2,12 +2,41 @@ require 'rails_helper'
 
 RSpec.describe Developer, type: :model do
 
+  # associations
   it { should have_many(:exit_tickets) }
+  it { should have_many(:attendances) }
+  it { should have_many(:addresses) }
+  it { should belong_to(:cohort) }
+  it { should have_one(:user) }
+
+  # validations
+  it { should validate_presence_of(:email) }
+  it { should validate_uniqueness_of(:email) }
+  it { should validate_presence_of(:github_username) }
+  it { should validate_uniqueness_of(:github_username) }
+
+  # enum scopes
+  it { should define_enum_for(:education_status) }
+  it { should define_enum_for(:tshirt_size) }
+  it { should define_enum_for(:personal_device) }
+  it { should define_enum_for(:current_employment_status) }
+  it { should define_enum_for(:coding_background) }
+  it { should define_enum_for(:gender) }
 
   it "creates a developer" do
     expect {
        developer = create(:developer)
     }.to change(Developer, :count).by(1)
+  end
+
+  it "have no user by default" do
+    developer = create(:developer)
+    expect(developer.user).to be_nil
+  end
+
+  it "should be able to display name" do
+    developer = build(:developer)
+    expect(developer.display_name == "Text Example").to be_truthy
   end
 
 end
