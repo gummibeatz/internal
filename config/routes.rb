@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       sessions: "sessions"
     }
 
+  get '/' => 'developers#index', :constraints => { :subdomain => /developer.+/ }
+  get '/' => 'admin#index', :constraints => { :subdomain => /admin.+/ }
+
   resources :developers do
     collection { post :import }
   end
