@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Developer, type: :model do
+  
+  it "should have valid factories" do
+    for i in 0..5
+    expect(FactoryGirl.create(:developer)).to be_valid
+    end
+  end
 
   # associations
   it { should have_many(:exit_tickets) }

@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  sequence(:email) { |n| "test#{n}@email.com" }
+  sequence(:github_username) { |n| "testbot#{n}" }
+
   factory :developer do
     first_name "text"
     last_name "example"

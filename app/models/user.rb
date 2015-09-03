@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
     "testbot@email.com"
   ]
 
+  DEVELOPER_WHITELIST = Developer.all.map(&:github_username)
+  DEVELOPER_WHITELIST.append("testbot")
+  
   devise :omniauthable,
     :database_authenticatable,
     :registerable,
@@ -68,21 +71,17 @@ class User < ActiveRecord::Base
 
   def self.from_github_omniauth(auth_hash)
     data = auth_hash.info
-    user = User.create(email:"failed_email@email.com",
-                       password:"fillerpw")
-    
-    unless (developer = Developer.where(github_username: data["nickname"]).first).nil?
-      user = developer.user
-
-      unless user
-        user = developer.create_user(name: developer.full_name,
-           email: developer.email,
-           image: data["image"],
-           password: Devise.friendly_token[0,20]
-        )
-      end
+    developer = Developer.where(github_username: data["nickname"]).first
+    if developer
+      @user = developer.user
+    else
+      @user = User.create(name: data["name"],
+        email: data["email"],
+        image: data["image"],
+        password: Devise.friendly_token[0,20]
+      )
     end
-    user
+    @user
   end
 
   def developer?
