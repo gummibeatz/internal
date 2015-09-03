@@ -71,15 +71,13 @@ class User < ActiveRecord::Base
   def self.from_github_omniauth(auth_hash)
     data = auth_hash.info
     developer = Developer.where(github_username: data["nickname"]).first
-    if developer
-      user = developer.user
-    else
-      user = User.create(name: data["name"],
-        email: data["email"],
-        image: data["image"],
-        password: Devise.friendly_token[0,20]
-      )
-    end
+    return nil if developer.nil?
+    return developer.user if developer.present? && developer.user.present?
+    user = developer.create_user(name: developer.full_name,
+      email: developer.email,
+      image: data["image"],
+      password: Devise.friendly_token[0,20]
+    )
     user
   end
 
