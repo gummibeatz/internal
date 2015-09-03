@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
     "max@c4q.nyc",
     "franklin@c4q.nyc",
     "veena@c4q.nyc",
-    "lhl260@nyu.edu",
     "testbot@email.com"
   ]
 
