@@ -14,6 +14,7 @@
 
 <%= render "shared/header" %>
 
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 <%= yield %>
 
 <%= yield :javascripts %>
