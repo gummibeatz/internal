@@ -1,8 +1,8 @@
 FactoryGirl.define do
-  
+
   factory :user do
-    email "testbot@email.com"
-    password "12345678"
+    email User.admin_whitelist.first
+    password "queensc4q"
   end
 
 end

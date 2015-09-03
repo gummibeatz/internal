@@ -1,17 +1,5 @@
 class User < ActiveRecord::Base
 
-  C4Q_WHITELIST = [
-    "rachel@c4q.nyc",
-    "mike@c4q.nyc",
-    "max@c4q.nyc",
-    "franklin@c4q.nyc",
-    "veena@c4q.nyc",
-    "testbot@email.com"
-  ]
-
-  DEVELOPER_WHITELIST = Developer.all.map(&:github_username)
-  DEVELOPER_WHITELIST.append("testbot")
-  
   devise :omniauthable,
     :database_authenticatable,
     :registerable,
@@ -21,23 +9,23 @@ class User < ActiveRecord::Base
     :validatable,
     :omniauth_providers => [:google_oauth2,:github]
 
-  # TODO: figure out how this works with seed data in
-  # sandboxed env
-  # validate :whitelisted_email
-  # validate :whitelisted_github_username
-  validates :email, uniqueness: true
+  validate :whitelist_admin_email, unless: :developer?
+  validate :whitelist_github_username, if: :developer?
+  validates :email, uniqueness: true, presence: true
 
   belongs_to :developer
 
-  def whitelisted_email
-    return if developer?
-    unless C4Q_WHITELIST.include? email
+  def self.admin_whitelist
+    (Rails.application.secrets.admin_whitelist || "").split(";")
+  end
+
+  def whitelist_admin_email
+    unless User.admin_whitelist.include?(email)
       errors.add(:email, "This email address does not have valid permissions")
     end
   end
 
-  def whitelisted_github_username
-    return unless developer?
+  def whitelist_github_username
     unless Developer.all.map(&:github_username).include? developer.github_username
       errors.add(:username, "This github account does not have valid permissions")
     end
