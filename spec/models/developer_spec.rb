@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Developer, type: :model do
+  
+  it "should have valid factories" do
+    for i in 0..5
+    expect(FactoryGirl.create(:developer)).to be_valid
+    end
+  end
 
   # associations
   it { should have_many(:exit_tickets) }
@@ -25,7 +31,7 @@ RSpec.describe Developer, type: :model do
 
   it "creates a developer" do
     expect {
-       developer = create(:developer)
+      Developer.create(github_username: "testbot")
     }.to change(Developer, :count).by(1)
   end
 
@@ -37,8 +43,13 @@ RSpec.describe Developer, type: :model do
   it "should be able to display name" do
     developer = build(:developer)
     expect(developer.display_name == "Text Example").to be_truthy
-  end
+ end
 
+  it "does not allow duplicates" do
+    expect(Developer.create(github_username: "testbot")).to be_valid
+    expect(Developer.create(github_username: "testbot")).to_not be_valid
+  end
+  
 end
 
 # == Schema Information

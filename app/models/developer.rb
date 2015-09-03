@@ -1,5 +1,4 @@
 class Developer < ActiveRecord::Base
-
   enum education_status: [:not_applicable, :some_high_school, :high_school_graduate, :some_college, :pursuing_associates, :associates, :pursuing_bachelors, :bachelors, :pursuing_masters, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
@@ -12,11 +11,9 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   belongs_to :cohort
 
-  validates :email, uniqueness: true
-  validates :email, presence: true
-  validates :github_username, uniqueness: true
-  validates :github_username, presence: true
-
+  validates :email, presence: true, uniqueness: true
+  validates :github_username, presence: true, uniqueness: true
+  
   has_one :user
 
   def display_name
