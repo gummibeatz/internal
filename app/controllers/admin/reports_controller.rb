@@ -1,5 +1,5 @@
 module Admin
-  class ReportsController < AdminController
+  class ReportsController < Admin::AdminController
 
     def index
       if params[:start_date].present? && params[:end_date].present?

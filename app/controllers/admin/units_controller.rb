@@ -1,5 +1,5 @@
 module Admin
-  class UnitsController < AdminController
+  class UnitsController < Admin::AdminController
     def show
       @index = unit.cohort.units.index(unit)
 

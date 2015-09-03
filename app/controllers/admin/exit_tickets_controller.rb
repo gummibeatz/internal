@@ -1,5 +1,5 @@
 module Admin
-  class ExitTicketsController < AdminController
+  class ExitTicketsController < Admin::AdminController
     def index
       # TODO: not verifying auth token?
       if request.xhr?

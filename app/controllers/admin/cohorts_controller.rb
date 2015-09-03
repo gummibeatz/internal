@@ -1,5 +1,5 @@
 module Admin
-  class CohortsController < AdminController
+  class CohortsController < Admin::AdminController
     def index
       @cohorts = Cohort.includes(:developers).all
     end
