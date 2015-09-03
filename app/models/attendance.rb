@@ -54,11 +54,15 @@ class Attendance < ActiveRecord::Base
   end
 
   def self.create_from_google_form(form_data)
-    json = JSON.parse(form_data["attendance"])
-    ActiveRecord::Base.transaction do
-      return true if Attendance.find_or_create(json["attendance"])
+    begin
+      json = JSON.parse(form_data["attendance"])
+      ActiveRecord::Base.transaction do
+        return true if Attendance.find_or_create(json["attendance"])
+      end
+      return false
+    rescue
+      return false
     end
-    false
   end
 
   def self.import_all(form_data)

@@ -23,10 +23,16 @@ RSpec.describe Attendance, type: :model do
   end
 
   it "creates entry from google form" do
-    json = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    on_time = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    late_excused = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":1,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    late_5_minutes = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":2,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    late_10_minutes = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":3,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    absent_excused = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":4,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    absent_unexcused = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":5,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+
     expect {
       create(:c4q_developer, full_name: "test developer")
-      Attendance.create_from_google_form(json)
+      Attendance.create_from_google_form(on_time)
     }.to change(Attendance, :count).by(1)
   end
 
