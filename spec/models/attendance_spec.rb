@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Attendance, type: :model do
 
-  let(:developer) { create(:developer) }
+  let(:developer) { create(:c4q_developer) }
 
   # associations
   it { should belong_to(:developer) }
@@ -25,7 +25,7 @@ RSpec.describe Attendance, type: :model do
   it "creates entry from google form" do
     json = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
     expect {
-      create(:developer, full_name: "test developer")
+      create(:c4q_developer, full_name: "test developer")
       Attendance.create_from_google_form(json)
     }.to change(Attendance, :count).by(1)
   end
