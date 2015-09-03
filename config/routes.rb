@@ -9,10 +9,6 @@ Rails.application.routes.draw do
 
   scope path: '/admin', module: :admin do
 
-    resources :developers do
-      collection { post :import }
-    end
-
     get '/exit_tickets/report', to: 'exit_tickets#report'
     post '/exit_tickets/create', to: 'exit_tickets#create'
     post '/exit_tickets/import', to: 'exit_tickets#import'
@@ -21,15 +17,20 @@ Rails.application.routes.draw do
     post '/attendances/create', to: 'attendances#create'
     post '/attendances/import', to: 'attendances#import_all'
 
+    resources :units, only: [:show]
+    resources :cohorts
+    resources :reports, only: [:index]
     resources :exit_tickets do
       collection { post :upload }
     end
+    resources :developers do
+      collection { post :import }
+    end
 
-    resources :units, only: [:show]
+    resources :developers do
+      collection { post :import }
+    end
 
-    resources :cohorts
-
-    resources :reports, only: [:index]
   end
 
   scope path: '/developers', module: :developers do
