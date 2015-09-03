@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
     :omniauth_providers => [:google_oauth2,:github]
 
   validate :whitelist_admin_email, unless: :developer?
-  validate :whitelist_github_username, if: :developer?
   validates :email, uniqueness: true, presence: true
 
   belongs_to :developer
@@ -22,12 +21,6 @@ class User < ActiveRecord::Base
   def whitelist_admin_email
     unless User.admin_whitelist.include?(email)
       errors.add(:email, "This email address does not have valid permissions")
-    end
-  end
-
-  def whitelist_github_username
-    unless Developer.all.map(&:github_username).include? developer.github_username
-      errors.add(:username, "This github account does not have valid permissions")
     end
   end
 
