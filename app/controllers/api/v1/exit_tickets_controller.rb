@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ExitTicketsController < AdminController
+    class ExitTicketsController < Api::V1::ApiController
       def create
         ExitTicket.create_from_google_form(params)
         head :ok

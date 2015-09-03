@@ -1,6 +1,6 @@
 module Api
   module V1
-    class DevelopersController < ApiController
+    class DevelopersController < Api::V1::ApiController
 
        def show
          render json: developer.to_json
