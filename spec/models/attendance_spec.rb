@@ -4,16 +4,16 @@ RSpec.describe Attendance, type: :model do
 
   let(:developer) { create(:developer) }
 
+  # associations
   it { should belong_to(:developer) }
+
+  # enum scopes
+  it { should define_enum_for(:status) }
 
   it "creates an attendance" do
     expect {
       attendance = create(:attendance, developer: developer)
     }.to change(Attendance, :count).by(1)
-  end
-
-  it "should validate white list" do
-
   end
 
   it "only has one record per developer per day" do
@@ -23,11 +23,24 @@ RSpec.describe Attendance, type: :model do
   end
 
   it "creates entry from google form" do
-    json = {"attendance"=>"{\"attendance\":{\"name\":\"Shena Yoshida\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    json = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
     expect {
-      create(:developer, full_name: "shena yoshida")
+      create(:developer, full_name: "test developer")
       Attendance.create_from_google_form(json)
     }.to change(Attendance, :count).by(1)
+  end
+
+  describe :scopes do
+    it "returns all records within a range" do
+      dates = [Date.today.to_datetime]
+      3.times { dates << dates.last.tomorrow }
+      out_of_bounds = 20.days.ago.to_datetime
+      dates << out_of_bounds
+      dates.each { |d| create(:attendance, developer: developer, timestamp: d) }
+      range = Range.new(dates.first, dates.last)
+
+      expect(Attendance.in_range(range).include?(out_of_bounds)).to be_falsy
+    end
   end
 
 end
