@@ -1,11 +1,12 @@
 example_id                             | status | run_time        |
 -------------------------------------- | ------ | --------------- |
-./spec/models/attendance_spec.rb[1:1]  | passed | 0.00081 seconds |
-./spec/models/attendance_spec.rb[1:2]  | passed | 0.00909 seconds |
-./spec/models/attendance_spec.rb[1:3]  | passed | 0.01585 seconds |
-./spec/models/attendance_spec.rb[1:4]  | passed | 0.02024 seconds |
-./spec/models/developer_spec.rb[1:1]   | passed | 0.03117 seconds |
-./spec/models/developer_spec.rb[1:2]   | passed | 0.02486 seconds |
-./spec/models/exit_ticket_spec.rb[1:1] | passed | 0.01782 seconds |
-./spec/models/exit_ticket_spec.rb[1:2] | passed | 0.05779 seconds |
-./spec/models/exit_ticket_spec.rb[1:3] | passed | 0.01128 seconds |
+./spec/models/attendance_spec.rb[1:1]  | passed | 0.00138 seconds |
+./spec/models/attendance_spec.rb[1:2]  | passed | 0.02088 seconds |
+./spec/models/attendance_spec.rb[1:3]  | passed | 0.00069 seconds |
+./spec/models/attendance_spec.rb[1:4]  | passed | 0.00923 seconds |
+./spec/models/attendance_spec.rb[1:5]  | passed | 0.03165 seconds |
+./spec/models/developer_spec.rb[1:1]   | passed | 0.00469 seconds |
+./spec/models/developer_spec.rb[1:2]   | passed | 0.04291 seconds |
+./spec/models/exit_ticket_spec.rb[1:1] | passed | 0.00274 seconds |
+./spec/models/exit_ticket_spec.rb[1:2] | passed | 0.14006 seconds |
+./spec/models/exit_ticket_spec.rb[1:3] | passed | 0.01443 seconds |

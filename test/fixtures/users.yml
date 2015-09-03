@@ -25,4 +25,5 @@ two:
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  image                  :string
+#  developer_id           :integer
 #

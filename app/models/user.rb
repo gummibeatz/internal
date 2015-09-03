@@ -18,21 +18,23 @@ class User < ActiveRecord::Base
     :validatable,
     :omniauth_providers => [:google_oauth2,:github]
 
-  validate :whitelisted_email
-  validate :whitelisted_github_username
+  # TODO: figure out how this works with seed data in
+  # sandboxed env
+  # validate :whitelisted_email
+  # validate :whitelisted_github_username
   validates :email, uniqueness: true
 
   belongs_to :developer
 
   def whitelisted_email
-    return if is_developer?
+    return if developer?
     unless C4Q_WHITELIST.include? email
       errors.add(:email, "This email address does not have valid permissions")
     end
   end
 
   def whitelisted_github_username
-    return unless is_developer?
+    return unless developer?
     unless Developer.all.map(&:github_username).include? developer.github_username
       errors.add(:username, "This github account does not have valid permissions")
     end
@@ -79,7 +81,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  def is_developer?
+  def developer?
     developer_id.present?
   end
 
@@ -104,4 +106,5 @@ end
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  image                  :string
+#  developer_id           :integer
 #

@@ -16,6 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Github"
+      sign_in @user
       sign_in_and_redirect @user, :event => :authentication
     else
       session["devise.github_data"] = request.env["omniauth.auth"]

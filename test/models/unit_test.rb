@@ -11,8 +11,8 @@ end
 # Table name: units
 #
 #  id         :integer          not null, primary key
-#  started_at :datetime
-#  ended_at   :datetime
+#  start_at   :datetime
+#  end_at     :datetime
 #  cohort_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

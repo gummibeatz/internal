@@ -4,6 +4,10 @@ class DevelopersController < ApplicationController
     @cohorts = Cohort.includes(:developers).all
   end
 
+  def dashboard
+
+  end
+
   def show
   end
 
@@ -27,7 +31,7 @@ class DevelopersController < ApplicationController
 
   def destroy
   end
-	
+
   protected
 
   helper_method :developer

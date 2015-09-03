@@ -3,7 +3,7 @@ class Unit < ActiveRecord::Base
   belongs_to :cohort
 
   def range
-    Range.new(started_at, ended_at)
+    Range.new(start_at, end_at)
   end
 
 end
@@ -13,8 +13,8 @@ end
 # Table name: units
 #
 #  id         :integer          not null, primary key
-#  started_at :datetime
-#  ended_at   :datetime
+#  start_at   :datetime
+#  end_at     :datetime
 #  cohort_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

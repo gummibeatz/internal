@@ -12,6 +12,10 @@ RSpec.describe Attendance, type: :model do
     }.to change(Attendance, :count).by(1)
   end
 
+  it "should validate white list" do
+
+  end
+
   it "only has one record per developer per day" do
     attendance = create(:attendance, developer: developer)
     attendance_two = build(:attendance, developer: developer)
@@ -27,3 +31,15 @@ RSpec.describe Attendance, type: :model do
   end
 
 end
+
+# == Schema Information
+#
+# Table name: attendances
+#
+#  id           :integer          not null, primary key
+#  status       :integer          default(0)
+#  developer_id :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  timestamp    :datetime
+#

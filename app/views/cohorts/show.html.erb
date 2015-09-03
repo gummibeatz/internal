@@ -24,7 +24,7 @@
     <div class="col-md-12">
       <% cohort.units.each_with_index do |unit, idx| %>
         <p><strong>
-          <%= link_to "Unit #{idx}:", unit_path(unit) %></strong> <%= pretty_date(unit.started_at) %> - <%= pretty_date(unit.ended_at) %></p>
+          <%= link_to "Unit #{idx}:", unit_path(unit) %></strong> <%= pretty_date(unit.start_at) %> - <%= pretty_date(unit.end_at) %></p>
       <% end %>
     </div>
     <div class="col-md-12">

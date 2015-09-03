@@ -1,7 +1,7 @@
 class Cohort < ActiveRecord::Base
 
   has_many :developers, -> { order(first_name: :asc) }
-  has_many :units, -> { order(started_at: :asc) }
+  has_many :units, -> { order(start_at: :asc) }
 
   validates :version, uniqueness: true
 

@@ -24,7 +24,7 @@ class Developer < ActiveRecord::Base
   end
 
   def attendance
-    all = attendances
+oh
     present = all.present
     absent = all.absent
     late = all.late

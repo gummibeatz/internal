@@ -82,23 +82,23 @@ end
 #
 # Table name: exit_tickets
 #
-#  id                                     :integer          not null, primary key
-#  certainty                              :integer          default(0)
-#  overall_quality                        :integer          default(0)
-#  difficulty                             :integer          default(0)
-#  instructors_ability_to_communicate     :integer          default(0)
-#  instructors_ability_to_stimulate       :integer          default(0)
-#  pace_and_speed                         :integer          default(0)
-#  understanding                          :integer          default(0)
-#  recall_information_from_previous_class :integer          default(0)
-#  additional_comments                    :string
-#  developer_id                           :integer
-#  created_at                             :datetime         not null
-#  updated_at                             :datetime         not null
-#  original_form_url                      :string
-#  submitted_at                           :datetime
-#  questions                              :text
-#  score                                  :float
-#  summary_form_url                       :string
-#  type                                   :integer          default(0)
+#  id                :integer          not null, primary key
+#  certainty         :integer          default(0)
+#  quality           :integer          default(0)
+#  difficulty        :integer          default(0)
+#  communication     :integer          default(0)
+#  stimulation       :integer          default(0)
+#  pace_and_speed    :integer          default(0)
+#  understanding     :integer          default(0)
+#  recall            :integer          default(0)
+#  comments          :string
+#  developer_id      :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  original_form_url :string
+#  submitted_at      :datetime
+#  questions         :text
+#  score             :float
+#  summary_form_url  :string
+#  type              :integer          default(0)
 #
