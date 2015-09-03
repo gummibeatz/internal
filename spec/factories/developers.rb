@@ -2,8 +2,9 @@ FactoryGirl.define do
   factory :developer do
     first_name "text"
     last_name "example"
-    email "textexample@gmail.com "
     full_name "text example"
+    email "textexample@gmail.com "
+    github_username "textexample"
   end
 end
 

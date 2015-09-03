@@ -13,6 +13,9 @@ class Developer < ActiveRecord::Base
   belongs_to :cohort
 
   validates :email, uniqueness: true
+  validates :email, presence: true
+  validates :github_username, uniqueness: true
+  validates :github_username, presence: true
 
   has_one :user
 
