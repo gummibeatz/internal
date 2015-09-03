@@ -73,15 +73,15 @@ class User < ActiveRecord::Base
     data = auth_hash.info
     developer = Developer.where(github_username: data["nickname"]).first
     if developer
-      @user = developer.user
+      user = developer.user
     else
-      @user = User.create(name: data["name"],
+      user = User.create(name: data["name"],
         email: data["email"],
         image: data["image"],
         password: Devise.friendly_token[0,20]
       )
     end
-    @user
+    user
   end
 
   def developer?
