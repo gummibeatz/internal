@@ -32,7 +32,10 @@ class Assessment < ActiveRecord::Base
     unit = Cohort.first.units.select { |u| u.contains_date?(date) }.first
     if assessment = Assessment.where("developer_id = ? AND unit_id = ?", developer.id, unit.id).first
       assessment.update_attributes(score: json["score"])
+      return true
     else
+      puts "*" * 80
+      puts "*" * 80
       developer.assessments.create(
         unit_id: unit.id,
         due_at: date,
@@ -42,6 +45,7 @@ class Assessment < ActiveRecord::Base
         max_score: json["max_score"],
         type: json["type"].to_i
       )
+      return true
     end
   end
 

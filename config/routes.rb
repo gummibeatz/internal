@@ -34,6 +34,8 @@ Rails.application.routes.draw do
       post '/attendances/create', to: 'attendances#create'
       post '/attendances/import', to: 'attendances#import_all'
 
+      post '/assessments/create', to: 'assessments#create'
+
       get '/exit_tickets/report', to: 'exit_tickets#report'
       post '/exit_tickets/create', to: 'exit_tickets#create'
       post '/exit_tickets/import', to: 'exit_tickets#import'

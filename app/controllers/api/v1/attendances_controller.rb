@@ -1,12 +1,11 @@
 module Api
   module V1
     class AttendancesController < Api::V1::ApiController
-      class InvalidOauthParamsError < StandardError; end
       def create
         if attendance = Attendance.create_from_google_form(params)
           head :ok
         else
-          raise InvalidOauthParamsError
+          raise Api::V1::InvalidGoogleParamsError
         end
       end
 
