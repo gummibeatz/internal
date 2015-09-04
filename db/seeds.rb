@@ -18,7 +18,7 @@ User.create(
 cohort = Cohort.create!( name: "access code", version: "1.0")
 unit = cohort.units.create!( start_at: 1.day.ago, end_at: 20.days.from_now)
 
-developer = cohort.developers.create(
+developer = cohort.developers.create!(
   email: "c4qdeveloper@example.com",
   github_username: "c4qdeveloper",
   first_name: "c4q",
