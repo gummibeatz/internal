@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20150904025946) do
     t.integer  "user_id"
   end
 
-<<<<<<< HEAD
   create_table "assessments", force: :cascade do |t|
     t.float    "max_score"
     t.float    "score"
@@ -43,17 +42,6 @@ ActiveRecord::Schema.define(version: 20150904025946) do
 
   add_index "assessments", ["developer_id"], name: "index_assessments_on_developer_id", using: :btree
   add_index "assessments", ["unit_id"], name: "index_assessments_on_unit_id", using: :btree
-=======
-  create_table "assesments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "assessments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
->>>>>>> assessment table
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "status",       default: 0

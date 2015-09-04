@@ -13,7 +13,7 @@ module Developers
 
     def stats
       render json: {
-        attendance: current_user.developer.attendances.stats
+        attendance: current_user.developer.attendances.stats,
       }
     end
 

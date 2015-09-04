@@ -33,8 +33,8 @@ developer_user = developer.create_user(
   password: Devise.friendly_token[0,20]
 )
 
-assessment = developer.assessments.create(
-  unit_id: unit,
+assessment = developer.assessments.create!(
+  unit_id: unit.id,
   github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
   max_score: 3,
   score: 2,
