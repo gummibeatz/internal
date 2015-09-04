@@ -25,12 +25,12 @@ RSpec.describe Developer, type: :model do
 
   it "creates a developer" do
     expect {
-      create(:c4q_developer)
+      create(:developer)
     }.to change(Developer, :count).by(1)
   end
 
   it "have no user by default" do
-    developer = create(:c4q_developer)
+    developer = create(:developer)
     expect(developer.user).to be_nil
   end
 

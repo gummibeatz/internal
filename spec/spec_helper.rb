@@ -25,9 +25,9 @@ RSpec.configure do |config|
 
   config.order = :random
 
-  # config.include(OmniauthMacros)
+  config.include(OmniauthMacros)
 
   Kernel.srand config.seed
 end
 
-# OmniAuth.config.test_mode = true
+OmniAuth.config.test_mode = true

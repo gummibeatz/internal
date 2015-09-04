@@ -4,14 +4,7 @@ FactoryGirl.define do
     last_name "example"
     full_name "text example"
     email "textexample@gmail.com "
-
-    factory :c4q_developer do
-      github_username "c4qdeveloper"
-    end
-
-    factory :other_developer do
-      github_username "taylorotwell"
-    end
+    github_username "c4qdeveloper"
   end
 end
 

@@ -4,7 +4,6 @@ class WelcomeController < ApplicationController
   layout "welcome"
 
   def index
-
     if current_user
       if current_user.developer?
         redirect_to '/developers/'

@@ -20,12 +20,11 @@ RSpec.describe User, type: :model do
 
   describe "as developer" do
     it "doesn't validate whitelist email" do
-      developer = create(:c4q_developer)
+      developer = create(:developer)
       user = build(:whitelist_user)
       developer.user = user
       expect(user).to be_valid
     end
-
   end
 
 end
