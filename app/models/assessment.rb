@@ -15,6 +15,36 @@ class Assessment < ActiveRecord::Base
     "inheritance_type"
   end
 
+  def self.create_from_google_form(form_data)
+    begin
+      json = JSON.parse(form_data["assessment"])
+      return true if Assessment.update_or_create(json)
+    rescue
+      false
+    end
+  end
+
+  private
+
+  def self.update_or_create(json)
+    developer = Developer.where(full_name: json["name"].downcase).first
+    date = Date.parse(json["due_at"]).to_datetime.midnight
+    unit = Cohort.first.units.select { |u| u.contains_date?(date) }.first
+    if assessment = Assessment.where("developer_id = ? AND unit_id = ?", developer.id, unit.id).first
+      assessment.update_attributes(score: json["score"])
+    else
+      developer.assessments.create(
+        unit_id: unit.id,
+        due_at: date,
+        comments: json["comments"],
+        github_url: json["github_url"],
+        score: json["score"],
+        max_score: json["max_score"],
+        type: json["type"].to_i
+      )
+    end
+  end
+
 end
 
 # == Schema Information
@@ -31,4 +61,5 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  type         :integer
+#  comments     :text
 #

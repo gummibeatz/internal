@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :assessment do
-    max_score 1.5
-score 1.5
-developer_id 1
-github_url "MyString"
-due_at "2015-09-03 22:38:46"
-unit_id 1
+    max_score 3
+    score 2
+    developer_id 1
+    github_url "http://github.com"
+    due_at Date.today
+    unit_id 1
   end
 
 end
@@ -24,4 +24,5 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  type         :integer
+#  comments     :text
 #

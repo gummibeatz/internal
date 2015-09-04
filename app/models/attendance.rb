@@ -40,26 +40,10 @@ class Attendance < ActiveRecord::Base
     1 - percentage_late_excused
   end
 
-  def self.find_or_create(json)
-    if developer = Developer.where(full_name: json["name"].downcase).first
-      date = Date.parse(json["date"]).to_datetime.midnight
-      if attendance = Attendance.where("timestamp = ? AND developer_id = ?", date , developer.id).first
-        attendance.update_attribute(:status, json["status"])
-      else
-        attendance = developer.attendances.create( status: json["status"], timestamp: date)
-      end
-      return true
-    end
-    false
-  end
-
   def self.create_from_google_form(form_data)
     begin
       json = JSON.parse(form_data["attendance"])
-      ActiveRecord::Base.transaction do
-        return true if Attendance.find_or_create(json["attendance"])
-      end
-      return false
+      return true if Attendance.update_or_create(json["attendance"])
     rescue
       return false
     end
@@ -77,6 +61,16 @@ class Attendance < ActiveRecord::Base
   end
 
   private
+
+  def self.update_or_create(json)
+    developer = Developer.where(full_name: json["name"].downcase).first
+    date = Date.parse(json["date"]).to_datetime.midnight
+    if attendance = Attendance.where(timestamp: date, developer_id: developer.id).first
+      attendance.update_attribute(:status, json["status"])
+    else
+      attendance = developer.attendances.create( status: json["status"], timestamp: date)
+    end
+  end
 
   def one_per_day_per_developer
     if Attendance.where(developer_id: developer_id, timestamp: timestamp).first.present?

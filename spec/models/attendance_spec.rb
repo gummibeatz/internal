@@ -30,6 +30,16 @@ RSpec.describe Attendance, type: :model do
     }.to change(Attendance, :count).by(1)
   end
 
+  it "doesn't create duplicate entry from google form" do
+    on_time = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    late = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":2,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    create(:developer, full_name: "test developer")
+    Attendance.create_from_google_form(on_time)
+    expect {
+      Attendance.create_from_google_form(late)
+    }.to change(Attendance, :count).by(0)
+  end
+
   describe :scopes do
     it "returns all records within a range" do
       dates = [Date.today.to_datetime]

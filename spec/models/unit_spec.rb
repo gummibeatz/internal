@@ -5,6 +5,11 @@ RSpec.describe Unit, type: :model do
   it { should belong_to(:cohort) }
   it { should have_many(:assessments) }
 
+  it "should determine whether a date is in range" do
+    unit = build(:unit)
+    expect(unit.contains_date?(Date.today)).to be_truthy
+  end
+
 end
 
 # == Schema Information

@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :developer do
-    first_name "text"
-    last_name "example"
-    full_name "text example"
-    email "textexample@gmail.com "
-    github_username "c4qdeveloper"
+    first_name "test"
+    last_name "developer"
+    full_name "test developer"
+    email "testdeveloper@gmail.com "
+    github_username "testdeveloper"
   end
 end
 

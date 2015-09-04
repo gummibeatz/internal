@@ -7,6 +7,10 @@ class Unit < ActiveRecord::Base
     Range.new(start_at, end_at)
   end
 
+  def contains_date?(date)
+    start_at <= date && end_at >= date
+  end
+
 end
 
 # == Schema Information
