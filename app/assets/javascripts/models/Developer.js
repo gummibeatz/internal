@@ -1,3 +1,3 @@
 var Developer = Backbone.Model.extend({
-   urlRoot: '/developers'
+   urlRoot: '/developers/stats'
 });

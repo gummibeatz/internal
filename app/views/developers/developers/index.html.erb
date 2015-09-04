@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <%= current_user.developer.display_name %>
+      <%= @user.display_name %>
+      <%= image_tag(current_user.image) %>
+      <%= @user.full_name %>
     </div>
   </div>
 </div>

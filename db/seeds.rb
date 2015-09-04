@@ -26,12 +26,31 @@ developer = cohort.developers.create(
   full_name: "c4qdeveloper"
 )
 
+<<<<<<< HEAD
 developer_user = developer.create_user(
   email: developer.email,
   name: developer.full_name,
   image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
   password: Devise.friendly_token[0,20]
 )
+=======
+
+developer.attendances.create([
+  {timestamp: Time.now, status: 0},
+  {timestamp: Time.now, status: 1},
+  {timestamp: Time.now, status: 2},
+  {timestamp: Time.now, status: 2},
+  {timestamp: Time.now, status: 3},
+])
+10.times do |idx|
+  developer = cohort.developers.new(
+    email: "developer#{idx}@example.com",
+    github_username: "developer#{idx}",
+    first_name: "developer#{idx}",
+    last_name: "example",
+    full_name: "developer#{idx}example"
+  )
+>>>>>>> assessment table
 
 assessment = developer.assessments.create(
   unit_id: unit,
