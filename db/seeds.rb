@@ -7,50 +7,36 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # admin
-#
 
-3.times do |idx|
-  admin = User.create(
-    email: "admin#{idx}@c4q.nyc",
-    name: "Admin#{idx}",
-    image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
-    password: Devise.friendly_token[0,20]
-  )
-end
-
-cohort = Cohort.create!(
-  name: "access code",
-  version: "1.0"
+User.create(
+  email: "admin@c4q.nyc",
+  name: "Admin Professional",
+  image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
+  password: Devise.friendly_token[0,20]
 )
 
-unit = cohort.units.create!(
-  start_at: 1.day.ago,
-  end_at: 20.days.from_now
-)
+cohort = Cohort.create!( name: "access code", version: "1.0")
+unit = cohort.units.create!( start_at: 1.day.ago, end_at: 20.days.from_now)
 
-developer = cohort.developers.new(
+developer = cohort.developers.create(
   email: "c4qdeveloper@example.com",
   github_username: "c4qdeveloper",
   first_name: "c4q",
   last_name: "developer",
   full_name: "c4qdeveloper"
 )
-developer.save
 
-10.times do |idx|
-  developer = cohort.developers.new(
-    email: "developer#{idx}@example.com",
-    github_username: "developer#{idx}",
-    first_name: "developer#{idx}",
-    last_name: "example",
-    full_name: "developer#{idx}example"
-  )
+developer_user = developer.create_user(
+  email: developer.email,
+  name: developer.full_name,
+  image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
+  password: Devise.friendly_token[0,20]
+)
 
-  # developer user
-  developer_user = developer.create_user(
-    email: developer.email,
-    name: developer.full_name,
-    image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
-    password: Devise.friendly_token[0,20]
-  )
-end
+assessment = developer.assessments.create(
+  unit_id: unit,
+  github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
+  max_score: 3,
+  score: 2,
+  due_at: Date.parse("20150901").to_datetime
+)

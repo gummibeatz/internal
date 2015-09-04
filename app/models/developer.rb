@@ -9,11 +9,13 @@ class Developer < ActiveRecord::Base
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances
+  has_many :assessments
+
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true
   validates :github_username, presence: true, uniqueness: true
-  
+
   has_one :user
 
   def display_name

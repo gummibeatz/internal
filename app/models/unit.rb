@@ -1,6 +1,7 @@
 class Unit < ActiveRecord::Base
 
   belongs_to :cohort
+  has_many :assessments
 
   def range
     Range.new(start_at, end_at)

@@ -5,6 +5,7 @@ RSpec.describe Developer, type: :model do
   # associations
   it { should have_many(:exit_tickets) }
   it { should have_many(:attendances) }
+  it { should have_many(:assessments) }
   it { should have_many(:addresses) }
   it { should belong_to(:cohort) }
   it { should have_one(:user) }
