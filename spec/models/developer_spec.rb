@@ -37,7 +37,7 @@ RSpec.describe Developer, type: :model do
 
   it "should format display name" do
     developer = build(:developer)
-    expect(developer.display_name == "Text Example").to be_truthy
+    expect(developer.display_name == "Test Developer").to be_truthy
  end
 
 end
