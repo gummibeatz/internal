@@ -33,6 +33,11 @@ developer_user = developer.create_user(
   password: Devise.friendly_token[0,20]
 )
 
+attendance = developer.attendances.create!([
+  {status: "on_time", timestamp: Time.now},
+  {status: "late_excused", timestamp: Time.now-1}
+])
+
 assessment = developer.assessments.create!(
   unit_id: unit.id,
   github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
