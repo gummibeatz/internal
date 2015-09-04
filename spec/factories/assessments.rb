@@ -9,3 +9,19 @@ unit_id 1
   end
 
 end
+
+# == Schema Information
+#
+# Table name: assessments
+#
+#  id           :integer          not null, primary key
+#  max_score    :float
+#  score        :float
+#  developer_id :integer
+#  github_url   :string
+#  due_at       :datetime
+#  unit_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  type         :integer
+#
