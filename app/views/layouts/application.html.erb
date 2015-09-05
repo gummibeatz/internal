@@ -14,7 +14,14 @@
 
 <%= render "shared/header" %>
 
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+    </div>
+  </div>
+</div>
+
 <%= yield %>
 
 <%= yield :javascripts %>
