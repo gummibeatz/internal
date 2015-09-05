@@ -11,12 +11,12 @@ gem 'rails_12factor'
 
 gem 'omniauth'
 gem 'omniauth-github'
+gem "omniauth-google-oauth2"
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem "omniauth-google-oauth2"
 gem 'devise', '~> 3.5.1'
 gem 'puma'
 
