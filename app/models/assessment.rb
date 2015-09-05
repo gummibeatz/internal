@@ -11,6 +11,7 @@ class Assessment < ActiveRecord::Base
   validates :max_score, presence: true
   validates :score, presence: true
   validates :type, presence: true
+  validates :github_url, uniqueness: true
 
   def self.inheritance_column
     "inheritance_type"

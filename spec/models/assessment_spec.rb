@@ -13,6 +13,7 @@ RSpec.describe Assessment, type: :model do
     it { should validate_presence_of(:due_at) }
     it { should validate_presence_of(:max_score) }
     it { should validate_presence_of(:score) }
+    it { should validate_uniqueness_of(:github_url) }
   end
 
   describe "enum scope" do
@@ -46,7 +47,7 @@ RSpec.describe Assessment, type: :model do
     end
 
     it "should save assessments from different dates as different records" do
-      new_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 16 Aug 2015 04:00:00 GMT\"}"}
+      new_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"http://github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 16 Aug 2015 04:00:00 GMT\"}"}
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
       create(:developer)
       cohort = create(:cohort)
