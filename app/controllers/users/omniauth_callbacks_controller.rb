@@ -1,4 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_filter :authenticate_user!
+
   def google_oauth2
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -11,7 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  def github_oauth2
+  def github
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
