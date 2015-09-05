@@ -10,6 +10,7 @@ class Assessment < ActiveRecord::Base
   validates :due_at, presence: true
   validates :max_score, presence: true
   validates :score, presence: true
+  validates :type, presence: true
 
   def self.inheritance_column
     "inheritance_type"
@@ -67,3 +68,4 @@ end
 #  type         :integer
 #  comments     :text
 #
+

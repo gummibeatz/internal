@@ -1,7 +1,20 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <%= current_user.developer.display_name %>
+<head>
+  <%= javascript_include_tag :application %>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= @user.display_name %>
+        <%= image_tag(current_user.image) %>
+        <%= @user.full_name %>
+      </div>
+
+      <div id="developer_stats">
+      
+      </div>
+
     </div>
   </div>
-</div>
+</body>

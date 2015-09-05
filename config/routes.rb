@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   scope path: '/developers', module: :developers do
     get '/', to: "developers#index"
+    get '/stats', to: "developers#stats"
   end
 
   namespace :api do

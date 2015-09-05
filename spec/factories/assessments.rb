@@ -6,8 +6,8 @@ FactoryGirl.define do
     github_url "http://github.com"
     due_at Date.today
     unit_id 1
-  end
 
+  end
 end
 
 # == Schema Information
@@ -26,3 +26,4 @@ end
 #  type         :integer
 #  comments     :text
 #
+

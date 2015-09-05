@@ -8,7 +8,7 @@
 
 # admin
 
-User.create(
+user = User.create(
   email: "admin@c4q.nyc",
   name: "Admin Professional",
   image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
@@ -18,7 +18,7 @@ User.create(
 cohort = Cohort.create!( name: "access code", version: "1.0")
 unit = cohort.units.create!( start_at: 1.day.ago, end_at: 20.days.from_now)
 
-developer = cohort.developers.create(
+developer = cohort.developers.create!(
   email: "c4qdeveloper@example.com",
   github_username: "c4qdeveloper",
   first_name: "c4q",
@@ -33,10 +33,38 @@ developer_user = developer.create_user(
   password: Devise.friendly_token[0,20]
 )
 
-assessment = developer.assessments.create(
-  unit_id: unit,
+attendance = developer.attendances.create!([
+  {status: "on_time", timestamp: Time.now},
+  {status: "late_excused", timestamp: Time.now-1}
+])
+
+assessment = developer.assessments.create!([
+  {unit_id: unit.id,
   github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
   max_score: 3,
   score: 2,
-  due_at: Date.parse("20150901").to_datetime
-)
+  type: "homework",
+  due_at: Date.parse("20150901").to_datetime},
+  
+  {unit_id: unit.id,
+  github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
+  max_score: 10,
+  score: 7,
+  type: "exam",
+  due_at: Date.parse("20150901").to_datetime},
+  
+  {unit_id: unit.id,
+  github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
+  max_score: 4,
+  score: 4,
+  type: "homework",
+  due_at: Date.parse("20150901").to_datetime},
+  
+  {unit_id: unit.id,
+  github_url: "http://github.com/accesscode-2-2/unit-1-assessment",
+  max_score: 5,
+  score: 4,
+  type: "project",
+  due_at: Date.parse("20150901").to_datetime},
+
+])

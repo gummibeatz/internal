@@ -12,6 +12,8 @@ class Attendance < ActiveRecord::Base
   belongs_to :developer
 
   validate :one_per_day_per_developer, on: :create
+  
+  validates :status, presence: true
 
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
