@@ -31,12 +31,10 @@ class Assessment < ActiveRecord::Base
     developer = Developer.where(full_name: json["name"].downcase).first
     date = Date.parse(json["due_at"]).to_datetime.midnight
     unit = Cohort.first.units.select { |u| u.contains_date?(date) }.first
-    if assessment = Assessment.where("developer_id = ? AND unit_id = ?", developer.id, unit.id).first
+    if assessment = Assessment.where("developer_id = ? and unit_id = ? and due_at = ?", developer.id, unit.id, date).first
       assessment.update_attributes(score: json["score"])
       return true
     else
-      puts "*" * 80
-      puts "*" * 80
       developer.assessments.create(
         unit_id: unit.id,
         due_at: date,

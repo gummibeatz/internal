@@ -45,6 +45,19 @@ RSpec.describe Assessment, type: :model do
       expect(Assessment.last.score == 1).to be_truthy
     end
 
+    it "should save assessments from different dates as different records" do
+      new_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 16 Aug 2015 04:00:00 GMT\"}"}
+      date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
+      create(:developer)
+      cohort = create(:cohort)
+      unit = create(:unit, start_at: date.yesterday, end_at: date.tomorrow)
+      cohort.units << unit
+      expect {
+        Assessment.create_from_google_form(assessment)
+        Assessment.create_from_google_form(new_assessment)
+      }.to change(Assessment, :count).by(2)
+    end
+
     it "should not create duplicate records for the same assessment" do
       updated_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"}
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
