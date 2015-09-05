@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Assessment, type: :model do
-<<<<<<< HEAD
 
   describe "associations" do
     it { should belong_to(:developer) }
@@ -78,7 +77,3 @@ end
 #  type         :integer
 #  comments     :text
 #
-=======
-  pending "add some examples to (or delete) #{__FILE__}"
-end
->>>>>>> assessment table
