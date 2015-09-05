@@ -13,7 +13,6 @@ RSpec.describe Assessment, type: :model do
     it { should validate_presence_of(:due_at) }
     it { should validate_presence_of(:max_score) }
     it { should validate_presence_of(:score) }
-    it { should validate_uniqueness_of(:github_url) }
   end
 
   describe "enum scope" do
