@@ -21,7 +21,7 @@ developer = cohort.developers.create!(
 developer_user = developer.create_user(
   email: developer.email,
   name: developer.full_name,
-  image: "http://suzannestutzman.com/wordpress1/wp-content/uploads/2015/01/R-bike-iguana1.jpg",
+  image: "https://avatars3.githubusercontent.com/u/8087061?v=3&s=96",
   password: Devise.friendly_token[0,20]
 )
 

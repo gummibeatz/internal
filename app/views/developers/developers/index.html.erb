@@ -5,16 +5,24 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <%= image_tag(current_user.image, width: 200) %>
+      <%= image_tag(current_user.image, width: 100, style: "display:block;") %>
       <%= @user.display_name %>
     </div>
 
     <div id="developer_stats" class="col-sm-12">
       <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Attendance</h3>
+        </div>
         <div id="assessments" class="panel-body">
         </div>
       </div>
-      <div id="attendances" class="panel panel-default">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Assessments</h3>
+        </div>
+        <div id="attendances" class="panel-body">
+        </div>
       </div>
     </div>
 
