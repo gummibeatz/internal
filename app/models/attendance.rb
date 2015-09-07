@@ -1,6 +1,6 @@
 class Attendance < ActiveRecord::Base
 
-  enum status: [:on_time, :late_excused, :late_unexcused_5_minues, :late_unexcused_10_minutes, :absent_excused, :absent_unexcused]
+  enum status: [:on_time, :late_excused, :late_unexcused_5_minutes, :late_unexcused_10_minutes, :absent_excused, :absent_unexcused]
 
   scope :in_range, -> (range) { where("timestamp >= ? AND timestamp <= ?", range.begin, range.end) }
   scope :present, -> { where("status != 4 and status != 5") }
@@ -12,16 +12,12 @@ class Attendance < ActiveRecord::Base
   belongs_to :developer
 
   validate :one_per_day_per_developer, on: :create
-  
+
   validates :status, presence: true
 
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
     return -1
-  end
-
-  def self.stats
-    self.group(:status).select("count(*) as stat_count, status").map { |r| {status: r.status, count: r.stat_count} }
   end
 
   def self.percentage_late
