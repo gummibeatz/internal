@@ -25,6 +25,9 @@ class Assessment < ActiveRecord::Base
     end
   end
 
+  def self.stats
+  end
+
   private
 
   def self.update_or_create(json)
