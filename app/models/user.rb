@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     user = User.where(email: data["email"]).first
 
     unless user
-      user = User.create(name: data["name"],
+      user = User.create(name: data["username"],
          email: data["email"],
          image: data["image"],
          password: Devise.friendly_token[0,20]

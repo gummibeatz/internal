@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def github
     if @user = User.from_omniauth(request.env["omniauth.auth"])
 
-      if @user.persisted?
+      if @user && @user.persisted?
         sign_in_and_redirect @user, :event => :authentication
       else
         flash[:error] = @user.errors.full_messages
