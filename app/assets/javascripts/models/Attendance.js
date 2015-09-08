@@ -5,6 +5,10 @@ var Attendance = Backbone.Model.extend({
     this.timestamp = opts.timestamp;
   },
 
+  klasses: function() {
+    return "";
+  },
+
   isAbsentExcused: function() {
     return this.get('status') == "absent_excused";
   },

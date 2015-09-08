@@ -34,12 +34,14 @@
 
 <div id="assessments-template" class="template">
   {{#assessments}}
-    <p>score: {{score}} out of {{max_score}}</p>
+    <p class="{{klasses}}">{{score}} out of {{max_score}}</p>
   {{/assessments}}
 </div>
 
 <div id="attendances-template" class="template">
   {{#attendances}}
-    <p>{{status}}</p>
+    <p class="{{klasses}}">{{status}}</p>
   {{/attendances}}
 </div>
+
+<!-- /templates -->

@@ -21,7 +21,7 @@ developer = cohort.developers.create!(
 developer_user = developer.create_user(
   email: developer.email,
   name: developer.full_name,
-  image: "https://avatars3.githubusercontent.com/u/8087061?v=3&s=96",
+  image: "https://help.github.com/assets/images/help/profile/identicon.png",
   password: Devise.friendly_token[0,20]
 )
 
@@ -54,6 +54,13 @@ assessment = developer.assessments.create!([
   type: "homework",
   due_at: 24.days.ago.to_datetime},
 
+  {unit_id: unit_2.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 0,
+  type: "homework",
+  due_at: 20.days.ago},
+
   {unit_id: unit.id,
   github_url: "http://github.com",
   max_score: 10,
@@ -63,10 +70,17 @@ assessment = developer.assessments.create!([
 
   {unit_id: unit_2.id,
   github_url: "http://github.com",
-  max_score: 4,
-  score: 4,
+  max_score: 3,
+  score: 3,
   type: "homework",
   due_at: 10.days.ago},
+
+  {unit_id: unit_2.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 1,
+  type: "homework",
+  due_at: 6.days.ago},
 
   {unit_id: unit_2.id,
   github_url: "http://github.com",

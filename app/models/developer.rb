@@ -11,7 +11,6 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   has_many :assessments
 
-
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true

@@ -1,4 +1,8 @@
+//= require models/Attendance
+
 var AttendancesCollection = APICollection.extend({
+  model: Attendance,
+
   url: function() {
     return this.APIURLRoot + "/attendances"
   },
