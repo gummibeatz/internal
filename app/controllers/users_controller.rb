@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
 
   def github
+    byebug
     if @user = User.from_omniauth(request.env["omniauth.auth"])
 
       if @user && @user.persisted?
