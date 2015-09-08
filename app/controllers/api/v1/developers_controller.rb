@@ -3,7 +3,7 @@ module Api
     class DevelopersController < Api::V1::ApiController
 
        def show
-         render json: developer.to_json
+         @developer = current_user.developer
        end
 
        private

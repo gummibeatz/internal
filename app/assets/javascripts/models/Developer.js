@@ -1,8 +1,8 @@
 var Developer = APIModel.extend({
   url: function() {
-    return this.APIURLRoot + "/developer"
+    return this.APIURLRoot + "/developers.json"
   },
-   attendances: new AttendancesCollection(),
-   assessments: new AssessmentsCollection()
+  attendances: new AttendancesCollection(),
+  assessments: new AssessmentsCollection()
 });
 

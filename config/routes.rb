@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       post '/assessments/create', to: 'assessments#create'
       get '/assessments/', to: 'assessments#index'
 
+      get '/developers', to: 'developers#show'
+
       get '/exit_tickets/report', to: 'exit_tickets#report'
       post '/exit_tickets/create', to: 'exit_tickets#create'
       post '/exit_tickets/import', to: 'exit_tickets#import'
