@@ -26,9 +26,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  private
-
-  def from_oauth
-  end
-
 end
