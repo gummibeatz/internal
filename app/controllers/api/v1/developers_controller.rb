@@ -3,7 +3,15 @@ module Api
     class DevelopersController < Api::V1::ApiController
 
        def show
-         @developer = current_user.developer
+         # includes all the table values for units, developers and users who are developers  
+         cohort = Cohort.includes(:units,developers:[:user]).where('developer_id = ?', current_user.developer.id).references(:user).first 
+         render json: {
+           developer: current_user.developer.as_json,
+           cohort: {
+             cohort: cohort.as_json,
+             units: cohort.units.map(&:as_json)
+           }
+         }
        end
 
        private
