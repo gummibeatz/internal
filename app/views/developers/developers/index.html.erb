@@ -26,11 +26,12 @@
               </tr>
             </thead>
             <tbody>
-              <% @user.assignments.are_active.each do |assignment| %>
+              <% @user.assessments.active_assignments.each do |assessment| %>
                 <tr>
-                  <th><%= assignment.id %></th>
-                  <th><%= assignment.id %></th>
-                  <th><%= assignment.id %></th>
+                  <th><%= assessment.id %></th>
+                  <th><%= assessment.max_score %></th>
+                  <th><%= assessment.pretty_due_date %></th>
+                  <th><%= assessment.github_url %></th>
                 </tr>
               <% end %> 
             </tbody>
@@ -86,7 +87,7 @@
     <strong>score: </strong><span class="{{klasses}}">{{score}} out of {{max_score}}</span> <br>
     <strong>github url: </strong> <a href="{{github_url}}">{{github_url}}</a><br>
     <strong>due date: </strong> {{due_at}} </a><br>
-    </p>
+  </p>
   {{/assessments}}
 </div>
 

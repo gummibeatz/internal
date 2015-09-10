@@ -32,6 +32,7 @@ class Developer < ActiveRecord::Base
                                     due_at: assignment.due_at,
                                     max_score: assignment.max_score,
                                     score: 0,
+                                    github_url: assignment.github_url,
                                     type: assignment.type)
   end
 

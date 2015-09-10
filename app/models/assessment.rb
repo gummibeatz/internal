@@ -31,6 +31,11 @@ class Assessment < ActiveRecord::Base
   def self.stats
   end
 
+  def pretty_due_date
+    date = due_at
+    date.strftime("%B %d, %Y")
+  end
+
   private
 
   def self.update_or_create(json)
