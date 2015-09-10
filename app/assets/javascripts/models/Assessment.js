@@ -14,6 +14,7 @@ var Assessment = Backbone.Model.extend({
           return "success text-success";
           break;
         case 3:
+          return "success text-success";
           break;
         default:
           return ""

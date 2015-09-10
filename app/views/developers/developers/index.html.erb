@@ -34,14 +34,15 @@
 
 <div id="assessments-template" class="template">
   {{#assessments}}
-    <p class="{{klasses}}">{{score}} out of {{max_score}}</p>
+  <p>
+    <strong>score: </strong><span class="{{klasses}}">{{score}} out of {{max_score}}</span> <br>
+    <strong>github url: </strong> <a href="{{github_url}}">{{github_url}}</a><br>
+    <strong>due date: </strong> {{due_at}} </a><br>
+    </p>
   {{/assessments}}
 </div>
 
 <div id="attendances-template" class="template">
-  {{#attendances}}
-    <p class="{{klasses}}">{{status}}</p>
-  {{/attendances}}
 </div>
 
 <!-- /templates -->
