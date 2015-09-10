@@ -20,13 +20,19 @@
             <thead>
               <tr>
                 <th>Assignment</th>
-                <th>Score</th>
                 <th>Max score</th>
                 <th>Due Date</th>
                 <th>Github Url</th>
               </tr>
             </thead>
             <tbody>
+              <% @user.assignments.are_active.each do |assignment| %>
+                <tr>
+                  <th><%= assignment.id %></th>
+                  <th><%= assignment.id %></th>
+                  <th><%= assignment.id %></th>
+                </tr>
+              <% end %> 
             </tbody>
           </table>
           

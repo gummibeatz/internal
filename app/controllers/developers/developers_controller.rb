@@ -17,6 +17,7 @@ module Developers
         assessments: current_user.developer.assessments.as_json
       }
       @user = current_user.developer
+      
     end
 
   end

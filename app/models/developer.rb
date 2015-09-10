@@ -9,9 +9,7 @@ class Developer < ActiveRecord::Base
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances
-  has_many :assessments
-  has_many :assignments, :through => :assessments
-   
+  has_many :assessments   
 
   belongs_to :cohort
 

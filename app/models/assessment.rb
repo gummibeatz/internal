@@ -2,6 +2,8 @@ class Assessment < ActiveRecord::Base
 
   enum type: ["homework", "exam", "project"]
 
+  scope :active_assignments, -> { includes(:assignment).where('assignments.active' => 'true').references(:assignment) }  
+
   belongs_to :unit
   belongs_to :developer
   belongs_to :assignment
