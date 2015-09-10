@@ -34,14 +34,27 @@ ActiveRecord::Schema.define(version: 20150908234626) do
     t.string   "github_url"
     t.datetime "due_at"
     t.integer  "unit_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "type"
     t.text     "comments"
+    t.integer  "assignment_id"
   end
 
+  add_index "assessments", ["assignment_id"], name: "index_assessments_on_assignment_id", using: :btree
   add_index "assessments", ["developer_id"], name: "index_assessments_on_developer_id", using: :btree
   add_index "assessments", ["unit_id"], name: "index_assessments_on_unit_id", using: :btree
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "max_score"
+    t.integer  "type"
+    t.integer  "unit_id"
+    t.string   "github_url"
+    t.datetime "due_at"
+    t.boolean  "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "status",       default: 0

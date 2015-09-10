@@ -10,7 +10,41 @@
     </div>
 
     <div id="developer_stats" class="col-sm-12">
+
       <div class="panel panel-default">
+        <div class = "panel-heading">
+          <h3 class="panel-title">Immediate Action</h3>
+        </div>
+        <div id ="immediate-action" class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>Score</th>
+                <th>Max score</th>
+                <th>Due Date</th>
+                <th>Github Url</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          
+          <p>
+          Late <%= @user.late_attendances.count%> / 2
+          <% @user.late_attendances.each do |late| -%>
+            <p>
+            <%= late.pretty_date %>
+            </p>
+          <% end -%>
+          </br>
+          Absent <%= @user.attendances.absent.count%> / 2
+          </p>
+        </div>
+      </div>
+
+
+      <div class="panel panel-default">       
         <div class="panel-heading">
           <h3 class="panel-title">Assessments</h3>
         </div>
@@ -22,7 +56,9 @@
         <div class="panel-heading">
           <h3 class="panel-title">Attendance</h3>
         </div>
-        <div id="attendances" class="panel-body">
+        <div id="units" class ="panel=body">
+          <div id="attendances" class="panel-body">
+          </div>
         </div>
       </div>
     </div>
@@ -31,6 +67,12 @@
 </div>
 
 <!-- templates -->
+
+<div id="units-template" class="template">
+  {{#units}}
+    <p class="{{klasses}}">unit {{unit}}</p>
+  {{/units}}
+</div>
 
 <div id="assessments-template" class="template">
   {{#assessments}}

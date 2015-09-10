@@ -4,6 +4,7 @@ class Assessment < ActiveRecord::Base
 
   belongs_to :unit
   belongs_to :developer
+  belongs_to :assignment
 
   validates :developer_id, presence: true
   validates :unit_id, presence: true
