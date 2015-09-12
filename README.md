@@ -1,7 +1,6 @@
-clone the repo: `git clone repo name`  
+`git clone https://github.com/C4Q/internal.git`  
 `bundle`  
-`bundle exec rake db:drop db:create db:migrate`  
-`bundle exec rake db:seed`  
+`rake db:setup`
 
 *test github account*  
 **username:** c4qdeveloper  
