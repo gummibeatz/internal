@@ -2,6 +2,7 @@ class Cohort < ActiveRecord::Base
 
   has_many :developers, -> { order(first_name: :asc) }
   has_many :units, -> { order(start_at: :asc) }
+  has_many :assignments
 
   validates :version, uniqueness: true
 
@@ -16,6 +17,10 @@ class Cohort < ActiveRecord::Base
 
   def current_unit
     units.select { |unit| unit.contains_date?(Date.today) }.first
+  end
+
+  def active_assignments
+    assignments.active
   end
 end
 

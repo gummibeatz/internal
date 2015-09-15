@@ -94,28 +94,28 @@ assessment = developer.assessments.create!([
 # creates an assignment then adds it to users through a
 # default assessment
 assignments = Assignment.create!([
-  {unit_id: 1,
+  {cohort_id: cohort.id,
   due_at: 3.days.from_now,
   max_score: 9,
   github_url: "http://github.com",
   type: "project",
   active: true},
 
-  {unit_id: 1,
+  {cohort_id: cohort.id,
   due_at: 10.days.from_now,
   max_score: 16,
   github_url: "http://github.com",
   type: "exam",
   active: false},
 
-  {unit_id: 2,
+  {cohort_id: cohort.id,
   due_at: 9.days.from_now,
   max_score: 5,
   github_url: "http://github.com",
   type: "homework",
   active: true},
 
-  {unit_id: 3,
+  {cohort_id: cohort.id,
   due_at: 5.days.from_now,
   max_score: 5,
   github_url: "http://github.com",

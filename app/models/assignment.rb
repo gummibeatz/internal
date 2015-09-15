@@ -2,11 +2,10 @@ class Assignment < ActiveRecord::Base
 
   enum type: ["homework", "exam", "project"]
 
-  scope :are_active, -> { where(active: true) }
+  scope :active, -> { where(active: true) }
 
   has_many :assessments
-  
-  validates :unit_id, presence: true
+
   validates :due_at, presence: true
   validates :max_score, presence: true
   validates :type, presence: true

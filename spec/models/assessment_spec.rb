@@ -4,12 +4,12 @@ RSpec.describe Assessment, type: :model do
 
   describe "associations" do
     it { should belong_to(:developer) }
-    it { should belong_to(:unit) }
+    it { should belong_to(:assignment) }
   end
 
   describe "validations" do
     it { should validate_presence_of(:developer_id) }
-    it { should validate_presence_of(:unit_id) }
+    it { should validate_presence_of(:assignment_id) }
     it { should validate_presence_of(:due_at) }
     it { should validate_presence_of(:max_score) }
     it { should validate_presence_of(:score) }
@@ -20,38 +20,40 @@ RSpec.describe Assessment, type: :model do
   end
 
   describe "methods" do
-    let(:assessment) { {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"2\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"} }
+    let(:assessment) { {"assessment"=>"{\"type\":\"0\",\"github_url\":\"github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"2\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"} }
 
     it "should save with valid json" do
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
       expect {
-        create(:developer)
+        developer = create(:developer)
         cohort = create(:cohort)
-        unit = create(:unit, start_at: date.yesterday, end_at: date.tomorrow)
-        cohort.units << unit
+        assignment = create(:assignment, github_url: "github.com")
+        cohort.assignments << assignment
         Assessment.create_from_google_form(assessment)
       }.to change(Assessment, :count).by(1)
     end
 
     it "should update an existing record if the developer and the due date are the same" do
-      updated_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"}
+      updated_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"}
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
-      create(:developer)
+      developer = create(:developer)
       cohort = create(:cohort)
-      unit = create(:unit, start_at: date.yesterday, end_at: date.tomorrow)
-      cohort.units << unit
+      assignment = create(:assignment, github_url: "github.com")
+      cohort.assignments << assignment
       Assessment.create_from_google_form(assessment)
       Assessment.create_from_google_form(updated_assessment)
       expect(Assessment.last.score == 1).to be_truthy
     end
 
-    it "should save assessments from different dates as different records" do
+    it "should save assessments from different assignments as different records" do
       new_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"http://github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 16 Aug 2015 04:00:00 GMT\"}"}
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
-      create(:developer)
+      developer = create(:developer)
       cohort = create(:cohort)
-      unit = create(:unit, start_at: date.yesterday, end_at: date.tomorrow)
-      cohort.units << unit
+      assignment = create(:assignment, github_url: "github.com")
+      assignment2 = create(:assignment, github_url: "http://github.com")
+      cohort.assignments << assignment
+      cohort.assignments << assignment2
       expect {
         Assessment.create_from_google_form(assessment)
         Assessment.create_from_google_form(new_assessment)
@@ -59,7 +61,7 @@ RSpec.describe Assessment, type: :model do
     end
 
     it "should not create duplicate records for the same assessment" do
-      updated_assessment = {"assessment"=>"{\"type\":\"0\",\"github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"}
+      updated_assessment = {"assessment"=>"{\"type\":\"0\",\"http://github_url\":\"\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"1\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"}
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
       create(:developer)
       cohort = create(:cohort)
