@@ -4,3 +4,4 @@
 //= require_tree ./libraries
 //= require_tree ./collections
 //= require_tree ./models
+////= require bootstrap-sprockets
