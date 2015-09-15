@@ -37,8 +37,8 @@
             </tbody>
           </table>
 
-          <h5>Late: <%= @developer.late_attendances.count%> / 2</h5>
-          <% @developer.late_attendances.each do |late| -%>
+          <h5>Late: <%= @developer.attendances.late.count%> / 2</h5>
+          <% @developer.attendances.late.each do |late| -%>
             <p>
             <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= late.pretty_date %>
             </p>
@@ -47,7 +47,6 @@
           <h5>Absent: <%= @developer.attendances.absent.count%> / 2</h5>
         </div>
       </div>
-
 
       <div class="panel panel-default">
         <div class="panel-heading">

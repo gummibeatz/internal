@@ -9,7 +9,7 @@ class Developer < ActiveRecord::Base
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances
-  has_many :assessments   
+  has_many :assessments
 
   belongs_to :cohort
 
@@ -23,10 +23,6 @@ class Developer < ActiveRecord::Base
     full_name.split(" ").map(&:capitalize).join(" ")
   end
 
-  def late_attendances
-    attendances.late
-  end
-  
   def create_assessment_with_assignment(assignment)
     assessment = assignment.assessments.create( developer_id: self.id,
                                     unit_id: assignment.unit_id,
