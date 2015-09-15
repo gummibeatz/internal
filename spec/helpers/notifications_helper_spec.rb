@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe NotificationsHelper do
+RSpec.describe NotificationsHelper do
   let(:user) { User.create(email: "test@example.com"); User.first }
 
   it "returns the company name for use in notifications" do

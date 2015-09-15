@@ -1,8 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-
-
-describe NotificationsController do
+RSpec.describe NotificationsController do
 
   let(:user) { User.create(email: "test@example.com"); User.first }
   let(:notification) { build(:notification, token: "TOKEN", user: user) }

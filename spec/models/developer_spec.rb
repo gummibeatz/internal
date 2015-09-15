@@ -40,6 +40,19 @@ RSpec.describe Developer, type: :model do
     expect(developer.display_name == "Test Developer").to be_truthy
  end
 
+  fit "should send email when not meeting reqs" do
+    expect{
+      now = Date.today
+      developer = create(:developer)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
+      developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1)
+    }.to change(Notification, :count).by(1)
+  end
+
+  fit "should send email when in danger of not meeting reqs" do
+
+  end
+
 end
 
 # == Schema Information

@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Notification do
+RSpec.describe Notification do
 
   let(:notification) { build(:notification) }
 
@@ -79,41 +79,41 @@ describe Notification do
 
   it "should count the clicks" do
     expect {
-      notification.click.should == true
+      notification.click == true
     }.to change(notification, :click_count)
   end
 
   it "should not be clickable if cancelled" do
     notification.cancelled_at = Time.now
-    notification.click.should == false
+    notification.click = false
     notification.clicked_at.should be_nil
   end
 
   it "should be readable" do
-    notification.read.should == true
+    notification.read = true
     notification.read_at.should_not be_nil
   end
 
   it "should count the reads" do
     expect {
-      notification.read.should == true
+      notification.read = true
     }.to change(notification, :read_count)
   end
 
   it "should not be readable if cancelled" do
     notification.cancelled_at = Time.now
-    notification.read.should == false
+    notification.read = false
     notification.read_at.should be_nil
   end
 
   it "should be ignorable" do
-    notification.ignore.should == true
+    notification.ignore == true
     notification.ignored_at.should_not be_nil
   end
 
   it "should not be ignorable if cancelled" do
     notification.cancelled_at = Time.now
-    notification.ignore.should == false
+    notification.ignore = false
     notification.ignored_at.should be_nil
   end
 

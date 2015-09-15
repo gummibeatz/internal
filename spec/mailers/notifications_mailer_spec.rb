@@ -1,6 +1,6 @@
-require "spec_helper"
+require "rails_helper"
 
-describe NotificationsMailer do
+RSpec.describe NotificationsMailer do
   describe "notify" do
     let(:notification) { create(:notification) }
     let(:mail) { NotificationsMailer.notify(notification.id) }
