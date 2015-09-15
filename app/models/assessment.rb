@@ -2,8 +2,11 @@ class Assessment < ActiveRecord::Base
 
   enum type: ["homework", "exam", "project"]
 
+  scope :active_assignments, -> { includes(:assignment).where('assignments.active' => 'true').references(:assignment) }  
+
   belongs_to :unit
   belongs_to :developer
+  belongs_to :assignment
 
   validates :developer_id, presence: true
   validates :unit_id, presence: true
@@ -26,6 +29,11 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.stats
+  end
+
+  def pretty_due_date
+    date = due_at
+    date.strftime("%B %d, %Y")
   end
 
   private

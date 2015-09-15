@@ -16,6 +16,8 @@ module Developers
         attendances: current_user.developer.attendances.as_json,
         assessments: current_user.developer.assessments.as_json
       }
+      @user = current_user.developer
+      
     end
 
   end

@@ -8,12 +8,17 @@ class Attendance < ActiveRecord::Base
   scope :late,    -> { where("status = 1 or status = 2 or status = 3") }
   scope :on_time, -> { where ("status = 0") }
   scope :late_unexcused, -> { where ("status = 2 or status = 3") }
-
+  
   belongs_to :developer
 
   validate :one_per_day_per_developer, on: :create
 
-  validates :status, presence: true
+  validates :status, presence: true 
+
+  def pretty_date
+    date = timestamp
+    date.strftime("%B %d, %Y")
+  end
 
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0

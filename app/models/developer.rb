@@ -9,7 +9,7 @@ class Developer < ActiveRecord::Base
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances
-  has_many :assessments
+  has_many :assessments   
 
   belongs_to :cohort
 
@@ -20,6 +20,25 @@ class Developer < ActiveRecord::Base
 
   def display_name
     full_name.split(" ").map(&:capitalize).join(" ")
+  end
+
+  def late_attendances
+    attendances.late
+  end
+  
+  def create_assessment_with_assignment(assignment)
+    assessment = assignment.assessments.create( developer_id: self.id,
+                                    unit_id: assignment.unit_id,
+                                    due_at: assignment.due_at,
+                                    max_score: assignment.max_score,
+                                    score: 0,
+                                    github_url: assignment.github_url,
+                                    type: assignment.type)
+  end
+
+  # figure out how to scope this
+  def current_assignments
+    assessments.include(:assignments).where('assignments.active = ?', 'true').references(:assignments)
   end
 
 end

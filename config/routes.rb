@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get '/developer', to: 'developers#show'
+
       get '/attendances', to: 'attendances#index'
       post '/attendances/create', to: 'attendances#create'
       post '/attendances/import', to: 'attendances#import_all'

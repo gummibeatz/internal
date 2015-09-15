@@ -10,7 +10,46 @@
     </div>
 
     <div id="developer_stats" class="col-sm-12">
+
       <div class="panel panel-default">
+        <div class = "panel-heading">
+          <h3 class="panel-title">Immediate Action</h3>
+        </div>
+        <div id ="immediate-action" class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>Max score</th>
+                <th>Due Date</th>
+                <th>Github Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.assessments.active_assignments.each do |assessment| %>
+                <tr>
+                  <th><%= assessment.id %></th>
+                  <th><%= assessment.max_score %></th>
+                  <th><%= assessment.pretty_due_date %></th>
+                  <th><%= assessment.github_url %></th>
+                </tr>
+              <% end %> 
+            </tbody>
+          </table>
+          
+          <h5>Late: <%= @user.late_attendances.count%> / 2</h5>
+          <% @user.late_attendances.each do |late| -%>
+            <p>
+            <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= late.pretty_date %>
+            </p>
+          <% end -%>
+          </br>
+          <h5>Absent: <%= @user.attendances.absent.count%> / 2</h5>
+        </div>
+      </div>
+
+
+      <div class="panel panel-default">       
         <div class="panel-heading">
           <h3 class="panel-title">Assessments</h3>
         </div>
@@ -22,7 +61,9 @@
         <div class="panel-heading">
           <h3 class="panel-title">Attendance</h3>
         </div>
-        <div id="attendances" class="panel-body">
+        <div id="units" class ="panel=body">
+          <div id="attendances" class="panel-body">
+          </div>
         </div>
       </div>
     </div>
@@ -32,13 +73,19 @@
 
 <!-- templates -->
 
+<div id="units-template" class="template">
+  {{#units}}
+    <p class="{{klasses}}">unit {{unit}}</p>
+  {{/units}}
+</div>
+
 <div id="assessments-template" class="template">
   {{#assessments}}
   <p>
     <strong>score: </strong><span class="{{klasses}}">{{score}} out of {{max_score}}</span> <br>
     <strong>github url: </strong> <a href="{{github_url}}">{{github_url}}</a><br>
     <strong>due date: </strong> {{due_at}} </a><br>
-    </p>
+  </p>
   {{/assessments}}
 </div>
 
