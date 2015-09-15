@@ -23,16 +23,6 @@ class Developer < ActiveRecord::Base
     full_name.split(" ").map(&:capitalize).join(" ")
   end
 
-  def create_assessment_with_assignment(assignment)
-    assessment = assignment.assessments.create( developer_id: self.id,
-                                    unit_id: assignment.unit_id,
-                                    due_at: assignment.due_at,
-                                    max_score: assignment.max_score,
-                                    score: 0,
-                                    github_url: assignment.github_url,
-                                    type: assignment.type)
-  end
-
   # figure out how to scope this
   def current_assignments
     assessments.include(:assignments).where('assignments.active = ?', 'true').references(:assignments)

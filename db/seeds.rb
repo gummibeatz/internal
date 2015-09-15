@@ -46,51 +46,6 @@ attendance = developer.attendances.create!([
   {status: "on_time", timestamp: 30.days.ago},
 ])
 
-assessment = developer.assessments.create!([
-  {unit_id: unit.id,
-  github_url: "http://github.com",
-  max_score: 3,
-  score: 2,
-  type: "homework",
-  due_at: 24.days.ago.to_datetime},
-
-  {unit_id: unit_2.id,
-  github_url: "http://github.com",
-  max_score: 3,
-  score: 0,
-  type: "homework",
-  due_at: 20.days.ago},
-
-  {unit_id: unit.id,
-  github_url: "http://github.com",
-  max_score: 10,
-  score: 7,
-  type: "exam",
-  due_at: 18.days.ago},
-
-  {unit_id: unit_2.id,
-  github_url: "http://github.com",
-  max_score: 3,
-  score: 3,
-  type: "homework",
-  due_at: 10.days.ago},
-
-  {unit_id: unit_2.id,
-  github_url: "http://github.com",
-  max_score: 3,
-  score: 1,
-  type: "homework",
-  due_at: 6.days.ago},
-
-  {unit_id: unit_2.id,
-  github_url: "http://github.com",
-  max_score: 5,
-  score: 4,
-  type: "homework",
-  due_at: 3.days.from_now},
-
-])
-
 # creates an assignment then adds it to users through a
 # default assessment
 assignments = Assignment.create!([
@@ -113,7 +68,7 @@ assignments = Assignment.create!([
   max_score: 5,
   github_url: "http://github.com",
   type: "homework",
-  active: true},
+  active: false},
 
   {cohort_id: cohort.id,
   due_at: 5.days.from_now,
@@ -123,6 +78,48 @@ assignments = Assignment.create!([
   active: true},
 ])
 
-assignments.each do |assignment|
-  developer.create_assessment_with_assignment(assignment)
-end
+assessment = developer.assessments.create!([
+  {assignment_id: Assignment.first.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 2,
+  type: "homework",
+  due_at: 24.days.ago.to_datetime},
+
+  {assignment_id: Assignment.first.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 0,
+  type: "homework",
+  due_at: 20.days.ago},
+
+  {assignment_id: Assignment.first(2).last.id,
+  github_url: "http://github.com",
+  max_score: 10,
+  score: 7,
+  type: "exam",
+  due_at: 18.days.ago},
+
+  {assignment_id: Assignment.last.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 3,
+  type: "homework",
+  due_at: 10.days.ago},
+
+  {assignment_id: Assignment.last.id,
+  github_url: "http://github.com",
+  max_score: 3,
+  score: 1,
+  type: "homework",
+  due_at: 6.days.ago},
+
+  {assignment_id: Assignment.first(3).last.id,
+  github_url: "http://github.com",
+  max_score: 5,
+  score: 4,
+  type: "homework",
+  due_at: 3.days.from_now},
+
+])
+

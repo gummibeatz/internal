@@ -26,12 +26,12 @@
               </tr>
             </thead>
             <tbody>
-              <% @developer.assessments.active_assignments.each do |assessment| %>
+              <% @developer.cohort.active_assignments.each do |assignment| %>
                 <tr>
-                  <th><%= assessment.id %></th>
-                  <th><%= assessment.max_score %></th>
-                  <th><%= assessment.pretty_due_date %></th>
-                  <th><%= assessment.github_url %></th>
+                  <th><%= assignment.id %></th>
+                  <th><%= assignment.max_score %></th>
+                  <th><%= pretty_date(assignment.due_at) %></th>
+                  <th><%= link_to assignment.github_url, assignment.github_url, target: "_blank" %></th>
                 </tr>
               <% end %>
             </tbody>
