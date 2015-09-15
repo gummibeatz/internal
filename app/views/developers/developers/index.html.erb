@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-sm-12">
       <%= image_tag(current_user.image, width: 100, style: "display:block;") %>
-      <%= @user.display_name %>
+      <%= @developer.display_name %>
     </div>
 
     <div id="developer_stats" class="col-sm-12">
@@ -26,30 +26,30 @@
               </tr>
             </thead>
             <tbody>
-              <% @user.assessments.active_assignments.each do |assessment| %>
+              <% @developer.assessments.active_assignments.each do |assessment| %>
                 <tr>
                   <th><%= assessment.id %></th>
                   <th><%= assessment.max_score %></th>
                   <th><%= assessment.pretty_due_date %></th>
                   <th><%= assessment.github_url %></th>
                 </tr>
-              <% end %> 
+              <% end %>
             </tbody>
           </table>
-          
-          <h5>Late: <%= @user.late_attendances.count%> / 2</h5>
-          <% @user.late_attendances.each do |late| -%>
+
+          <h5>Late: <%= @developer.late_attendances.count%> / 2</h5>
+          <% @developer.late_attendances.each do |late| -%>
             <p>
             <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= late.pretty_date %>
             </p>
           <% end -%>
           </br>
-          <h5>Absent: <%= @user.attendances.absent.count%> / 2</h5>
+          <h5>Absent: <%= @developer.attendances.absent.count%> / 2</h5>
         </div>
       </div>
 
 
-      <div class="panel panel-default">       
+      <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Assessments</h3>
         </div>
