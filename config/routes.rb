@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get   '/notifications/:token/unsubscribe', to: 'notifications#unsubscribe', as: :notification_unsubscribe
+  get   '/notifications/:token/cancel', to: 'notifications#cancel', as: :notification_cancel
+  get   '/notifications/:token/ignore', to: 'notifications#ignore', as: :notification_ignore
+  get   '/notifications/:token/read', to: 'notifications#read', as: :notification_read
+  get   '/notifications/:token/view', to: 'notifications#view', as: :notification_view
+  get   '/notifications/:token', to: 'notifications#click', as: :notification_click
+  get   '/notifications/recent', to: 'notifications#recent', as: :notifications_recent
   root 'welcome#index'
 
   devise_for :users,

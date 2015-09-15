@@ -30,6 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'notifykit'
 end
 
 group :test do
@@ -38,3 +39,6 @@ group :test do
   gem 'terminal-notifier-guard', '~> 1.6.1'
 end
 
+
+group :test, :development do
+end
