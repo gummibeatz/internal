@@ -22,7 +22,6 @@ gem 'puma'
 
 group :development, :test do
   gem 'byebug'
-  gem 'dotenv-rails'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'annotate'
