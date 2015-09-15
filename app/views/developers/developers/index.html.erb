@@ -37,14 +37,14 @@
             </tbody>
           </table>
 
-          <h5>Late: <%= @developer.attendances.late.count%> / 2</h5>
-          <% @developer.attendances.late.each do |late| -%>
+          <h5>Late: <%= @unit_attendances.late.count%> / 2</h5>
+          <% @unit_attendances.late.each do |late| -%>
             <p>
             <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= late.pretty_date %>
             </p>
           <% end -%>
           </br>
-          <h5>Absent: <%= @developer.attendances.absent.count%> / 2</h5>
+          <h5>Absent: <%= @unit_attendances.absent.count%> / 2</h5>
         </div>
       </div>
 

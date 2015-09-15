@@ -13,6 +13,10 @@ class Cohort < ActiveRecord::Base
       end
     end
   end
+
+  def current_unit
+    units.select { |unit| unit.contains_date?(Date.today) }.first
+  end
 end
 
 # == Schema Information

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe WelcomeController, type: :controller do
 
   before(:each) do
     OmniAuth.config.mock_auth[:github] = nil

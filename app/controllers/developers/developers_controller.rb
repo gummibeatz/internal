@@ -1,9 +1,11 @@
 module Developers
   class DevelopersController < ApplicationController
+
     layout "developers"
 
     def index
       @developer = current_user.developer
+      @unit_attendances = DeveloperUnitAttendance.new(@developer, @developer.cohort.current_unit.range)
     end
 
     def stats
