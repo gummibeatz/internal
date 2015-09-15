@@ -15,6 +15,7 @@ class Developer < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
   validates :github_username, presence: true, uniqueness: true
+  validates :full_name, presence: true
 
   has_one :user
 
