@@ -11,8 +11,7 @@ class Developer < ActiveRecord::Base
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances,
     after_add: :check_requirements
-  has_many :assessments,
-    after_add: :send_assessment_report
+  has_many :assessments
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true
