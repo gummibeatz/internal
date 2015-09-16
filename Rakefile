@@ -5,8 +5,8 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-desc "email end of week status update"
-task :send_developer_status_update => :environment do
+desc "email end of week status updates"
+task :send_developer_status_updates => :environment do
   developers = Developer.all
   developers.each do |developer|
     @notification = Notification.create!(
