@@ -40,7 +40,7 @@
           <h5>Late: <%= @unit_attendances.late.count%> / 2</h5>
           <% @unit_attendances.late.each do |late| -%>
             <p>
-            <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= late.pretty_date %>
+            <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= pretty_date(late.timestamp) %>
             </p>
           <% end -%>
           </br>

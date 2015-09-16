@@ -15,11 +15,6 @@ class Attendance < ActiveRecord::Base
 
   validates :status, presence: true 
 
-  def pretty_date
-    date = timestamp
-    date.strftime("%B %d, %Y")
-  end
-
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
     return -1

@@ -1,4 +1,5 @@
 class Developer < ActiveRecord::Base
+  
   enum education_status: [:not_applicable, :some_high_school, :high_school_graduate, :some_college, :pursuing_associates, :associates, :pursuing_bachelors, :bachelors, :pursuing_masters, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
@@ -10,7 +11,8 @@ class Developer < ActiveRecord::Base
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
   has_many :attendances,
     after_add: :check_requirements
-  has_many :assessments
+  has_many :assessments,
+    after_add: :send_assessment_report
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true
@@ -61,7 +63,6 @@ class Developer < ActiveRecord::Base
       @notification.deliver
     end
   end
-
 end
 
 # == Schema Information

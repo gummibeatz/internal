@@ -1,0 +1,10 @@
+<div class="content">
+  <p>
+  Hello <%= notification.user.email %>,
+  </p>
+
+  <p>
+  You're grade is <%= notification.user.developer.assessments.most_recent.score %> / <%= notification.user.developer.assessments.most_recent.max_score %> for assignment <%= notification.user.developer.assessments.most_recent.assignment.id %>
+  <a href=notification.user.developer.assessments.most_recent.github_url>Assignment link</a>
+  </p>
+</div>

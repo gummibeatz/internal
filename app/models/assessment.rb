@@ -2,6 +2,7 @@ class Assessment < ActiveRecord::Base
 
   enum type: ["homework", "exam", "project"]
 
+  scope :most_recent, -> { order(:updated_at).last }
   scope :active_assignments, -> { includes(:assignment).where('assignments.active' => 'true').references(:assignment) }
 
   belongs_to :developer
@@ -13,6 +14,8 @@ class Assessment < ActiveRecord::Base
   validates :max_score, presence: true
   validates :score, presence: true
   validates :type, presence: true
+
+  after_save :send_report
 
   def self.inheritance_column
     "inheritance_type"
@@ -30,9 +33,16 @@ class Assessment < ActiveRecord::Base
   def self.stats
   end
 
-  def pretty_due_date
-    date = due_at
-    date.strftime("%B %d, %Y")
+  def send_report
+    @notification = Notification.create!(
+      user: self.developer.user,
+      email: self.developer.email,
+      subject_type: "User",
+      email_from: "c4qDevPortal@test.com",
+      email_subject: "Assessment for Assignment #{self.assignment.id}",
+      kind: "assessment_report"
+    )
+    @notification.deliver
   end
 
   private
