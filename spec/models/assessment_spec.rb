@@ -22,10 +22,14 @@ RSpec.describe Assessment, type: :model do
   describe "methods" do
     let(:assessment) { {"assessment"=>"{\"type\":\"0\",\"github_url\":\"github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"2\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"} }
 
-    it "should save with valid json" do
+    fit "should save with valid json" do
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
       expect {
         developer = create(:developer)
+        developer.create_user!(
+          email: developer.email,
+          password: Devise.friendly_token
+        )
         cohort = create(:cohort)
         assignment = create(:assignment, github_url: "github.com")
         cohort.assignments << assignment

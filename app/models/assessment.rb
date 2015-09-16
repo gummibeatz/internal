@@ -34,7 +34,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def send_report
-    @notification = Notification.create!(
+    @notification = Notification.create(
       user: self.developer.user,
       email: self.developer.email,
       subject_type: "User",

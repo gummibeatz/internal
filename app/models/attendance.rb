@@ -70,7 +70,7 @@ class Attendance < ActiveRecord::Base
 
   def check_requirements
     if in_danger_of_not_meeting_requirements?
-      @notification = Notification.create!(
+      @notification = Notification.create(
         user: self.developer.user,
         email: self.developer.email,
         subject_type: "User",
