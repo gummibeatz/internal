@@ -88,7 +88,7 @@ class Attendance < ActiveRecord::Base
         subject_type: "User",
         email_from: "c4qDevPortal@test.com",
         email_subject: "not meeting grad reqs",
-        kind: "welcome"
+        kind: "peril"
       )
       @notification.deliver
     end
