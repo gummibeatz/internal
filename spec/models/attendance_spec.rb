@@ -40,7 +40,7 @@ RSpec.describe Attendance, type: :model do
     }.to change(Attendance, :count).by(0)
   end
 
-  fit "should send email when not meeting reqs" do
+  it "should send email when not meeting reqs" do
     now = Date.today
     developer = create(:developer)
     developer.create_user!(
