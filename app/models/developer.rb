@@ -38,19 +38,18 @@ class Developer < ActiveRecord::Base
 
   def check_requirements(attendance)
     if self.in_danger_of_not_meeting_requirements?
-      puts "in_danger"
       @notification = Notification.create!(
         user: self.user,
         email: self.email,
         subject_type: "User",
         email_from: "c4qDevPortal@test.com",
-        email_subject: "requirements danger",
-        kind: "welcome"
+        email_subject: "Graduation requirements",
+        kind: "danger"
       )
       @notification.deliver
     end
+
     if self.not_meeting_requirements?
-      puts "not meeting reqs"
       @notification = Notification.create!(
         user: self.user,
         email: self.email,

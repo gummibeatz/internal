@@ -9,3 +9,14 @@ RSpec.describe Cohort, type: :model do
   it { should have_many :assignments }
 
 end
+
+# == Schema Information
+#
+# Table name: cohorts
+#
+#  id         :integer          not null, primary key
+#  version    :string
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

@@ -70,3 +70,42 @@ class Notification < ActiveRecord::Base
   end
 end
 
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id                      :integer          not null, primary key
+#  category                :string
+#  promotional             :boolean          default(FALSE)
+#  transactional           :boolean          default(TRUE)
+#  do_not_track            :boolean          default(FALSE)
+#  deliver_via_site        :boolean          default(TRUE)
+#  deliver_via_email       :boolean          default(TRUE)
+#  kind                    :string
+#  token                   :string
+#  user_id                 :integer
+#  subject_id              :integer
+#  subject_type            :string
+#  read_at                 :datetime
+#  clicked_at              :datetime
+#  ignored_at              :datetime
+#  cancelled_at            :datetime
+#  unsubscribed_at         :datetime
+#  email_sent_at           :datetime
+#  email_marked_as_spam_at :datetime
+#  email_returned_at       :datetime
+#  email_not_sent_at       :datetime
+#  email_not_sent_reason   :string
+#  email                   :string
+#  email_reply_to          :string
+#  email_from              :string
+#  email_subject           :string
+#  email_urls              :text
+#  email_text              :text
+#  email_html              :text
+#  click_count             :integer          default(0)
+#  read_count              :integer          default(0)
+#  data                    :text
+#  created_at              :datetime
+#  updated_at              :datetime
+#
