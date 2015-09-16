@@ -7,7 +7,7 @@
   Attendance for the week
   <%notification.user.developer.attendances.in_range(Date.today-7..Date.today).each do |attendance| %>
     <p>
-    <%=attendance.status%> on <%=pretty_date(attendance.timestamp)%> 
+    <%=attendance.status.gsub('_', ' '%> on <%=pretty_date(attendance.timestamp)%> 
     </br>
     </p>
   <% end %>
