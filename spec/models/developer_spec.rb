@@ -44,8 +44,8 @@ RSpec.describe Developer, type: :model do
     expect{
       now = Date.today
       developer = create(:developer)
-      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
-      developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2, user: developer)
+      developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1, user: developer)
     }.to change(Notification, :count).by(1)
   end
 

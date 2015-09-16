@@ -63,7 +63,6 @@ class Developer < ActiveRecord::Base
     end
   end
 
-
 end
 
 # == Schema Information

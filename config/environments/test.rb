@@ -29,7 +29,17 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :test
+
+  # Mailing with notifykit
+  # Setting the host
+  config.action_mailer.default_url_options = { host: "localhost:3000", protocol: "http" }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  #mailing and catching with mailcatcher gem
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025, :domain => "localhost:3000" }
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
