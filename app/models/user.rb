@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  
+  has_many :notifications
 
   devise :omniauthable,
     :database_authenticatable,

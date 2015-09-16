@@ -8,9 +8,9 @@ class Developer < ActiveRecord::Base
 
   has_many :addresses, foreign_key: :user_id
   has_many :exit_tickets, -> {order(submitted_at: :desc)}
-  has_many :attendances
+  has_many :attendances,
+    after_add: :check_requirements
   has_many :assessments
-
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true
@@ -26,6 +26,41 @@ class Developer < ActiveRecord::Base
   # figure out how to scope this
   def current_assignments
     assessments.include(:assignments).where('assignments.active = ?', 'true').references(:assignments)
+  end
+
+  def in_danger_of_not_meeting_requirements?
+    self.attendances.absent_unexcused.count == MAX_ABSENT_DAYS || self.attendances.late_unexcused.count == MAX_LATE_DAYS
+  end
+
+  def not_meeting_requirements?
+    self.attendances.absent_unexcused.count > MAX_ABSENT_DAYS || self.attendances.late_unexcused.count > MAX_LATE_DAYS
+  end
+
+  def check_requirements(attendance)
+    if self.in_danger_of_not_meeting_requirements?
+      puts "in_danger"
+      @notification = Notification.create!(
+        user: self.user,
+        email: self.email,
+        subject_type: "User",
+        email_from: "c4qDevPortal@test.com",
+        email_subject: "requirements danger",
+        kind: "welcome"
+      )
+      @notification.deliver
+    end
+    if self.not_meeting_requirements?
+      puts "not meeting reqs"
+      @notification = Notification.create!(
+        user: self.user,
+        email: self.email,
+        subject_type: "User",
+        email_from: "c4qDevPortal@test.com",
+        email_subject: "not meeting grad reqs",
+        kind: "welcome"
+      )
+      @notification.deliver
+    end
   end
 
 end

@@ -161,6 +161,50 @@ ActiveRecord::Schema.define(version: 20150915190923) do
     t.integer  "type",              default: 0
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "category"
+    t.boolean  "promotional",             default: false
+    t.boolean  "transactional",           default: true
+    t.boolean  "do_not_track",            default: false
+    t.boolean  "deliver_via_site",        default: true
+    t.boolean  "deliver_via_email",       default: true
+    t.string   "kind"
+    t.string   "token"
+    t.integer  "user_id"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.datetime "read_at"
+    t.datetime "clicked_at"
+    t.datetime "ignored_at"
+    t.datetime "cancelled_at"
+    t.datetime "unsubscribed_at"
+    t.datetime "email_sent_at"
+    t.datetime "email_marked_as_spam_at"
+    t.datetime "email_returned_at"
+    t.datetime "email_not_sent_at"
+    t.string   "email_not_sent_reason"
+    t.string   "email"
+    t.string   "email_reply_to"
+    t.string   "email_from"
+    t.string   "email_subject"
+    t.text     "email_urls"
+    t.text     "email_text"
+    t.text     "email_html"
+    t.integer  "click_count",             default: 0
+    t.integer  "read_count",              default: 0
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["category"], name: "index_notifications_on_category", using: :btree
+  add_index "notifications", ["created_at"], name: "index_notifications_on_created_at", using: :btree
+  add_index "notifications", ["id", "created_at", "read_at", "clicked_at", "ignored_at", "cancelled_at"], name: "recent", using: :btree
+  add_index "notifications", ["kind"], name: "index_notifications_on_kind", using: :btree
+  add_index "notifications", ["subject_id", "subject_type"], name: "subject", using: :btree
+  add_index "notifications", ["token"], name: "index_notifications_on_token", unique: true, using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
   create_table "units", force: :cascade do |t|
     t.datetime "start_at"
     t.datetime "end_at"
