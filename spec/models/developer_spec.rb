@@ -44,8 +44,12 @@ RSpec.describe Developer, type: :model do
     expect{
       now = Date.today
       developer = create(:developer)
-      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2, user: developer)
-      developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1, user: developer)
+      developer.create_user!(
+        email: developer.email,
+        password: Devise.friendly_token
+      )
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
+      developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1)
     }.to change(Notification, :count).by(1)
   end
 
