@@ -73,7 +73,7 @@ RSpec.describe Assessment, type: :model do
       }.to change(Assessment, :count).by(0)
     end
   
-    fit "should send_reports after creation" do
+    it "should send_reports after creation" do
       expect {
         developer = create(:developer)
         developer.create_user!(
@@ -93,7 +93,7 @@ RSpec.describe Assessment, type: :model do
       }.to change(Notification, :count).by(1)
     end
 
-    fit "should send_reports after update" do
+    it "should send_reports after update" do
       developer = create(:developer)
       developer.create_user!(
        email: developer.email,
