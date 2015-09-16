@@ -27,6 +27,7 @@ class Developer < ActiveRecord::Base
   def current_assignments
     assessments.include(:assignments).where('assignments.active = ?', 'true').references(:assignments)
   end
+
 end
 
 # == Schema Information
