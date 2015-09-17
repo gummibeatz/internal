@@ -15,8 +15,8 @@ class Attendance < ActiveRecord::Base
 
   validates :status, presence: true
 
-  after_save :check_requirements
-
+  after_save :check_requirements, unless: :developer_has_user?
+  
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
     return -1
@@ -68,31 +68,33 @@ class Attendance < ActiveRecord::Base
     self.developer.attendances.absent_unexcused.count > MAX_ABSENT_DAYS || self.developer.attendances.late_unexcused.count > MAX_LATE_DAYS
   end
 
-  def check_requirements
-    unless self.developer.user.nil?
-      if in_danger_of_not_meeting_requirements? && (self.developer.user.notifications.where(kind: "danger").count == 0)
-        @notification = Notification.create(
-          user: self.developer.user,
-          email: self.developer.email,
-          subject_type: "User",
-          email_from: "c4qDevPortal@test.com",
-          email_subject: "Graduation requirements",
-          kind: "danger"
-        )
-        @notification.deliver
-      end
+  def developer_has_user?
+    self.developer.user.nil?
+  end
 
-      if not_meeting_requirements? && (self.developer.user.notifications.where(kind: "peril").count == 0)
-        @notification = Notification.create!(
-          user: self.developer.user,
-          email: self.developer.email,
-          subject_type: "User",
-          email_from: "c4qDevPortal@test.com",
-          email_subject: "not meeting grad reqs",
-          kind: "peril"
-        )
-        @notification.deliver
-      end
+  def check_requirements
+    if in_danger_of_not_meeting_requirements? && (self.developer.user.notifications.where(kind: "danger").count == 0)
+      @notification = Notification.create(
+        user: self.developer.user,
+        email: self.developer.email,
+        subject_type: "User",
+        email_from: "c4qDevPortal@test.com",
+        email_subject: "Graduation requirements",
+        kind: "danger"
+      )
+      @notification.deliver
+    end
+
+    if not_meeting_requirements? && (self.developer.user.notifications.where(kind: "peril").count == 0)
+      @notification = Notification.create!(
+        user: self.developer.user,
+        email: self.developer.email,
+        subject_type: "User",
+        email_from: "c4qDevPortal@test.com",
+        email_subject: "not meeting grad reqs",
+        kind: "peril"
+      )
+      @notification.deliver
     end
   end
 
