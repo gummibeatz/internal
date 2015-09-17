@@ -69,28 +69,30 @@ class Attendance < ActiveRecord::Base
   end
 
   def check_requirements
-    if in_danger_of_not_meeting_requirements?
-      @notification = Notification.create(
-        user: self.developer.user,
-        email: self.developer.email,
-        subject_type: "User",
-        email_from: "c4qDevPortal@test.com",
-        email_subject: "Graduation requirements",
-        kind: "danger"
-      )
-      @notification.deliver
-    end
+    unless self.developer.user.nil?
+      if in_danger_of_not_meeting_requirements?
+        @notification = Notification.create(
+          user: self.developer.user,
+          email: self.developer.email,
+          subject_type: "User",
+          email_from: "c4qDevPortal@test.com",
+          email_subject: "Graduation requirements",
+          kind: "danger"
+        )
+        @notification.deliver
+      end
 
-    if not_meeting_requirements?
-      @notification = Notification.create!(
-        user: self.developer.user,
-        email: self.developer.email,
-        subject_type: "User",
-        email_from: "c4qDevPortal@test.com",
-        email_subject: "not meeting grad reqs",
-        kind: "peril"
-      )
-      @notification.deliver
+      if not_meeting_requirements?
+        @notification = Notification.create!(
+          user: self.developer.user,
+          email: self.developer.email,
+          subject_type: "User",
+          email_from: "c4qDevPortal@test.com",
+          email_subject: "not meeting grad reqs",
+          kind: "peril"
+        )
+        @notification.deliver
+      end
     end
   end
 

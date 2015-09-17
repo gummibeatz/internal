@@ -43,7 +43,7 @@ RSpec.describe Attendance, type: :model do
   it "should send email when not meeting reqs" do
     now = Date.today
     developer = create(:developer)
-    developer.create_user!(
+    developer.create_user(
       email: developer.email,
       password: Devise.friendly_token
     )
@@ -58,14 +58,23 @@ RSpec.describe Attendance, type: :model do
   it "should send email when in danger of not meeting reqs" do
     now = Date.today
     developer = create(:developer)
-    developer.create_user!(
+    developer.create_user(
       email: developer.email,
       password: Devise.friendly_token
     )
-    expect{
+   expect{
       developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
       developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1)
     }.to change(Notification, :count).by(1)
+  end
+
+  it "should only send email when in danger of not meeting reqs onces" do
+    now = Date.today
+    developer = create(:developer)
+    developer.create_user(
+      email: developer.email,
+      password: Devise.friendly_token
+    )
   end
 
   describe :scopes do

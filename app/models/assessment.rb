@@ -34,15 +34,17 @@ class Assessment < ActiveRecord::Base
   end
 
   def send_report
-    @notification = Notification.create(
-      user: self.developer.user,
-      email: self.developer.email,
-      subject_type: "User",
-      email_from: "c4qDevPortal@test.com",
-      email_subject: "Assessment for Assignment #{self.assignment.id}",
-      kind: "assessment_report"
-    )
-    @notification.deliver
+    unless self.developer.user.nil?
+      @notification = Notification.create!(
+        user: self.developer.user,
+        email: self.developer.email,
+        subject_type: "User",
+        email_from: "c4qDevPortal@test.com",
+        email_subject: "Assessment for Assignment #{self.assignment.id}",
+        kind: "assessment_report"
+      )
+      @notification.deliver
+    end
   end
 
   private
