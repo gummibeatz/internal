@@ -22,10 +22,14 @@ RSpec.describe Assessment, type: :model do
   describe "methods" do
     let(:assessment) { {"assessment"=>"{\"type\":\"0\",\"github_url\":\"github.com\",\"comments\":\"\",\"name\":\"Test Developer\",\"max_score\":\"3\",\"score\":\"2\",\"due_at\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}"} }
 
-    it "should save with valid json" do
+    fit "should save with valid json" do
       date = Date.parse(JSON.parse(assessment["assessment"])["due_at"])
       expect {
         developer = create(:developer)
+        developer.create_user!(
+          email: developer.email,
+          password: Devise.friendly_token
+        )
         cohort = create(:cohort)
         assignment = create(:assignment, github_url: "github.com")
         cohort.assignments << assignment
@@ -72,6 +76,57 @@ RSpec.describe Assessment, type: :model do
         Assessment.create_from_google_form(updated_assessment)
       }.to change(Assessment, :count).by(0)
     end
+  
+    it "should send_reports after creation" do
+      expect {
+        developer = create(:developer)
+        developer.create_user!(
+          email: developer.email,
+          password: Devise.friendly_token
+        )
+        cohort = create(:cohort)
+        assignment = create(:assignment, github_url: "github.com")
+        cohort.assignments << assignment
+        developer.assessments.create!(
+          assignment_id: assignment.id,
+          due_at: assignment.due_at,
+          max_score: assignment.max_score,
+          score: 2,
+          type: assignment.type
+        )
+      }.to change(Notification, :count).by(1)
+    end
+
+    it "should send_reports after update" do
+      developer = create(:developer)
+      developer.create_user!(
+       email: developer.email,
+       password: Devise.friendly_token
+      )
+      cohort = create(:cohort)
+      assignment = create(:assignment, github_url: "github.com")
+       cohort.assignments << assignment
+       developer.assessments.create!(
+       assignment_id: assignment.id,
+       due_at: assignment.due_at,
+       max_score: assignment.max_score,
+       score: 2,
+       type: assignment.type
+      )
+       developer.assessments.create!(
+         assignment_id: assignment.id,
+         due_at: assignment.due_at,
+         max_score: assignment.max_score,
+         score:2,
+         type: assignment.type
+       )
+       expect {
+        assessment = developer.assessments.most_recent
+        assessment.score = 3
+        assessment.save!
+       }.to change(Notification, :count).by(1)
+    end
+    
   end
 
 end

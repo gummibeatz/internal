@@ -1,6 +1,7 @@
 module Api
   module V1
     class AssessmentsController < Api::V1::ApiController
+      
       def index
         render json: current_user.developer.assessments.as_json
       end

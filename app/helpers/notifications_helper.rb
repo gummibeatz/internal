@@ -18,4 +18,8 @@ module NotificationsHelper
     return @recent_notifications if defined?(@recent_notifications)
     @recent_notifications = current_user && current_user.notifications.recent
   end
+
+  def pretty_date(date_time)
+    date_time.strftime("%b %d, %Y")
+  end
 end

@@ -1,0 +1,16 @@
+<div class="content">
+  <p>
+  Hello <%= notification.user.email %>,
+  </p>
+
+  <p>
+  Attendance for the week
+  <%notification.user.developer.attendances.in_range(Date.today-7..Date.today).each do |attendance| %>
+    <p>
+    <%=attendance.status.gsub('_', ' ').capitalize%> : <%=pretty_date(attendance.timestamp)%> 
+    </br>
+    </p>
+  <% end %>
+    
+  </p>
+</div>
