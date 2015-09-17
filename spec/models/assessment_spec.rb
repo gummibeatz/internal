@@ -70,32 +70,27 @@ RSpec.describe Assessment, type: :model do
           email: @developer.email,
           password: Devise.friendly_token
         )
+        @assessment = @developer.assessments.build(
+                            assignment_id: @assignment.id,
+                            due_at: @assignment.due_at,
+                            max_score: @assignment.max_score,
+                            score: 2,
+                            type: @assignment.type
+                          )
       end
 
       it "should send_reports after creation" do
         expect {
-          @developer.assessments.create!(
-            assignment_id: @assignment.id,
-            due_at: @assignment.due_at,
-            max_score: @assignment.max_score,
-            score: 2,
-            type: @assignment.type
-          )
+          @assessment.save!
         }.to change(Notification, :count).by(1)
       end
 
       it "should send_reports after update" do
-        @developer.assessments.create!(
-           assignment_id: @assignment.id,
-           due_at: @assignment.due_at,
-           max_score: @assignment.max_score,
-           score: 2,
-           type: @assignment.type
-        )
+        @assessment.save!
         expect {
-          assessment = @developer.assessments.most_recent
-          assessment.score = 3
-          assessment.save!
+          new_assessment = @developer.assessments.last
+          new_assessment.score = 3
+          new_assessment.save!
          }.to change(Notification, :count).by(1)
       end
     end
