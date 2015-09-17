@@ -61,60 +61,45 @@ RSpec.describe Assessment, type: :model do
         Assessment.create_from_google_form(UPDATED_ASSESSMENT)
       }.to change(Assessment, :count).by(0)
     end
-  end
-
-  describe "assessment emails" do
-    it "should send_reports after creation" do
-      expect {
-        developer = create(:developer)
-        developer.create_user!(
-          email: developer.email,
+    
+    describe "assessment emails" do
+      
+      # must have user relationship for notifykit to work
+      before(:each) do
+        @developer.build_user(
+          email: @developer.email,
           password: Devise.friendly_token
         )
-        cohort = create(:cohort)
-        assignment = create(:assignment, github_url: "github.com")
-        cohort.assignments << assignment
-        developer.assessments.create!(
-          assignment_id: assignment.id,
-          due_at: assignment.due_at,
-          max_score: assignment.max_score,
-          score: 2,
-          type: assignment.type
+      end
+
+      it "should send_reports after creation" do
+        expect {
+          @developer.assessments.create!(
+            assignment_id: @assignment.id,
+            due_at: @assignment.due_at,
+            max_score: @assignment.max_score,
+            score: 2,
+            type: @assignment.type
+          )
+        }.to change(Notification, :count).by(1)
+      end
+
+      it "should send_reports after update" do
+        @developer.assessments.create!(
+           assignment_id: @assignment.id,
+           due_at: @assignment.due_at,
+           max_score: @assignment.max_score,
+           score: 2,
+           type: @assignment.type
         )
-      }.to change(Notification, :count).by(1)
+        expect {
+          assessment = @developer.assessments.most_recent
+          assessment.score = 3
+          assessment.save!
+         }.to change(Notification, :count).by(1)
+      end
     end
-
-    it "should send_reports after update" do
-      developer = create(:developer)
-      developer.create_user!(
-       email: developer.email,
-       password: Devise.friendly_token
-      )
-      cohort = create(:cohort)
-      assignment = create(:assignment, github_url: "github.com")
-       cohort.assignments << assignment
-       developer.assessments.create!(
-       assignment_id: assignment.id,
-       due_at: assignment.due_at,
-       max_score: assignment.max_score,
-       score: 2,
-       type: assignment.type
-      )
-       developer.assessments.create!(
-         assignment_id: assignment.id,
-         due_at: assignment.due_at,
-         max_score: assignment.max_score,
-         score:2,
-         type: assignment.type
-       )
-       expect {
-        assessment = developer.assessments.most_recent
-        assessment.score = 3
-        assessment.save!
-       }.to change(Notification, :count).by(1)
-    end 
   end
-
 end
 
 # == Schema Information
