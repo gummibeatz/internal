@@ -70,7 +70,7 @@ class Attendance < ActiveRecord::Base
 
   def check_requirements
     unless self.developer.user.nil?
-      if in_danger_of_not_meeting_requirements?
+      if in_danger_of_not_meeting_requirements? && (self.developer.user.notifications.where(kind: "danger").count == 0)
         @notification = Notification.create(
           user: self.developer.user,
           email: self.developer.email,
@@ -82,7 +82,7 @@ class Attendance < ActiveRecord::Base
         @notification.deliver
       end
 
-      if not_meeting_requirements?
+      if not_meeting_requirements? && (self.developer.user.notifications.where(kind: "peril").count == 0)
         @notification = Notification.create!(
           user: self.developer.user,
           email: self.developer.email,

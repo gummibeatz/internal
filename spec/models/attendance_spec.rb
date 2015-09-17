@@ -68,13 +68,34 @@ RSpec.describe Attendance, type: :model do
     }.to change(Notification, :count).by(1)
   end
 
-  it "should only send email when in danger of not meeting reqs onces" do
+  it "should only send email when in danger of not meeting reqs once" do
     now = Date.today
     developer = create(:developer)
     developer.create_user(
       email: developer.email,
       password: Devise.friendly_token
     )
+    expect{
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-1)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-3)
+    }.to change(Notification.where(kind: "danger"), :count).by(1)
+  end
+
+  it "should only send email when not meeting reqs once" do
+    now = Date.today
+    developer = create(:developer)
+    developer.create_user(
+      email: developer.email,
+      password: Devise.friendly_token
+    )
+    expect{
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-1)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-3)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-4)
+      developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-5)
+    }.to change(Notification.where(kind: "peril"), :count).by(1)
   end
 
   describe :scopes do
