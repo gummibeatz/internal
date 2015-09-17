@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Attendance, type: :model do
 
-  let(:developer) { create(:developer) }
+  let(:developer) { build(:developer) }
 
   # associations
   it { should belong_to(:developer) }
@@ -22,84 +22,70 @@ RSpec.describe Attendance, type: :model do
     expect(attendance_two).to_not be_valid
   end
 
-  it "creates entry from google form" do
-    on_time = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
-    expect {
+  describe "creating attendances from google forms" do
+    
+    ON_TIME = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
+    
+    it "creates entry from google form" do   
+      expect {
+        create(:developer, full_name: "test developer")
+        Attendance.create_from_google_form(ON_TIME)
+      }.to change(Attendance, :count).by(1)
+    end
+
+    it "doesn't create duplicate entry based on date from google form" do
+      late = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":2,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
       create(:developer, full_name: "test developer")
-      Attendance.create_from_google_form(on_time)
-    }.to change(Attendance, :count).by(1)
+      Attendance.create_from_google_form(ON_TIME)
+      expect {
+        Attendance.create_from_google_form(late)
+      }.to change(Attendance, :count).by(0)
+    end
+
   end
 
-  it "doesn't create duplicate entry from google form" do
-    on_time = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
-    late = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":2,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
-    create(:developer, full_name: "test developer")
-    Attendance.create_from_google_form(on_time)
-    expect {
-      Attendance.create_from_google_form(late)
-    }.to change(Attendance, :count).by(0)
-  end
+  describe "attendance emails" do
+    
+    TODAY = Date.today
 
-    describe :emails do
-      before(:all) do
-        
-      end
-
-      it "should send email when not meeting reqs" do
-        now = Date.today
-        developer = create(:developer)
-        developer.create_user(
-          email: developer.email,
-          password: Devise.friendly_token
-        )
-        developer.attendances.create!(status: "late_unexcused_5_minutes", timestamp: now-2)
-        developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: now-1)
-        puts developer.user
-        expect{
-          developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: now-3)
-        }.to change(Notification, :count).by(1)
-      end
-
-    it "should send email when in danger of not meeting reqs" do
-      now = Date.today
-      developer = create(:developer)
-      developer.create_user(
+    before(:each) do
+      @developer = create(:developer)
+      @developer.build_user(
         email: developer.email,
         password: Devise.friendly_token
       )
-     expect{
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
-        developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: now-1)
+    end
+
+    it "should send email when not meeting reqs" do
+      @developer.attendances.create!(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+      @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
+      expect{
+        @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-3)
       }.to change(Notification, :count).by(1)
     end
-    
-    it "should only send email when in danger of not meeting reqs once" do
-      now = Date.today
-      developer = create(:developer)
-      developer.create_user(
-        email: developer.email,
-        password: Devise.friendly_token
-      )
+
+    it "should send email when in danger of not meeting reqs" do
       expect{
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-1)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-3)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+        @developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
+      }.to change(Notification, :count).by(1)
+    end
+  
+    it "should only send email when in danger of not meeting reqs once" do
+      expect{
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-2)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-1)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-3)
       }.to change(Notification.where(kind: "danger"), :count).by(1)
     end
 
     it "should only send email when not meeting reqs once" do
-      now = Date.today
-      developer = create(:developer)
-      developer.create_user(
-        email: developer.email,
-        password: Devise.friendly_token
-      )
       expect{
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-2)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-1)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-3)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-4)
-        developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: now-5)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-1)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-3)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-4)
+        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-5)
       }.to change(Notification.where(kind: "peril"), :count).by(1)
     end
   end
