@@ -8,14 +8,14 @@ class Attendance < ActiveRecord::Base
   scope :late,    -> { where("status = 1 or status = 2 or status = 3") }
   scope :on_time, -> { where ("status = 0") }
   scope :late_unexcused, -> { where ("status = 2 or status = 3") }
-  
+
   belongs_to :developer
 
   validate :one_per_day_per_developer, on: :create
 
   validates :status, presence: true
 
-  after_save :check_requirements, unless: :developer_has_user?
+  after_save :check_requirements
   
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
@@ -60,42 +60,22 @@ class Attendance < ActiveRecord::Base
     end
   end
 
-  def in_danger_of_not_meeting_requirements?
-      self.developer.attendances.absent_unexcused.count == MAX_ABSENT_DAYS || self.developer.attendances.late_unexcused.count == MAX_LATE_DAYS
-  end
-
-  def not_meeting_requirements?
-    self.developer.attendances.absent_unexcused.count > MAX_ABSENT_DAYS || self.developer.attendances.late_unexcused.count > MAX_LATE_DAYS
-  end
-
-  def developer_has_user?
-    self.developer.user.nil?
-  end
-
-  def check_requirements
-    if in_danger_of_not_meeting_requirements? && (self.developer.user.notifications.where(kind: "danger").count == 0)
-      @notification = Notification.create(
+  def send_report(report_kind)
+    return if self.developer.user.notifications.where(kind: report_kind).count > 0
+    @notification = Notification.create(
         user: self.developer.user,
         email: self.developer.email,
         subject_type: "User",
         email_from: "c4qDevPortal@test.com",
         email_subject: "Graduation requirements",
-        kind: "danger"
-      )
-      @notification.deliver
-    end
+        kind: "#{report_kind}"
+      ).deliver
+  end
 
-    if not_meeting_requirements? && (self.developer.user.notifications.where(kind: "peril").count == 0)
-      @notification = Notification.create!(
-        user: self.developer.user,
-        email: self.developer.email,
-        subject_type: "User",
-        email_from: "c4qDevPortal@test.com",
-        email_subject: "not meeting grad reqs",
-        kind: "peril"
-      )
-      @notification.deliver
-    end
+  def check_requirements
+    return unless developer.has_user? and developer.belongs_to_cohort?
+    if self.developer.not_meeting_requirements? then send_report("peril") end
+    if self.developer.in_danger_of_not_meeting_requirements? then send_report("danger") end
   end
 
 

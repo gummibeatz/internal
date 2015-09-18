@@ -34,7 +34,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def send_report
-    unless self.developer.user.nil?
+    unless self.developer.user.nil? 
       @notification = Notification.create!(
         user: self.developer.user,
         email: self.developer.email,

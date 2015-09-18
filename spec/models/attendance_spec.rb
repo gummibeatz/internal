@@ -49,11 +49,16 @@ RSpec.describe Attendance, type: :model do
     TODAY = Date.today
 
     before(:each) do
+      cohort = create(:cohort)
       @developer = create(:developer)
       @developer.build_user(
         email: developer.email,
         password: Devise.friendly_token
       )
+      cohort.developers << @developer
+      unit = create(:unit)
+      cohort.units << unit
+      cohort.save!
     end
 
     it "should send email when not meeting reqs" do
