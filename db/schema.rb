@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922204048) do
+ActiveRecord::Schema.define(version: 20150922204453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20150922204048) do
     t.integer  "developer_id"
     t.string   "github_url"
     t.datetime "due_at"
-    t.integer  "unit_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "type"
@@ -43,7 +42,6 @@ ActiveRecord::Schema.define(version: 20150922204048) do
 
   add_index "assessments", ["assignment_id"], name: "index_assessments_on_assignment_id", using: :btree
   add_index "assessments", ["developer_id"], name: "index_assessments_on_developer_id", using: :btree
-  add_index "assessments", ["unit_id"], name: "index_assessments_on_unit_id", using: :btree
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "max_score"
