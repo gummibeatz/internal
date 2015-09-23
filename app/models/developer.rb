@@ -13,6 +13,7 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   has_many :assessments
   has_many :equipments
+
   belongs_to :cohort
 
   validates :email, presence: true, uniqueness: true

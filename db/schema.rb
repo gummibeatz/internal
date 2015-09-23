@@ -129,12 +129,26 @@ ActiveRecord::Schema.define(version: 20150922204453) do
   add_index "developers", ["gender"], name: "index_developers_on_gender", using: :btree
 
   create_table "equipment", force: :cascade do |t|
-    t.integer  "type"
     t.string   "description"
+<<<<<<< HEAD
     t.string   "reference_id", default: "0"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "developer_id"
+=======
+    t.string   "reference_id",           default: "0"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "model"
+    t.string   "account_name"
+    t.integer  "developer_id"
+    t.datetime "date_assigned"
+    t.string   "signed_off_by"
+    t.boolean  "policy_signed"
+    t.boolean  "cc_info_on_google_form"
+    t.datetime "date_returned"
+    t.integer  "return_condition"
+>>>>>>> added developer equipment relations
   end
 
   add_index "equipment", ["developer_id"], name: "index_equipment_on_developer_id", using: :btree
