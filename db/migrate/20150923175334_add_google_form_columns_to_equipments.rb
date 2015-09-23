@@ -4,8 +4,6 @@ class AddGoogleFormColumnsToEquipments < ActiveRecord::Migration
       t.remove :type
       t.string :model
       t.string :account_name
-      t.integer :developer_id
-      t.index :developer_id
       t.datetime :date_assigned
       t.string :signed_off_by
       t.boolean :policy_signed

@@ -130,12 +130,6 @@ ActiveRecord::Schema.define(version: 20150922204453) do
 
   create_table "equipment", force: :cascade do |t|
     t.string   "description"
-<<<<<<< HEAD
-    t.string   "reference_id", default: "0"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "developer_id"
-=======
     t.string   "reference_id",           default: "0"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -148,7 +142,6 @@ ActiveRecord::Schema.define(version: 20150922204453) do
     t.boolean  "cc_info_on_google_form"
     t.datetime "date_returned"
     t.integer  "return_condition"
->>>>>>> added developer equipment relations
   end
 
   add_index "equipment", ["developer_id"], name: "index_equipment_on_developer_id", using: :btree
