@@ -15,7 +15,7 @@ class Assessment < ActiveRecord::Base
   validates :score, presence: true
   validates :type, presence: true
 
-  after_save :send_report
+  # after_save :send_report
 
   def self.inheritance_column
     "inheritance_type"
@@ -31,7 +31,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def send_report
-    unless self.developer.user.nil? 
+    unless self.developer.user.nil?
       @notification = Notification.create!(
         user: self.developer.user,
         email: self.developer.email,
