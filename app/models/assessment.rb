@@ -30,9 +30,6 @@ class Assessment < ActiveRecord::Base
     end
   end
 
-  def self.stats
-  end
-
   def send_report
     unless self.developer.user.nil? 
       @notification = Notification.create!(
