@@ -125,9 +125,9 @@ $(function() {
   } else if ($("#admin-dev-assessments-panel").length > 0) {
     var currentURL = window.location.href.split("/");
     var developer_id = currentURL[currentURL.length-1];
-    console.log("/api/v1/assessments.json?developer_id="+developer_id);
+    var url = "/api/v1/assessments.json?developer_id=".concat(developer_id);
     React.render(
-      <AssessmentBox url = "/api/v1/assessments.json?developer_id="+developer_id pollInterval={2000}/>,
+      <AssessmentBox url = {url} pollInterval={2000}/>,
       document.getElementById("admin-dev-assessments-panel")
     );
   }
