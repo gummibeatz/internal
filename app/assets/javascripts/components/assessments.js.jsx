@@ -111,16 +111,26 @@ var AssessmentList = React.createClass({
       </div>
     );
   }
-
+          
 });
 
 
 $(function() {
   var $content = $("#assessments-panel");
-  if($content.length >0) {
+  if($content.length > 0) {
     React.render(
       <AssessmentBox url = "/api/v1/assessments.json" pollInterval={2000}/>,
       document.getElementById("assessments-panel")
     );
+  } else if ($("#admin-dev-assessments-panel").length > 0) {
+    var currentURL = window.location.href.split("/");
+    var developer_id = currentURL[currentURL.length-1];
+    console.log("/api/v1/assessments.json?developer_id="+developer_id);
+    React.render(
+      <AssessmentBox url = "/api/v1/assessments.json?developer_id="+developer_id pollInterval={2000}/>,
+      document.getElementById("admin-dev-assessments-panel")
+    );
   }
 });
+
+
