@@ -3,7 +3,7 @@ module Api
     class AssessmentsController < Api::V1::ApiController
       
       def index
-        render json: current_user.developer.assessments.as_json
+        render json: developer.assessments.as_json
       end
 
       def create
@@ -13,6 +13,14 @@ module Api
           raise InvalidGoogleParamsError
         end
       end
+
+      private 
+
+      def developer
+        return Developer.find(params[:developer_id]) if params[:developer_id]
+        return current_user.developer
+      end
+      
     end
   end
 end

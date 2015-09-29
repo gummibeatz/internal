@@ -1,54 +1,81 @@
+var data = [
+  {title: "yay"},
+  {title: "meeep"}
+];
+
 var AttendanceBox = React.createClass({
+  loadAttendancesFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  getInitialState: function() {
+    return {data: []};
+  },
+
+  componentDidMount: function() {
+    this.loadAttendancesFromServer();
+    setInterval(this.loadAttendancesFromServer, this.props.pollInterval);
+  },
 
   render: function() {
-    return(
-      <div>
-        <h1 >Attendance</h1>
-        <AttendanceList/>
-      </div> 
+    console.log(this.state.data);
+    return (
+      <AttendanceList data = {this.state.data} />
+    );
+  }
+});
+
+var AttendanceList = React.createClass({
+  render: function() {
+    var attendanceNodes = this.props.data.map(function (attendance) {
+      return (
+          <AttendanceReact data = {attendance}/>
+      );
+    });
+    return ( 
+      <table className = "table table-striped">
+        <thead>
+          <tr> 
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {attendanceNodes}
+        </tbody>
+      </table>
     );
   }
 });
 
 var AttendanceReact = React.createClass({
-  
-  rawMarkup: function() {
-    var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-    return { __html: rawMarkup };
-  },
-
-  render: function() {
+  render:function() {
     return(
-      <div className = "attendanceReact">
-        <div className = "attendanceTimestamp">
-          { this.props.status }
-        </div>
-        <span dangerouslySetInnerHTML = {this.rawMarkup()} />
-      </div>
+      <tr className="table-row">
+        <td> {this.props.data.timestamp } </td>
+        <td> {this.props.data.status} </td>
+      </tr>
     );
   }
 });
-
-
-var AttendanceList = React.createClass({
-  
-  render: function() {
-    return(
-      <div className="attendanceList">
-        <AttendanceReact s = "late" > This is one attendance </AttendanceReact>
-      </div>
-    );
-  }
-
-});
-
 
 $(function() {
-  var $content = $("#content");
+  var pollInterval = 2000;
+  var $content = $("#attendances-panel");
   if($content.length >0) {
     React.render(
-      <AttendanceBox />,
-      document.getElementById("content")
+      <AttendanceBox url = "/api/v1/attendances.json" pollInterval = {pollInterval} />,
+      document.getElementById("attendances-panel")
     );
   }
 });

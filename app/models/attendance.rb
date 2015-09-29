@@ -61,7 +61,7 @@ class Attendance < ActiveRecord::Base
   end
 
   def send_report(report_kind)
-    return unless self.developer.user.notifications.exists?(kind: report_kind)
+    return if self.developer.user.notifications.exists?(kind: report_kind)
     @notification = Notification.create(
         user: self.developer.user,
         email: self.developer.email,
