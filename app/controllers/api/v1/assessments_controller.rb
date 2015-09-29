@@ -20,6 +20,7 @@ module Api
         return Developer.find(params[:developer_id]) if params[:developer_id]
         return current_user.developer
       end
+      
     end
   end
 end

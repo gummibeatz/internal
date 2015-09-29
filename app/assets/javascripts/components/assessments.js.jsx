@@ -116,10 +116,11 @@ var AssessmentList = React.createClass({
 
 
 $(function() {
+  var pollInterval = 2000
   var $content = $("#assessments-panel");
   if($content.length > 0) {
     React.render(
-      <AssessmentBox url = "/api/v1/assessments.json" pollInterval={2000}/>,
+      <AssessmentBox url = "/api/v1/assessments.json" pollInterval={pollInterval}/>,
       document.getElementById("assessments-panel")
     );
   } else if ($("#admin-dev-assessments-panel").length > 0) {
@@ -127,10 +128,8 @@ $(function() {
     var developer_id = currentURL[currentURL.length-1];
     var url = "/api/v1/assessments.json?developer_id=".concat(developer_id);
     React.render(
-      <AssessmentBox url = {url} pollInterval={2000}/>,
+      <AssessmentBox url = {url} pollInterval= {pollInterval}/>,
       document.getElementById("admin-dev-assessments-panel")
     );
   }
 });
-
-
