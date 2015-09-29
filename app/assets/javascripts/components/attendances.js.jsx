@@ -85,7 +85,7 @@ $(function() {
     console.log(url);
     React.render(
       <AttendanceBox url={url} pollInterval={pollInterval}/>,
-      document.getElementByID("admin-dev-attendances-panel")
+      document.getElementById("admin-dev-attendances-panel")
     );
   }
 });
