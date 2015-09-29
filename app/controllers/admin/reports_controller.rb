@@ -6,8 +6,8 @@ module Admin
         range = Range.new(Date.parse(params[:start_date]).to_datetime, Date.parse(params[:end_date]).to_datetime)
         if request.xhr?
           render json: {
-            exit_tickets: ExitTicket.all_in_range(range),
-            attendance: Attendance.all_in_range(range)
+            exit_tickets: ExitTicket.in_range(range),
+            attendance: Attendance.in_range(range)
           }
         else
           @report = Report.new(range.begin, range.end)

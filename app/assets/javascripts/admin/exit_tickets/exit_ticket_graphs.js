@@ -3,13 +3,13 @@
 
 // Get the raw (json) xittix data
 $.ajax({
-  url: "/exit_tickets",
+  url: "/admin/reports",
   type: "GET",
   dataType: 'json',
   response: "{}",
   success: function(response) {
     console.log(response);
-    dataValidation(response);
+    // dataValidation(response);
   },
 
   error: function(error) {
@@ -80,7 +80,7 @@ function graphData(jsonData) {
 
   chart.draw();
   toggleSeries();
-	
+
 }
 
 
@@ -157,12 +157,11 @@ function displayAccuracyAndCompletion() {
 
   //get the accuracy and completion data
   $.ajax({
-    url: "/exit_tickets/report",
+    url: "/admin/reports",
     data: { start_date: start,
         end_date: end },
     type: "GET",
     success: function(response) {
-      console.log(response);
       var displayAcc = Math.floor(response.accuracy*100);
       var displayCompl = Math.floor(response.completion*100);
       document.getElementById("accuracy").innerHTML = displayAcc;
