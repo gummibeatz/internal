@@ -133,9 +133,9 @@ ActiveRecord::Schema.define(version: 20150923175334) do
     t.string   "reference_id",           default: "0"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.integer  "developer_id"
     t.string   "model"
     t.string   "account_name"
-    t.integer  "developer_id"
     t.datetime "date_assigned"
     t.string   "signed_off_by"
     t.boolean  "policy_signed"
