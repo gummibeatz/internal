@@ -30,7 +30,6 @@ var AssessmentBox = React.createClass({
   render: function() {
     return(
       <div>
-        <h1>AssessmentsBox</h1>
         <AssessmentList data = {this.state.data} />
       </div> 
     );

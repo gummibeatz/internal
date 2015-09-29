@@ -58,7 +58,7 @@ var AttendanceReact = React.createClass({
   render:function() {
     return(
       <tr>
-        <td> {Date(this.props.data.timestamp)} </td>
+        <td> {this.props.data.timestamp } </td>
         <td> {this.props.data.status} </td>
       </tr>
     );
