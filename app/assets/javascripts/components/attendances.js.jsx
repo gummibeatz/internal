@@ -43,12 +43,16 @@ var AttendanceList = React.createClass({
       );
     });
     return ( 
-      <table>
-        <tr> 
-          <th>Date</th>
-          <th>Status</th>
-        </tr>
-        {attendanceNodes}
+      <table className = "table table-striped">
+        <thead>
+          <tr> 
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {attendanceNodes}
+        </tbody>
       </table>
     );
   }
@@ -57,7 +61,7 @@ var AttendanceList = React.createClass({
 var AttendanceReact = React.createClass({
   render:function() {
     return(
-      <tr>
+      <tr className="table-row">
         <td> {this.props.data.timestamp } </td>
         <td> {this.props.data.status} </td>
       </tr>

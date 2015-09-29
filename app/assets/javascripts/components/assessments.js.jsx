@@ -40,27 +40,14 @@ var AssessmentBox = React.createClass({
 var AssessmentScore = React.createClass({
 
   formatScore: function() {
+    var classes = ['danger text-danger', 'caution text-caution', 'success text-success', 'success text-success'];
     var score = this.props.data.score;
     var divStyle = {color: 'black'};
     console.log(score);
     if(this.props.data.type == "homework") {
-      switch(score) {
-        case 0:
-          divStyle = {color: 'red'};
-          break;
-          console.log("red");
-        case 1:
-          divStyle = {color: 'orange'};
-          break;
-        case 2:
-          divStyle = {color: 'green'};
-          break;
-        case 3:
-          divStyle = {color: 'green'};
-          break;
-      }
+      this.props.data.klass = classes[score];
     }
-    return <span style ={divStyle}>{score} out of {this.props.data.max_score}</span>;
+    return <span className={this.props.data.klass}>{score} out of {this.props.data.max_score}</span>;
   },
 
   render: function() {
