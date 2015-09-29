@@ -4,6 +4,7 @@ class Assessment < ActiveRecord::Base
 
   scope :most_recent, -> { order(:updated_at).last }
   scope :active_assignments, -> { includes(:assignment).where('assignments.active' => 'true').references(:assignment) }
+  scope :by_due_date, -> { order(due_at: :desc) }
 
   belongs_to :developer
   belongs_to :assignment

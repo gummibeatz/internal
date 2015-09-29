@@ -2,7 +2,7 @@ module Api
   module V1
     class AttendancesController < Api::V1::ApiController
       def index
-        render json: developer.attendances.as_json
+        render json: developer.attendances.order(timestamp: :desc).as_json
       end
 
       def create

@@ -3,7 +3,7 @@ module Api
     class AssessmentsController < Api::V1::ApiController
       
       def index
-        render json: developer.assessments.as_json
+        render json: developer.assessments.by_due_date.as_json
       end
 
       def create
