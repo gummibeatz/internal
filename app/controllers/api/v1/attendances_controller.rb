@@ -18,6 +18,8 @@ module Api
         head :ok
       end
 
+      private
+
       def developer
         return Developer.find(params[:developer_id]) if params[:developer_id]
         return current_user.developer

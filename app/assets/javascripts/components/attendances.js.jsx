@@ -74,9 +74,8 @@ var AttendanceReact = React.createClass({
 });
 
 $(function() {
-  var pollInterval = 2000;
-  var $content = $("#attendances-panel");
-  if($content.length >0) {
+  var pollInterval = 2000; 
+  if($("#attendances-panel").length >0) {
     React.render(
       <AttendanceBox url = "/api/v1/attendances.json" pollInterval = {pollInterval} />,
       document.getElementById("attendances-panel")
@@ -84,7 +83,7 @@ $(function() {
   } else if ($("#admin-dev-attendances-panel").length > 0) {
     var url = "/api/v1/attendances.json?developer_id=".concat(window.developerID);
     React.render(
-      <AttendanceBox url = {url} pollInterval = {pollInterval}/>,
+      <AttendanceBox url={url} pollInterval={pollInterval}/>,
       document.getElementByID("admin-dev-attendances-panel")
     );
   }

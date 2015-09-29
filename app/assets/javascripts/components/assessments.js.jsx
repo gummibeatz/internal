@@ -1,8 +1,3 @@
-var data = [
-  {max_score: 3.0, github_url: "http://github.com"},
-  {max_score: 2.0, github_url: "http://github.com"}
-];
-
 var AssessmentBox = React.createClass({
   loadAssessmentsFromServer: function() {
     $.ajax({
