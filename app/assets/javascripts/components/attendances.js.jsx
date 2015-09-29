@@ -1,8 +1,3 @@
-var data = [
-  {title: "yay"},
-  {title: "meeep"}
-];
-
 var AttendanceBox = React.createClass({
   loadAttendancesFromServer: function() {
     $.ajax({
@@ -43,7 +38,7 @@ var AttendanceList = React.createClass({
       );
     });
     return ( 
-      <table className = "table table-striped">
+      <table className = "table">
         <thead>
           <tr> 
             <th>Date</th>
@@ -58,10 +53,19 @@ var AttendanceList = React.createClass({
   }
 });
 
+
 var AttendanceReact = React.createClass({
+  
   render:function() {
+    var styles = {
+      'on_time': '',
+      'late_excused': '',
+      'late_unexcused_5_minutes': 'danger',
+      'late_unexcused_10_minutes': 'danger',
+      'absent_unexcused': 'danger'
+    };
     return(
-      <tr className="table-row">
+      <tr className={styles[this.props.data.status]}>
         <td> {this.props.data.timestamp } </td>
         <td> {this.props.data.status} </td>
       </tr>
@@ -76,6 +80,12 @@ $(function() {
     React.render(
       <AttendanceBox url = "/api/v1/attendances.json" pollInterval = {pollInterval} />,
       document.getElementById("attendances-panel")
+    );
+  } else if ($("admin-dev-attendances-panel").length > 0) {
+    var url = "/api/v1/attendances.json?developer_id=".concat(window.developerID);
+    React.render(
+      <AttendanceBox url = {url} pollInterval = {pollInterval}/>,
+      document.getElementByID("admin-dev-attendances-panel")
     );
   }
 });

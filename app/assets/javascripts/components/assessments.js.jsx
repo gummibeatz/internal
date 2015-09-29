@@ -37,44 +37,22 @@ var AssessmentBox = React.createClass({
 });
 
 
-var AssessmentScore = React.createClass({
-
-  formatScore: function() {
-    var classes = ['danger text-danger', 'caution text-caution', 'success text-success', 'success text-success'];
-    var score = this.props.data.score;
-    var divStyle = {color: 'black'};
-    console.log(score);
-    if(this.props.data.type == "homework") {
-      this.props.data.klass = classes[score];
-    }
-    return <span className={this.props.data.klass}>{score} out of {this.props.data.max_score}</span>;
-  },
-
-  render: function() {
-    return(
-      <span>{this.formatScore()}</span>  
-    );
-  }
-});
-
 
 var AssessmentReact = React.createClass({
   
-  rawMarkup: function() {
-    var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-    return { __html: rawMarkup };
-  },
-  
   render: function() {
+    var styles = {
+      0 : "danger",
+      1 : "warning"
+    };
     return(
-      <div className = "assessment">
-        <span>
-          <strong>score: </strong> <AssessmentScore data = {this.props.data} /> <br/>
-          <strong>github url: </strong> <a href={this.props.data.github_url}>{this.props.data.github_url}</a> <br/>
-          <strong>due date: </strong>{this.props.data.due_at}
-        </span>
-      </div>
-    );
+        <tr className ={styles[this.props.data.score]}>
+          <td>{this.props.data.type}</td>
+          <td>{this.props.data.due_at}</td>
+          <td>{this.props.data.score}/{this.props.data.max_score}</td>
+          <td><a href={this.props.data.github_url}>{this.props.data.github_url}</a></td>
+        </tr>
+   );
   }
 });
 
@@ -84,17 +62,24 @@ var AssessmentList = React.createClass({
   render: function() {
     var assessmentNodes = this.props.data.map(function (assessment) {
       return (
-        <div>
           <AssessmentReact data = {assessment}/>
-          <br/>
-        </div>
       );
     });
 
     return(
-      <div className="assessmentList">
-      {assessmentNodes}
-      </div>
+      <table className = "table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Due Date</th>
+            <th>Grade</th>
+            <th>Github URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assessmentNodes}
+        </tbody>
+      </table>
     );
   }
           
@@ -102,7 +87,7 @@ var AssessmentList = React.createClass({
 
 
 $(function() {
-  var pollInterval = 2000
+  var pollInterval = 2000;
   var $content = $("#assessments-panel");
   if($content.length > 0) {
     React.render(
@@ -110,9 +95,7 @@ $(function() {
       document.getElementById("assessments-panel")
     );
   } else if ($("#admin-dev-assessments-panel").length > 0) {
-    var currentURL = window.location.href.split("/");
-    var developer_id = currentURL[currentURL.length-1];
-    var url = "/api/v1/assessments.json?developer_id=".concat(developer_id);
+    var url = "/api/v1/assessments.json?developer_id=".concat(window.developerID);
     React.render(
       <AssessmentBox url = {url} pollInterval= {pollInterval}/>,
       document.getElementById("admin-dev-assessments-panel")
