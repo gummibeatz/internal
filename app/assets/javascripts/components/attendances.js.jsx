@@ -82,6 +82,7 @@ $(function() {
     );
   } else if ($("#admin-dev-attendances-panel").length > 0) {
     var url = "/api/v1/attendances.json?developer_id=".concat(window.developerID);
+    console.log(url);
     React.render(
       <AttendanceBox url={url} pollInterval={pollInterval}/>,
       document.getElementByID("admin-dev-attendances-panel")
