@@ -67,7 +67,7 @@ var AttendanceReact = React.createClass({
     return(
       <tr className={styles[this.props.data.status]}>
         <td> {this.props.data.timestamp } </td>
-        <td> {this.props.data.status} </td>
+        <td> {this.props.data.status.replace(/_/g, " ")} </td>
       </tr>
     );
   }
