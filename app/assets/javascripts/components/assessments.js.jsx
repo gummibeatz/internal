@@ -34,15 +34,17 @@ var AssessmentBox = React.createClass({
 
 
 var AssessmentReact = React.createClass({
+
+    getStyleColor: function() {
+      if(this.props.data.score < 1) {return "danger"}
+      if(this.props.data.type == "homework") {
+        if(this.props.data.score < 2) {return "warning"}
+      }
+    },
   
   render: function() {
-    var styles = {
-      0 : "danger",
-      1 : "danger",
-      2 : "warning"
-    };
     return(
-        <tr className ={styles[this.props.data.score]}>
+        <tr className ={this.getStyleColor()}>
           <td>{this.props.data.type}</td>
           <td>{this.props.data.due_at}</td>
           <td>{this.props.data.score}/{this.props.data.max_score}</td>
