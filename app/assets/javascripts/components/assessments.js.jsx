@@ -38,7 +38,8 @@ var AssessmentReact = React.createClass({
   render: function() {
     var styles = {
       0 : "danger",
-      1 : "warning"
+      1 : "danger",
+      2 : "warning"
     };
     return(
         <tr className ={styles[this.props.data.score]}>
