@@ -77,5 +77,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  OmniAuth.config.full_host = "http://c4q-internal-staging.herokuapp.com" if Rails.env.production?
+  OmniAuth.config.full_host = "http://c4q-internal.herokuapp.com" if Rails.env.production?
 end
