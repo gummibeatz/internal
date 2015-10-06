@@ -2,7 +2,7 @@ class Equipment < ActiveRecord::Base
   
   scope :items_checked_out, ->{ where.not(:date_assigned => nil).where(:date_returned => nil) }
 
-  enum model: [:moto_g] 
+  enum model: [:moto_g, :iPhone_4s, :iPhone_5] 
   enum return_condition: [:like_new]
   
   belongs_to :developer
