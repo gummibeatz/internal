@@ -15,8 +15,8 @@ class Attendance < ActiveRecord::Base
 
   validates :status, presence: true
 
-  after_save :check_requirements
-  
+  # after_save :check_requirements
+
   def self.percentage_present
     return all.present.count / all.count.to_f unless all.count == 0
     return -1
