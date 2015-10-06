@@ -207,11 +207,7 @@ function displayAccuracyAndCompletion() {
 
   //get the accuracy and completion data
   $.ajax({
-<<<<<<< HEAD
-    url: "/admin/reports",
-=======
     url: "/api/v1/exit_tickets/report",
->>>>>>> took off filters to look at admin page from local
     data: { start_date: start,
         end_date: end },
     type: "GET",
