@@ -4,7 +4,9 @@ class Equipment < ActiveRecord::Base
 
   enum model: [:moto_g, :iPhone_4s, :iPhone_5] 
   enum return_condition: [:like_new]
-  
+ 
+  validates :reference_id, presence: true, uniqueness: true
+
   belongs_to :developer
   
 

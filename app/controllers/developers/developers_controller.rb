@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 module Developers
   class DevelopersController < ApplicationController
 
@@ -15,6 +18,7 @@ module Developers
       }
       @developer = current_user.developer
     end
+
 
   end
 end

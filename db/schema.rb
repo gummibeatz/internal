@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(version: 20151014034349) do
     t.integer  "number_of_graduate_credits_cents"
     t.integer  "graduate_gpa_cents"
     t.boolean  "is_current_student"
-    t.string   "linkedin_url"
     t.integer  "coding_background",                 default: 0
+    t.string   "linkedin_url"
     t.integer  "cohort_id"
     t.string   "full_name"
   end

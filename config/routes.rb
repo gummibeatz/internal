@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   scope path: '/developers', module: :developers do
     get '/', to: "developers#index"
     get '/stats', to: "developers#stats"
+    get '/slack', to: "developers#slack"
   end
 
   namespace :api do
@@ -49,6 +50,8 @@ Rails.application.routes.draw do
       get '/developers', to: 'developers#show'
 
       get '/equipments', to: 'equipments#index'
+
+      get '/slackAPI', to: 'slack_api#index'
 
       get '/exit_tickets/report', to: 'exit_tickets#report'
       post '/exit_tickets/create', to: 'exit_tickets#create'
