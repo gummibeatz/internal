@@ -107,7 +107,6 @@ end
 #  developer_id  :integer
 #  github_url    :string
 #  due_at        :datetime
-#  unit_id       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  type          :integer

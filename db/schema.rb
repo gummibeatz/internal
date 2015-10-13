@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923175334) do
+ActiveRecord::Schema.define(version: 20151013202339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,38 @@ ActiveRecord::Schema.define(version: 20150923175334) do
   add_index "notifications", ["subject_id", "subject_type"], name: "subject", using: :btree
   add_index "notifications", ["token"], name: "index_notifications_on_token", unique: true, using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "sms_donor_messages", force: :cascade do |t|
+    t.text     "message"
+    t.string   "sms_sid"
+    t.string   "account_sid"
+    t.string   "sms_message_sid"
+    t.string   "message_sid"
+    t.integer  "sms_donor_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "sms_donors", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "name"
+    t.string   "state"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "country"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "sms_donors", ["phone_number"], name: "index_sms_donors_on_phone_number", using: :btree
+
+  create_table "sms_pledges", force: :cascade do |t|
+    t.integer  "amount"
+    t.integer  "sms_donor_id"
+    t.text     "message"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "units", force: :cascade do |t|
     t.datetime "start_at"

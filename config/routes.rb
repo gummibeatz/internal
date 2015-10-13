@@ -53,7 +53,8 @@ Rails.application.routes.draw do
       post '/exit_tickets/import', to: 'exit_tickets#import'
       post '/exit_tickets/grade', to: 'exit_tickets#grade'
 
-      post '/bash2015', to: 'events#bash2105_receive_message'
+      post '/bash2015', to: 'events#bash2015_receive_message'
+      get '/bash2015', to: 'events#bash_2015'
     end
   end
 
