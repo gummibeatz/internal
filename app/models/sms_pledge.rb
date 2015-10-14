@@ -1,4 +1,5 @@
 class SmsPledge < ActiveRecord::Base
+  belongs_to :donor
 end
 
 # == Schema Information

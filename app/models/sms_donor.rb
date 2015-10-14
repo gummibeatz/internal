@@ -4,16 +4,14 @@ class SmsDonor < ActiveRecord::Base
   has_many :pledges, foreign_key: "sms_donor_id", class_name: "SmsPledge", dependent: :destroy
 
   def self.create_from_twilio_response(params)
-    ActiveRecord::Base.transaction do
-      donor = SmsDonor.create(
-        phone_number: params[:From],
-        state: params[:FromState],
-        city: params[:FromCity],
-        zip: params[:FromZip],
-        country: params[:FromCountry]
-      )
-      donor
-    end
+    donor = SmsDonor.create(
+      phone_number: params[:From],
+      state: params[:FromState],
+      city: params[:FromCity],
+      zip: params[:FromZip],
+      country: params[:FromCountry]
+    )
+    donor
   end
 
 end
