@@ -8,6 +8,10 @@ module Api
         render json: SmsPledge.all.order(created_at: :desc).as_json
       end
 
+      def total_amount
+        render :json => {"total_amount" => SmsPledge.sum(:amount)} 
+      end
+
       def bash2015_receive_message
 
         # throw error if amount isn't a number
