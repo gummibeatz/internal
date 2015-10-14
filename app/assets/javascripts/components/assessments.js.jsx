@@ -32,7 +32,6 @@ var AssessmentBox = React.createClass({
 });
 
 
-
 var AssessmentReact = React.createClass({
 
     getStyleColor: function() {
