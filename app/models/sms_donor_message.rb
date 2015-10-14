@@ -11,6 +11,16 @@ class SmsDonorMessage < ActiveRecord::Base
       message
   end
 
+  def self.bash_messages(idx, strings=[])
+      messages = [
+        "Thank you for your pledge of %s to Coalition for Queens. Your contribution will go towards expanding opportunity in tech. Please tell us your name so we can follow up.",
+        "Thanks, %s. In 140 characters, please tell us why you choose to support C4Q (this message will be displayed on our public pledge board)",
+        "Thank you so much. We'll be in touch soon.",
+        "Hey, %s. Have you tried the mochi ice cream? If you'd like to make another pledge, please enter the amount.",
+        "Thank you for the pledge, %s. If you'd like to make another pledge, please enter the amount."
+      ][idx] % strings
+  end
+
 end
 
 # == Schema Information
