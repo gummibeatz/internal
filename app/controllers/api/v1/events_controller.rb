@@ -2,8 +2,7 @@ module Api
   module V1
     class EventsController < Api::V1::ApiController
 
-      INVALID_AMOUNT_ERROR_MESSAGE = "That doesn't seem like a valid pledge amount. Please enter a number (eg. 100)"
-
+      INVALID_AMOUNT_ERROR_MESSAGE = "That doesn't seem like a valid pledge amount. Please enter a number (eg. $25)"
 
       def bash2015_receive_message
 
@@ -22,15 +21,15 @@ module Api
           rescue
             throw_invalid_amount.call
           end
-        elsif donor.messages.count == 1 # second time
+        elsif donor.messages.count == 1
           response = sequence(1)
-        elsif donor.messages.count == 2 # last time
+        elsif donor.messages.count == 2
           response = sequence(2)
         elsif donor.messages.count == 3
           response = sequence(3)
         else
           begin
-            response sequence(4)
+            response = sequence(4)
           rescue
             throw_invalid_amount.call
           end
@@ -47,12 +46,14 @@ module Api
       def sequence(idx)
 
           p1 = Proc.new {
-            raise "hell" if params[:Body].to_i == 0
+            amount = params[:Body].gsub("$", "")
+            raise "Invalid amount type" if amount.to_i == 0
             if d = SmsDonor.create_from_twilio_response(params)
-              pledge = SmsPledge.create(amount: params[:Body])
+              amount = params[:Body].gsub("$", "")
+              pledge = SmsPledge.create(amount: amount.to_f)
               d.pledges << pledge
               response = Twilio::TwiML::Response.new do |r|
-                r.Sms ::SmsDonorMessage.bash_messages(0, [pledge.amount])
+                r.Sms ::SmsDonorMessage.bash_messages(0, [pledge.amount.to_i])
               end
               return response
             end
@@ -63,7 +64,6 @@ module Api
             response = Twilio::TwiML::Response.new do |r|
               r.Sms ::SmsDonorMessage.bash_messages(1, [donor.name])
             end
-            return response
           }
 
           p3 = Proc.new {
@@ -80,14 +80,17 @@ module Api
           }
 
           p5 = Proc.new {
-            raise "hell" if params[:Body].to_i == 0
-            donor.pledges << SmsPledge.create(amount: params[:Body])
+            amount = params[:Body].gsub("$", "")
+            raise "Invalid amount type" if amount.to_i == 0
+            pledge = SmsPledge.create(amount: amount.to_f)
+            donor.pledges << pledge
             response = Twilio::TwiML::Response.new do |r|
-              r.Sms ::SmsDonorMessages.bash_messages(4, [donor.name])
+              r.Sms ::SmsDonorMessage.bash_messages(4, [donor.name, pledge.amount.to_i])
             end
+            return response
           }
 
-          [p1.call, p2.call, p3.call, p4.call, p5.call][idx]
+          [p1, p2, p3, p4, p5][idx].call
       end
 
       private
