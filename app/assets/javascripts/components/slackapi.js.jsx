@@ -53,10 +53,24 @@ var HomeworkMessageList = React.createClass({
 });
 
 var HomeworkMessage = React.createClass({
+
+  cleanUpMessage: function(message) {
+    message = this.removeUsersFromMessage(message);
+    return message;
+  },
+
+  removeUsersFromMessage: function(message) {
+    return message.replace(/<@.*>/, "Some Dev");
+  },
+
+  linkifyURLsInMessage: function(message) {
+    return message.replace(/<http.*>/, "<a href='$1',$1</a>");
+  },
+  
   render: function() {
     return(
       <tr>
-        <td><div className = "slack-message">{this.props.data.text}</div></td>
+        <td><div className = "slack-message">{this.cleanUpMessage(this.props.data.text)}</div></td>
       </tr>
     );  
   }
@@ -65,7 +79,9 @@ var HomeworkMessage = React.createClass({
 $(function() {
   var $content = $("#slack-homework-channel-panel");
   if($content.length > 0) {
-    React.render(<SlackHomeworkChannelBox url = "/api/v1/slackAPI.json"/>,
+    var developerId = window.developerId;
+    var url = "/api/v1/slackAPI.json?developer_id=".concat(developerId);
+    React.render(<SlackHomeworkChannelBox url = {url}/>,
       document.getElementById("slack-homework-channel-panel")
     );
   }

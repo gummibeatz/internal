@@ -2,13 +2,21 @@ module Api
   module V1
     class SlackApiController < Api::V1::ApiController
       def index
-        result = getChannelFeed
-        render json: JSON.parse(result)["messages"]
+        if params.has_key?(:developer_id)
+          developer = Developer.find(params[:developer_id])
+          date = getActiveAssignmentDate(developer)
+          result = getChannelFeedWithDate(date)
+          render json: JSON.parse(result)["messages"]
+        end
       end
 
       private
-      
-      def getChannelFeed
+     
+      def getActiveAssignmentDate(developer)
+        date = developer.cohort.assignments.active.first.created_at 
+      end
+
+      def getChannelFeedWithDate(date)
         token = Rails.application.secrets.slack_access_code_2_2_token
         channel_id = "C0569TDLH"
         uri = URI("https://slack.com/api/channels.history?token=#{token}&&channel=#{channel_id}")
