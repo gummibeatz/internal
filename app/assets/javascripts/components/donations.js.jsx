@@ -4,7 +4,7 @@ DonationBox = React.createClass({
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      success: function(data) { 
+      success: function(data) {
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -28,7 +28,7 @@ DonationBox = React.createClass({
         <DonationList data = {this.state.data} />
       </div>
     );
-  } 
+  }
 })
 
 DonationList = React.createClass ({
@@ -59,10 +59,12 @@ $(function() {
   var pollInterval = 2000;
 
   if($("#donation-box").length > 0) {
+    /*
     React.render(
       <DonationBox url = "/api/v1/bash2015.json" pollInterval= {pollInterval}/>,
       document.getElementById("donation-box")
     );
+   */
   }
 });
 
@@ -74,7 +76,7 @@ var allDonations =[];
 //      url: "",
 //      dataType: 'json',
 //      cache: false,
-//      success: function(data) { 
+//      success: function(data) {
 //        this.setState({data: data});
 //      }.bind(this),
 //      error: function(xhr, status, err) {

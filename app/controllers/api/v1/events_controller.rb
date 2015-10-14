@@ -5,11 +5,10 @@ module Api
       INVALID_AMOUNT_ERROR_MESSAGE = "That doesn't seem like a valid pledge amount. Please enter a number (eg. $25)"
 
       def bash_2015
-        render json: SmsPledge.all.order(created_at: :desc).as_json
-      end
-
-      def total_amount
-        render :json => {"total_amount" => SmsPledge.sum(:amount)} 
+        render json: {
+          pledges: SmsPledge.all.order(created_at: :asc).where("message is not null").as_json,
+          total: SmsPledge.sum(:amount)
+        }
       end
 
       def bash2015_receive_message

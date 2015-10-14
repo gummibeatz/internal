@@ -18,7 +18,7 @@ end
 
 # == Schema Information
 #
-# Table name: bash_donors
+# Table name: sms_donors
 #
 #  id           :integer          not null, primary key
 #  phone_number :string

@@ -2,6 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  font-family: Menlo;
+  color: #fff;
+}
+
+body {
+  background-image: image-url("bash-background.jpg");
+  background-size: cover;
+}
 
 .yay {
   color: blue;
@@ -11,8 +23,103 @@
   color: green;
 }
 
-#bash-background {
-  background-image: image-url("bash-background.jpg");
+h1 {
+  margin-top: 90px;
+  text-align: center;
+}
+
+#total {
+  margin-top: 60px;
+  text-align: center;
+  font-size:30px;
+}
+
+#donation {
+  text-align: center;
+  margin-top: 100px;
+
+  .display {
+    font-size: 30px;
+  }
+
+  .message {
+    font-size: 20px;
+  }
+
+}
+
+.progress-container {
+  width: 60%;
+  margin: 0px auto;
+  margin-top: 50px;
+  height: 40px;
+  position:relative;
+}
+
+p.goal {
+  float: left;
+
+  &.first {
+    margin-left: 30%;
+  }
+
+  &.second {
+    margin-left: 26%;
+  }
+
+  &.third {
+    position:absolute;
+    bottom: -51px;
+    right: -26px;
+  }
+}
+
+#progress {
+  width: 100%;
   height: 100%;
-  margin: 0;
+  background: #fff;
+  white-space:nowrap;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+#first-tier {
+  background-color: darken(green, 4%);
+}
+
+#second-tier {
+  background-color: darken(green, 8%);
+}
+
+#third-tier {
+  background-color: darken(green, 12%);
+}
+
+h2 {
+  color: #fff;
+  text-align: center;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.bottom-right {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  text-align: right;
+}
+
+.green {
+  color: #00ff00;
 }

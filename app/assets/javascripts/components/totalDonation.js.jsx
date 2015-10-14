@@ -4,7 +4,7 @@ TotalDonation = React.createClass({
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      success: function(data) { 
+      success: function(data) {
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -12,7 +12,7 @@ TotalDonation = React.createClass({
       }.bind(this)
     });
   },
-  
+
   getInitialState: function() {
     return {data: []};
   },
@@ -34,17 +34,19 @@ TotalDonation = React.createClass({
         {this.state.data.total_amount} / 5000
       </h2>
     );
-  } 
+  }
 })
 
 $(function() {
- var pollInterval = 2000 
+ var pollInterval = 2000
   var $content = $("#total-donation");
+  /*
   if($content.length > 0) {
     React.render(
       <TotalDonation url = "/api/v1/event_donation.json" pollInterval={pollInterval}/>,
       document.getElementById("total-donation")
     );
   }
+ */
 
 });

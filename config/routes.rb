@@ -62,7 +62,6 @@ Rails.application.routes.draw do
 
       post '/bash2015', to: 'events#bash2015_receive_message'
       get '/bash2015', to: 'events#bash_2015'
-      get '/event_donation', to: 'events#total_amount'
     end
   end
 

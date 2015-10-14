@@ -1,12 +1,38 @@
-<html>
-  <head>
-    <%= stylesheet_link_tag params[:controller] %> 
-  </head>
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag params[:controller] %>
+<% end %>
 
-  <body>
-    <div id="bash-background">
-      <div id= "total-donation"></div> 
-      <div id="donation-box"></div>
-    </div> 
-  </body>
-</html>
+<h1 class="green">C4Q-Tech/Bash</h1>
+<h2>Text Your Pledge Amount to (347)527-4222</h2>
+
+<div class="progress-container">
+  <div id="progress">
+    <div class="progress-bar" role="progressbar" style="width:0%;" id="first-tier"></div>
+    <div class="progress-bar" role="progressbar" style="width:0%;" id="second-tier"></div>
+    <div class="progress-bar" role="progressbar" style="width:0%;" id="third-tier"></div>
+  </div>
+  <p class="first goal">$5,000</p>
+  <p class="second goal">$10,000</p>
+  <p class="third goal">$15,000</p>
+</div>
+
+<p id="total">Total Pledged: <span class="green">$0</span></p>
+
+<div id="donation">
+  <p class="display"></p>
+  <p class="message"></p>
+</div>
+
+<p class="bottom-left">
+ C4Q-Tech/Bash
+</p>
+
+<p class="bottom-right">
+ #C4QTechBash<br> @C4QNYC
+</p>
+
+<div id="donation-box"></div>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "events/bash2015" %>
+<% end %>
