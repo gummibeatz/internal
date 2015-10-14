@@ -4,6 +4,10 @@ module Api
 
       INVALID_AMOUNT_ERROR_MESSAGE = "That doesn't seem like a valid pledge amount. Please enter a number (eg. $25)"
 
+      def bash_2015
+        render json: SmsPledge.all.order(created_at: :desc).as_json
+      end
+
       def bash2015_receive_message
 
         # throw error if amount isn't a number
@@ -39,9 +43,7 @@ module Api
         render text: response.text
       end
 
-      def bash_2015
-        render json: SmsPledge.all.order(created_at: :desc).as_json
-      end
+      private
 
       def sequence(idx)
 
@@ -92,8 +94,6 @@ module Api
 
           [p1, p2, p3, p4, p5][idx].call
       end
-
-      private
 
       def donor
         @donor if defined?(@donor)
