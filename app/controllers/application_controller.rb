@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin!
+    puts "yay"
+    byebug
     redirect_to root_url, :notice => 'You must be an admin to do that' if current_user && current_user.developer?
   end
 end
