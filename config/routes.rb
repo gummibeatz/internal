@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   scope path: '/admin', module: :admin do
 
     resources :units, only: [:show]
+    resources :pledges, only: [:index]
     resources :cohorts
     resources :reports, only: [:index]
     resources :exit_tickets do

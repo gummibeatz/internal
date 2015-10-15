@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="col-xs-12">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Amount</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pledges.each do |pledge| %>
+          <tr>
+            <td><%= pledge[:name] %></td>
+            <td><%= pledge[:phone] %></td>
+            <td><%= pledge[:amount] %></td>
+            <td><%= pledge[:message] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
