@@ -3,6 +3,7 @@
     <table class="table table-condensed table-bordered">
       <thead>
         <tr>
+          <th>Timestamp</th>
           <th>Name</th>
           <th>Phone</th>
           <th>Amount</th>
@@ -12,6 +13,7 @@
       <tbody>
         <% @pledges.each do |pledge| %>
           <tr>
+            <td><%= pledge[:created_at] %></td>
             <td><%= pledge[:name] %></td>
             <td><%= pledge[:phone] %></td>
             <td><%= pledge[:amount] %></td>
