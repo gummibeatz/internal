@@ -22,3 +22,17 @@ task :send_developer_status_updates => :environment do
     end
   end
 end
+
+
+desc "parse donations"
+task :convert_donor_info_to_csv => :environment do
+  File.open("donors.csv", 'w') do |f|
+    f.puts("Timestamp, Name, Phone, Amount, Message")
+    SmsDonor.includes(:pledges).each do | donor |
+      donor.pledges.each do |pledge|
+      f.puts("#{pledge.created_at},#{donor.name},#{donor.phone_number},#{pledge.amount},#{pledge.message}.gsub(","," ")")
+      end
+    end
+  end
+end
+
