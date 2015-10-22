@@ -42,7 +42,7 @@ task :send_pledge_follow_up => :environment do
   
   twilio_number = "+13475274222"
   recipient_number = "+18652017604"
-  sms_message = "hey hey from twilio"
+  sms_message = "Thanks again for your pledge to C4Q. Please reply with your email to receive instructions on how to fulfill your pledge and help us build a more inclusive tech community in NYC."
 
   client = Twilio::REST::Client.new(Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token)
   

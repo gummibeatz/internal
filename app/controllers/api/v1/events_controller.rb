@@ -35,11 +35,7 @@ module Api
         elsif donor.messages.count == 3
           response = sequence(3)
         else
-          begin
-            response = sequence(4)
-          rescue
-            throw_invalid_amount.call
-          end
+          print("no more replies")
         end
 
         donor.messages << SmsDonorMessage.create_message_from_twilio(params)
