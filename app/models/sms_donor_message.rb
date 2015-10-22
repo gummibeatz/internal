@@ -17,7 +17,8 @@ class SmsDonorMessage < ActiveRecord::Base
         "Thanks, %s. In 140 characters, please tell us why you choose to support C4Q (this message will be displayed on our public pledge board)",
         "Thank you so much. We'll be in touch soon to complete the contribution.",
         "Hey, %s! Have you tried the mochi ice cream? If you'd like to make another pledge just enter the amount.",
-        "Thanks, %s, for your for pledge of $%s. If you'd like to make another pledge just enter the amount."
+        "Thanks, %s, for your for pledge of $%s. If you'd like to make another pledge just enter the amount.",
+        "Thank you so much for your support!"
       ][idx] % strings
   end
 

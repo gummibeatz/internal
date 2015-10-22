@@ -35,7 +35,7 @@ module Api
         elsif donor.messages.count == 3
           response = sequence(3)
         else
-          print("no more replies")
+          response = sequence(5)
         end
 
         donor.messages << SmsDonorMessage.create_message_from_twilio(params)
@@ -91,7 +91,13 @@ module Api
             return response
           }
 
-          [p1, p2, p3, p4, p5][idx].call
+          p6 = Proc.new {
+            response = Twilio::TwiML::Response.new do |r|
+              r.Sms ::SmsDonorMessage.bash_messages(5)
+            end
+          }
+
+          [p1, p2, p3, p4, p5, p6][idx].call
       end
 
       def donor
