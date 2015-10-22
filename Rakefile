@@ -1,6 +1,7 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
+
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
@@ -36,3 +37,20 @@ task :convert_donor_info_to_csv => :environment do
   end
 end
 
+desc "follow up thanks you texts"
+task :send_pledge_follow_up => :environment do
+  
+  twilio_number = "+13475274222"
+  recipient_number = "+18652017604"
+  sms_message = "hey hey from twilio"
+
+  client = Twilio::REST::Client.new(Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token)
+  
+  message = client.account.messages.create(
+    :from => twilio_number,
+    :to => recipient_number,
+    :body => sms_message
+  )
+  puts message.to
+  
+end
