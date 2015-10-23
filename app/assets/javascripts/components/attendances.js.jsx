@@ -19,7 +19,7 @@ var AttendanceBox = React.createClass({
 
   componentDidMount: function() {
     this.loadAttendancesFromServer();
-    setInterval(this.loadAttendancesFromServer, this.props.pollInterval);
+    // setInterval(this.loadAttendancesFromServer, this.props.pollInterval);
   },
 
   render: function() {
@@ -37,10 +37,10 @@ var AttendanceList = React.createClass({
           <AttendanceReact data = {attendance}/>
       );
     });
-    return ( 
+    return (
       <table className = "table">
         <thead>
-          <tr> 
+          <tr>
             <th>Date</th>
             <th>Status</th>
           </tr>
@@ -55,7 +55,7 @@ var AttendanceList = React.createClass({
 
 
 var AttendanceReact = React.createClass({
-  
+
   render:function() {
     var styles = {
       'on_time': '',
@@ -74,7 +74,7 @@ var AttendanceReact = React.createClass({
 });
 
 $(function() {
-  var pollInterval = 2000; 
+  var pollInterval = 2000;
   if($("#attendances-panel").length >0) {
     React.render(
       <AttendanceBox url = "/api/v1/attendances.json" pollInterval = {pollInterval} />,

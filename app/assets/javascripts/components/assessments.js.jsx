@@ -4,7 +4,7 @@ var AssessmentBox = React.createClass({
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      success: function(data) { 
+      success: function(data) {
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -19,14 +19,14 @@ var AssessmentBox = React.createClass({
 
   componentDidMount: function() {
     this.loadAssessmentsFromServer();
-    setInterval(this.loadAssessmentsFromServer, this.props.pollInterval);
+    // setInterval(this.loadAssessmentsFromServer, this.props.pollInterval);
   },
-  
+
   render: function() {
     return(
       <div>
         <AssessmentList data = {this.state.data} />
-      </div> 
+      </div>
     );
   }
 });
@@ -40,7 +40,7 @@ var AssessmentReact = React.createClass({
         if(this.props.data.score < 2) {return "warning"}
       }
     },
-  
+
   render: function() {
     return(
         <tr className ={this.getStyleColor()}>
@@ -55,7 +55,7 @@ var AssessmentReact = React.createClass({
 
 
 var AssessmentList = React.createClass({
-  
+
   render: function() {
     var assessmentNodes = this.props.data.map(function (assessment) {
       return (
@@ -79,7 +79,7 @@ var AssessmentList = React.createClass({
       </table>
     );
   }
-          
+
 });
 
 
