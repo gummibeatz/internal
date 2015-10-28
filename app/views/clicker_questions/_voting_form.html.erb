@@ -1,0 +1,11 @@
+<%= form_tag votes_path, method: :post, remote: true, id: 'voting_form' do %>
+  <%= hidden_field_tag 'clicker_question[id]', @clicker_question.id %>
+
+  <%= render partial: 'clicker_questions/clicker_answer', collection: @clicker_question.clicker_answers, as: :answer %>
+
+  <% #if current_user.voted_for?(@poll) %>
+  <!-- <p>You have already voted!</p> -->
+  <% #else %>
+  <%= submit_tag 'Vote', class: 'btn btn-lg btn-primary' %>
+  <% #end %>
+<% end %>

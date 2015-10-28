@@ -13,6 +13,8 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   has_many :assessments
   has_many :equipments
+  has_many :votes, dependent: :destroy
+  has_many :clicker_answers, through: :votes
 
   belongs_to :cohort
 

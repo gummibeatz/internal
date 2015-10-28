@@ -1,0 +1,23 @@
+<%= form_for @clicker_question do |f| %>
+  <%= render 'errors', object: @clicker_question %>
+
+  <div class="form-group">
+    <%= f.label :question %>
+    <%= f.text_area :question, rows: 3, required: true, class: 'form-control' %>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Answers</div>
+    <div class="panel-body">
+      <%= f.fields_for :clicker_answers do |options_form| %>
+        <%= render 'clicker_answer_fields', f: options_form %>
+      <% end %>
+
+      <div class="links">
+        <%= link_to_add_association 'Add answers', f, :clicker_answers %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit 'Create', class: 'btn btn-primary btn-lg' %>
+<% end %>

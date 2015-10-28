@@ -1,0 +1,18 @@
+<% content_for(:page_header) {"Clicker Questions"} %>
+
+<% @clicker_questions.each do |question| %>
+  <div class="well">
+    <h2><%= question.question %></h2>
+
+    <p>
+      <%= link_to 'Check', clicker_question_path(question), class: 'btn btn-primary btn-lg block' %>
+    </p>
+
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_clicker_question_path(question), class: 'btn btn-default' %>
+      <%= link_to 'Delete', clicker_question_path(question),
+                  method: :delete,
+                  class: 'btn btn-danger', data: {confirm: 'Are you sure?'} %>
+    </div>
+  </div>
+<% end %>

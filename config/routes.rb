@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   get 'events', to: 'events#index'
 
+  resources :clicker_questions
+  resources :votes, only: [:create]
+
   devise_for :users,
     skip: [:registrations, :passwords],
     controllers: { omniauth_callbacks: "users/omniauth_callbacks" }

@@ -20,6 +20,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise', '~> 3.5.1'
 gem 'puma'
+gem 'cocoon'
 
 gem 'twilio-ruby', '~> 4.2.1'
 

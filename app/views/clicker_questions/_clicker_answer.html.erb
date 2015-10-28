@@ -1,0 +1,8 @@
+<div class="form-group">
+  <%= content_tag(:label) do %>
+    <%# unless current_dev.voted_for?(@clicker_question) %>
+    <%= radio_button_tag 'clicker_answer[id]', answer.id %>
+    <%# end %>
+    <%= answer.answer %>
+  <% end %>
+</div>
