@@ -6,6 +6,8 @@
   <% #if current_user.voted_for?(@poll) %>
   <!-- <p>You have already voted!</p> -->
   <% #else %>
+
+    <p><b>Total votes: <%= @clicker_question.votes_summary %></b></p>
   <%= submit_tag 'Vote', class: 'btn btn-lg btn-primary' %>
   <% #end %>
 <% end %>
