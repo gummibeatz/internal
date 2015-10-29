@@ -53,5 +53,17 @@ class ClickerQuestionsController < ApplicationController
   def clicker_question_params
     params.require(:clicker_question).permit(:question, clicker_answers_attributes: [:id, :answer, :_destroy])
   end
+
+  def getChannelFeedWithDate(date)
+    token = Rails.application.secrets.slack_access_code_2_2_token
+    channel_id = "C0DBVPWHF"
+    uri = URI("https://slack.com/api/channels.history?token=#{token}&&channel=#{channel_id}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request.initialize_http_header(headers)
+    response = http.request(request)
+    response.body
+  end
   
 end
