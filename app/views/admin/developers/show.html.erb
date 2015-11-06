@@ -5,37 +5,56 @@
     </div>
   </div>
 
-  <div class = "panel panel-default">
-    <div class = "panel-heading">
-      <h3 class = "panel-title">Assessments</h3>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Assessments</h3>
+        </div>
+        <div id="admin-dev-assessments-panel" class="panel-body">
+        </div>
+      </div>
     </div>
-    <div id ="admin-dev-assessments-panel" class="panel-body">
+
+    <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Attendances</h3>
+        </div>
+        <div id="admin-dev-attendances-panel" class="panel-body">
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class = "panel panel-default">
-    <div class = "panel-heading">
-      <h3 class = "panel-title">Attendances</h3>
-    </div>
-    <div id ="admin-dev-attendances-panel" class="panel-body">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Basic info</h3>
+        </div>
+        <div class="panel-body">
+          <% developer.attributes.each_pair do |name, value| %>
+            <% next if name == "id" %>
+            <% next if name == "application_id" %>
+            <p><strong><%= "#{name}:" %></strong>  <%= value %></p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 
-  
   <div class="row">
     <div class="col-md-12">
-      <h4>Basic info</h4>
-      <% developer.attributes.each_pair do |name, value| %>
-        <% next if name == "id" %>
-        <% next if name == "application_id" %>
-        <p><strong><%= "#{name}:" %></strong>  <%= value %></p>
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h4>Exit Tickets</h4>
-      <%= render "/admin/exit_tickets/form_table", tickets: developer.exit_tickets, link: true, comments: true %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Exit Tickets</h3>
+        </div>
+        <div class="panel-body">
+          <%= render "/admin/exit_tickets/form_table", tickets: developer.exit_tickets, link: true, comments: true %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
