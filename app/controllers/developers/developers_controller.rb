@@ -8,7 +8,10 @@ module Developers
 
     def index
       @developer = current_user.developer
-      @unit_attendances = DeveloperUnitAttendance.new(@developer, @developer.cohort.current_unit.range)
+      cohort = @developer.cohort
+      unless @developer.cohort.current_unit.nil? 
+        @unit_attendances = DeveloperUnitAttendance.new(@developer, @developer.cohort.current_unit.range)
+      end
     end
 
     def stats
