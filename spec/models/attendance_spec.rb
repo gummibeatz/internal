@@ -61,38 +61,38 @@ RSpec.describe Attendance, type: :model do
       cohort.save!
     end
 
-    it "should send email when not meeting reqs" do
-      @developer.attendances.create!(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
-      @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
-      expect{
-        @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-3)
-      }.to change(Notification, :count).by(1)
-    end
-
-    it "should send email when in danger of not meeting reqs" do
-      expect{
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
-        @developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
-      }.to change(Notification, :count).by(1)
-    end
-  
-    it "should only send email when in danger of not meeting reqs once" do
-      expect{
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-2)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-1)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-3)
-      }.to change(Notification.where(kind: "danger"), :count).by(1)
-    end
-
-    it "should only send email when not meeting reqs once" do
-      expect{
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-1)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-3)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-4)
-        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-5)
-      }.to change(Notification.where(kind: "peril"), :count).by(1)
-    end
+#    it "should send email when not meeting reqs" do
+#      @developer.attendances.create!(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+#      @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
+#      expect{
+#        @developer.attendances.create!(status: "late_unexcused_10_minutes", timestamp: TODAY-3)
+#      }.to change(Notification, :count).by(1)
+#    end
+#
+#    it "should send email when in danger of not meeting reqs" do
+#      expect{
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+#        @developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
+#      }.to change(Notification, :count).by(1)
+#    end
+#  
+#    it "should only send email when in danger of not meeting reqs once" do
+#      expect{
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-2)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-1)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-3)
+#      }.to change(Notification.where(kind: "danger"), :count).by(1)
+#    end
+#
+#    it "should only send email when not meeting reqs once" do
+#      expect{
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-2)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-1)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-3)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-4)
+#        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp: TODAY-5)
+#      }.to change(Notification.where(kind: "peril"), :count).by(1)
+#    end
   end
 
   describe :scopes do

@@ -62,38 +62,38 @@ RSpec.describe Assessment, type: :model do
       }.to change(Assessment, :count).by(0)
     end
     
-    describe "assessment emails" do
-      
-      # must have user relationship for notifykit to work
-      before(:each) do
-        @developer.build_user(
-          email: @developer.email,
-          password: Devise.friendly_token
-        )
-        @assessment = @developer.assessments.build(
-                            assignment_id: @assignment.id,
-                            due_at: @assignment.due_at,
-                            max_score: @assignment.max_score,
-                            score: 2,
-                            type: @assignment.type
-                          )
-      end
+   # describe "assessment emails" do
+   #   
+   #   # must have user relationship for notifykit to work
+   #   before(:each) do
+   #     @developer.build_user(
+   #       email: @developer.email,
+   #       password: Devise.friendly_token
+   #     )
+   #     @assessment = @developer.assessments.build(
+   #                         assignment_id: @assignment.id,
+   #                         due_at: @assignment.due_at,
+   #                         max_score: @assignment.max_score,
+   #                         score: 2,
+   #                         type: @assignment.type
+   #                       )
+   #   end
 
-      it "should send_reports after creation" do
-        expect {
-          @assessment.save!
-        }.to change(Notification, :count).by(1)
-      end
+   #   it "should send_reports after creation" do
+   #     expect {
+   #       @assessment.save!
+   #     }.to change(Notification, :count).by(1)
+   #   end
 
-      it "should send_reports after update" do
-        @assessment.save!
-        expect {
-          new_assessment = @developer.assessments.last
-          new_assessment.score = 3
-          new_assessment.save!
-         }.to change(Notification, :count).by(1)
-      end
-    end
+   #   it "should send_reports after update" do
+   #     @assessment.save!
+   #     expect {
+   #       new_assessment = @developer.assessments.last
+   #       new_assessment.score = 3
+   #       new_assessment.save!
+   #      }.to change(Notification, :count).by(1)
+   #   end
+   # end
   end
 end
 
