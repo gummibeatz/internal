@@ -44,3 +44,5 @@ scripts/*
 /config/application.yml
 
 spec/examples.txt
+
+*.csv

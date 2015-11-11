@@ -43,7 +43,7 @@
                 </tbody>
               </table>
 
-              <% unless @unit_attendnaces.nil? %>
+              <% unless @unit_attendances.nil? %>
                 <h5>Late: <%= @unit_attendances.late.count%> / 2</h5>
                 <% @unit_attendances.late.each do |late| -%>
                   <p>
