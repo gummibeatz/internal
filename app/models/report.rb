@@ -1,9 +1,11 @@
 class Report
   attr_accessor :range
 
-  # constructor
-  def initialize(start, finish)
+  #  constructor
+  def initialize(start, finish, exit_tickets = nil, attendance = nil)
     @range = Range.new(start, finish)
+    @tickets = exit_tickets
+    @attendance = attendance
   end
 
   def exit_ticket_completion_rate
