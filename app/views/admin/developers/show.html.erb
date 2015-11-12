@@ -6,22 +6,22 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" data-toggle="collapse" data-target="#admin-dev-assessments-panel" aria-expanded="false" aria-controls="admin-dev-assessments-panel">
           <h3 class="panel-title">Assessments</h3>
         </div>
-        <div id="admin-dev-assessments-panel" class="panel-body">
+        <div id="admin-dev-assessments-panel" class="panel-body collapse">
         </div>
       </div>
     </div>
 
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" data-toggle="collapse" data-target="#admin-dev-attendances-panel" aria-expanded="false" aria-controls="admin-dev-attendances-panel">
           <h3 class="panel-title">Attendances</h3>
         </div>
-        <div id="admin-dev-attendances-panel" class="panel-body">
+        <div id="admin-dev-attendances-panel" class="panel-body collapse">
         </div>
       </div>
     </div>
@@ -31,10 +31,10 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" data-toggle="collapse" data-target="#developer-basic-info" aria-expanded="false" aria-controls="developer-basic-info">
           <h3 class="panel-title">Basic info</h3>
         </div>
-        <div class="panel-body">
+        <div id="developer-basic-info" class="panel-body collapse">
           <% developer.attributes.each_pair do |name, value| %>
             <% next if name == "id" %>
             <% next if name == "application_id" %>
@@ -48,10 +48,10 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" data-toggle="collapse" data-target="#developer-exit-tickets" aria-expanded="false" aria-controls="developer-exit-tickets">
           <h3 class="panel-title">Exit Tickets</h3>
         </div>
-        <div class="panel-body">
+        <div id="developer-exit-tickets" class="panel-body collapse">
           <%= render "/admin/exit_tickets/form_table", tickets: developer.exit_tickets, link: true, comments: true %>
         </div>
       </div>
