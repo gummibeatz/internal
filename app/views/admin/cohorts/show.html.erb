@@ -21,13 +21,14 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-6 col-xs-12">
+      <h3>Units</h3>
       <% cohort.units.each_with_index do |unit, idx| %>
         <p><strong>
           <%= link_to "Unit #{idx}:", unit_path(unit) %></strong> <%= pretty_date(unit.start_at) %> - <%= pretty_date(unit.end_at) %></p>
       <% end %>
     </div>
-    <div class="col-md-12">
+    <div class="col-sm-6 col-xs-12">
       <h3>Developers</h3>
       <% cohort.developers.each do |developer| %>
         <p><%= link_to "#{developer.display_name}", developer_path(developer) %></p>
