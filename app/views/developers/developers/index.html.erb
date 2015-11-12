@@ -43,14 +43,17 @@
                 </tbody>
               </table>
 
-              <h5>Late: <%= @unit_attendances.late.count%> / 2</h5>
-              <% @unit_attendances.late.each do |late| -%>
-                <p>
-                <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= pretty_date(late.timestamp) %>
-                </p>
-              <% end -%>
-              </br>
-              <h5>Absent: <%= @unit_attendances.absent.count%> / 2</h5>
+              <% unless @unit_attendances.nil? %>
+                <h5>Late: <%= @unit_attendances.late.count%> / 2</h5>
+                <% @unit_attendances.late.each do |late| -%>
+                  <p>
+                  <strong><%= late.status.gsub('_'," ")%>:</strong>  <%= pretty_date(late.timestamp) %>
+                  </p>
+                <% end -%>
+                </br>
+                <h5>Absent: <%= @unit_attendances.absent.count%> / 2</h5>
+              <% end %>
+
             </div>
           </div>
 
@@ -62,6 +65,8 @@
             </div>
           </div>
 
+
+<!--
           <div class = "panel panel-default">
             <div class = "panel-heading">
               <h3 class = "panel-title">Slack Homework Channel</h3>
@@ -69,6 +74,8 @@
             <div id="slack-homework-channel-panel" class"panel-body">
             </div>
           </div>
+-->
+
 
           <div class = "panel panel-default">
             <div class = "panel-heading">

@@ -6,9 +6,10 @@ class Cohort < ActiveRecord::Base
 
   validates :version, uniqueness: true
 
-  def import(file)
+  def import(file, isAndroid = false)
     ActiveRecord::Base.transaction do
-      devs = DeveloperImporter.import(file)
+      importer = DeveloperImporter
+      devs = isAndroid ? importer.import_android(file) : importer.import(file)
       devs.each do |dev|
         developers << dev
       end
@@ -16,7 +17,7 @@ class Cohort < ActiveRecord::Base
   end
 
   def current_unit
-    units.select { |unit| unit.contains_date?(Date.today) }.first
+    unit = units.select { |unit| unit.contains_date?(Date.today) }.first
   end
 
   def active_assignments

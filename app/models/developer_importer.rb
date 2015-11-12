@@ -112,5 +112,46 @@ class DeveloperImporter
     end
     devs
   end
+
+  #used to import the 2.1 android class
+  def self.import_android(file)
+    devs = []
+    CSV.foreach(file) do |row|
+      next if $. == 1 || $. == 2
+      first_name = row[0]
+      last_name = row[1]
+      district = row[2]
+      github = row[3]
+      age = row[7]
+      email = row[8]
+      phone = row[9]
+      dob = row[11] != nil ? row[11].split('/') : ["11","11","1101"]
+      gender = (row[15] == 1) ? 0 : 1
+      income = row[18]
+      free_lunch = row[19] == 1 ? true : false
+      first_generation_college = row[20] == 1 ? true : false
+      immigrant = row[21] == 1 ? true : false
+
+      d = Developer.new
+      d.first_name = first_name.downcase
+      d.last_name = last_name.downcase
+      d.full_name = d.first_name + " " + d.last_name 
+      d.email = email
+      d.github_username = github
+      d.immigrant = immigrant 
+      d.current_annual_income = income
+      d.age = age
+      d.phone = phone
+      d.free_or_reduced_lunch = free_lunch
+      d.first_generation_college_student = first_generation_college
+      d.gender = gender
+      d.date_of_birth = DateTime.new(dob[2].to_i, dob[0].to_i, dob[1].to_i)
+
+      if d.save
+        devs << d
+      end
+    end
+    devs
+  end
 end
 

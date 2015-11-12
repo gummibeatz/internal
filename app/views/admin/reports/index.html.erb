@@ -10,6 +10,14 @@
           <label for="end-date">End Date</label>
           <input type="date" name="end_date" value="<%= params[:end_date] %>" id="end-date" placeholder="mm/dd/yyyy" />
         </div>
+        
+        <div class="form-group">
+            <% Cohort.all.each do |cohort| %>
+              <label for="cohort-version-<%=cohort.version%>"><%=cohort.version%></cohort>
+                <input type="radio" name="cohort_version" value = <%= cohort.version %> id="cohort-version-<%=cohort.version%>" placeholder="<%=cohort.version%>" />
+            <% end %>
+        </div>
+
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
     </div>
@@ -26,13 +34,17 @@
         </p>
         <br>
         <h4>Attendance</h4>
-        <p>Present: <%= number_to_percentage(@report.attendance_rate_present * 100, precision: 2) %></p>
-        <p>Puncutality: <%= number_to_percentage(@report.attendance_rate_on_time * 100, precision: 2) %></p>
-        <p>Late excused: <%= number_to_percentage(@report.attendance_rate_late_excused * 100, precision: 2) %></p>
-        <p>Late unexcused: <%= number_to_percentage(@report.attendance_rate_late_unexcused * 100, precision: 2) %></p>
-        <h4>Exit Tickets</h4>
-        <p>Completion: <%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
-        <p>Accuracy: <%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %></p>
+        <% unless @attendance.blank? %>
+          <p>Present: <%= number_to_percentage(@report.attendance_rate_present * 100, precision: 2) %></p>
+          <p>Puncutality: <%= number_to_percentage(@report.attendance_rate_on_time * 100, precision: 2) %></p>
+          <p>Late excused: <%= number_to_percentage(@report.attendance_rate_late_excused * 100, precision: 2) %></p>
+          <p>Late unexcused: <%= number_to_percentage(@report.attendance_rate_late_unexcused * 100, precision: 2) %></p>
+        <% end %>
+        <h4>Exit Tickets</h4> 
+        <% unless @exit_tickets.blank? %>
+          <p>Completion: <%= number_to_percentage(@report.exit_ticket_completion_rate * 100, precision: 2) %></p>
+          <p>Accuracy: <%= number_to_percentage(@report.exit_ticket_accuracy_rate * 100, precision: 2) %></p>
+        <% end %> 
       <% end %>
     </div>
   </div>
