@@ -4,8 +4,11 @@
     <% @cohorts.each do |cohort| %>
       <div class="col-md-6">
         <h2><%= "#{cohort.name} #{cohort.version}" %></h2>
-        <% cohort.developers.each do |developer| %>
-          <p><%= link_to developer.display_name, developer_path(developer) %></p>
+        <% cohort.developers.group_by { |d| d.display_name[0] }.each do |key, value| %>
+          <p><strong><%= key %></strong></p>
+          <% value.each do |v| %>
+            <p><%= link_to v.display_name, developer_path(v) %></p>
+          <% end %>
         <% end %>
       </div>
     <% end %>
