@@ -22,6 +22,5 @@ module Developers
       @developer = current_user.developer
     end
 
-
   end
 end
