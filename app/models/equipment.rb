@@ -1,14 +1,17 @@
 class Equipment < ActiveRecord::Base
-  
+
   scope :items_checked_out, ->{ where.not(:date_assigned => nil).where(:date_returned => nil) }
 
-  enum model: [:moto_g, :iPhone_4s, :iPhone_5] 
+  enum type: [:phone, :computer]
   enum return_condition: [:like_new]
- 
+
   validates :reference_id, presence: true, uniqueness: true
 
   belongs_to :developer
-  
+
+  def self.inheritance_column
+    "inheritance_type"
+  end
 
 end
 

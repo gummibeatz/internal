@@ -23,10 +23,10 @@ RSpec.describe Attendance, type: :model do
   end
 
   describe "creating attendances from google forms" do
-    
+
     ON_TIME = {"attendance"=>"{\"attendance\":{\"name\":\"Test Developer\",\"status\":0,\"date\":\"Sat, 15 Aug 2015 04:00:00 GMT\"}}"}
-    
-    it "creates entry from google form" do   
+
+    it "creates entry from google form" do
       expect {
         create(:developer, full_name: "test developer")
         Attendance.create_from_google_form(ON_TIME)
@@ -45,7 +45,7 @@ RSpec.describe Attendance, type: :model do
   end
 
   describe "attendance emails" do
-    
+
     TODAY = Date.today
 
     before(:each) do
@@ -75,7 +75,7 @@ RSpec.describe Attendance, type: :model do
 #        @developer.attendances.create(status: "late_unexcused_10_minutes", timestamp: TODAY-1)
 #      }.to change(Notification, :count).by(1)
 #    end
-#  
+#
 #    it "should only send email when in danger of not meeting reqs once" do
 #      expect{
 #        @developer.attendances.create(status: "late_unexcused_5_minutes", timestamp:TODAY-2)

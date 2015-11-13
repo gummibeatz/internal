@@ -2,7 +2,7 @@ module Admin
   class DevelopersController < Admin::AdminController
 
     def index
-      @cohorts = Cohort.includes(:developers).all
+      @cohorts = Cohort.all
     end
 
     def dashboard

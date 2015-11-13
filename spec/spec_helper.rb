@@ -1,6 +1,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 #
 require 'omniauth'
+require 'shoulda-matchers'
 require 'support/omniauth_macros'
 
 RSpec.configure do |config|

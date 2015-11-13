@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014034349) do
+ActiveRecord::Schema.define(version: 20151113000100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20151014034349) do
     t.boolean  "cc_info_on_google_form"
     t.datetime "date_returned"
     t.integer  "return_condition"
+    t.integer  "type",                   default: 0
   end
 
   add_index "equipment", ["developer_id"], name: "index_equipment_on_developer_id", using: :btree

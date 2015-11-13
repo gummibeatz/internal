@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       collection { post :import }
     end
 
+    resources :equipments
+
   end
 
   scope path: '/developers', module: :developers do

@@ -61,9 +61,9 @@ RSpec.describe Assessment, type: :model do
         Assessment.create_from_google_form(UPDATED_ASSESSMENT)
       }.to change(Assessment, :count).by(0)
     end
-    
+
    # describe "assessment emails" do
-   #   
+   #
    #   # must have user relationship for notifykit to work
    #   before(:each) do
    #     @developer.build_user(
