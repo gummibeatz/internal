@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20151117155711) do
     t.text     "json_scores"
     t.text     "json_responses"
     t.integer  "type"
+    t.string   "unit"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

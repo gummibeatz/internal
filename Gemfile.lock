@@ -60,8 +60,6 @@ GEM
     coderay (1.1.0)
     coffee-script-source (1.10.0)
     connection_pool (2.2.0)
-    d3-rails (3.5.6)
-      railties (>= 3.1)
     debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -280,7 +278,6 @@ DEPENDENCIES
   awesome_print
   bootstrap-sass (~> 3.3.5.1)
   byebug
-  d3-rails
   devise (~> 3.5.1)
   factory_girl_rails
   fuubar

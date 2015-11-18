@@ -1,6 +1,6 @@
 module EvaluationImporter
   require 'csv'
-  def EvaluationImporter.import_EOU(file)
+  def EvaluationImporter.import_EOU(file, unit)
     CSV.open(file, 'r') do |csv|
       header = csv.first
       scoreRange, responseRange = self.scoreRange(header)
@@ -15,7 +15,7 @@ module EvaluationImporter
         full_name = first_name + " " + last_name
         dev = Developer.where(full_name: full_name).first
         puts dev.id
-        evaluation = Evaluation.new(developer_id: dev.id, type: "EOU")
+        evaluation = Evaluation.new(developer_id: dev.id, type: "EOU", unit: unit)
         scores = Hash.new
         responses = Hash.new
         scoreRange.each do |i|
