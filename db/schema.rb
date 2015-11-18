@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< 916798be20c23f5ea3e507dd15f914fb56cf94b1
 ActiveRecord::Schema.define(version: 20151124165743) do
+=======
+ActiveRecord::Schema.define(version: 20151117155711) do
+>>>>>>> added evaluations
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +152,17 @@ ActiveRecord::Schema.define(version: 20151124165743) do
 
   add_index "equipment", ["developer_id"], name: "index_equipment_on_developer_id", using: :btree
   add_index "equipment", ["reference_id"], name: "index_equipment_on_reference_id", using: :btree
+
+  create_table "evaluations", force: :cascade do |t|
+    t.integer  "developer_id"
+    t.text     "json_scores"
+    t.text     "json_responses"
+    t.integer  "type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "evaluations", ["developer_id"], name: "index_evaluations_on_developer_id", using: :btree
 
   create_table "exit_tickets", force: :cascade do |t|
     t.integer  "certainty",         default: 0

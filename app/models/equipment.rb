@@ -33,4 +33,5 @@ end
 #  cc_info_on_google_form :boolean
 #  date_returned          :datetime
 #  return_condition       :integer
+#  type                   :integer          default(0)
 #

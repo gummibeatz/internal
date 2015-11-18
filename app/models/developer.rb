@@ -12,6 +12,7 @@ class Developer < ActiveRecord::Base
   has_many :attendances
   has_many :assessments
   has_many :equipments
+  has_many :evaluations
 
   belongs_to :cohort
 

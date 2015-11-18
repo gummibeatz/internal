@@ -3,6 +3,7 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require d3
 //= require_tree ./helpers
 //= require_tree ./libraries
 //= require_tree ./collections

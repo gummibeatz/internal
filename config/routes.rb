@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :units, only: [:show]
     resources :cohorts
     resources :reports, only: [:index]
+    resources :evaluations, only: [:index]
     resources :exit_tickets do
       collection { post :upload }
     end
@@ -64,6 +65,9 @@ Rails.application.routes.draw do
 
       post '/bash2015', to: 'events#bash2015_receive_message'
       get '/bash2015', to: 'events#bash_2015'
+
+      get '/evaluations', to: 'evaluations#index'
+      post 'evaluations/create', to: 'evaluations#create'
     end
   end
 

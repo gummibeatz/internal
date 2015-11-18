@@ -10,7 +10,6 @@ module Admin
         range = Range.new(Date.parse(params[:start_date]).to_datetime, Date.parse(params[:end_date]).to_datetime)
 
         developers = Cohort.includes(:developers).where(version: params[:cohort_version]).first.developers
-        #NEED TO FIX
         @exit_tickets = ExitTicket.in_range(range).where(developer_id: developers) 
         @attendance = Attendance.in_range(range).where(developer_id: developers)
         if request.xhr?
