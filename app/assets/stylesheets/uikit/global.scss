@@ -1,5 +1,9 @@
-.template {
-  display: none;
-  width: 0px;
-  height: 0px;
+h3[data-toggle="collapse"] {
+  cursor: pointer;
+  padding: 10px 0px;
+  @include transition(0.2s background-color);
+
+  &:hover {
+    background-color: #f6f6f6;
+  }
 }
