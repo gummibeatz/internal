@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113000100) do
+ActiveRecord::Schema.define(version: 20151124165743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20151113000100) do
     t.string   "linkedin_url"
     t.integer  "cohort_id"
     t.string   "full_name"
+    t.string   "apple_id"
   end
 
   add_index "developers", ["gender"], name: "index_developers_on_gender", using: :btree
@@ -212,6 +213,16 @@ ActiveRecord::Schema.define(version: 20151113000100) do
   add_index "notifications", ["subject_id", "subject_type"], name: "subject", using: :btree
   add_index "notifications", ["token"], name: "index_notifications_on_token", unique: true, using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "sms_donor_messages", force: :cascade do |t|
     t.text     "message"

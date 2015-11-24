@@ -11,7 +11,9 @@ gem 'rails_12factor'
 
 gem 'omniauth'
 gem 'omniauth-github'
-gem "omniauth-google-oauth2"
+gem 'omniauth-google-oauth2'
+
+gem 'activerecord-session_store'
 
 gem 'react-rails', '~> 1.0'
 gem 'jquery-rails'
