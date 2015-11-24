@@ -39,7 +39,3 @@ group :test do
   gem 'fuubar'
   gem 'terminal-notifier-guard', '~> 1.6.1'
 end
-
-
-group :test, :development do
-end
