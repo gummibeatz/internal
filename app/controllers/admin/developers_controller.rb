@@ -25,7 +25,7 @@ module Admin
     end
 
     def update
-      if developer.update_attributes(developer_params) 
+      if developer.update_attributes(developer_params)
         redirect_to :action => "show", :id => developer.id
       else
         redirect 'edit'
@@ -42,7 +42,7 @@ module Admin
     protected
 
     def developer_params
-      params.require(:developer).permit(:first_name, :last_name, :email, :github_username, :phone)
+      params.require(:developer).permit(:first_name, :last_name, :email, :github_username, :phone, :apple_id)
     end
 
     helper_method :developer
