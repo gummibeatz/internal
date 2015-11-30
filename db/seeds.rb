@@ -13,6 +13,8 @@ unit_3 = cohort.units.create!( start_at: 9.days.ago, end_at: 10.days.from_now)
 developer = cohort.developers.create!(
   email: "c4qdeveloper@example.com",
   github_username: "c4qdeveloper",
+  phone: "1234567890",
+  apple_id: "c4qdeveloper@example.com",
   first_name: "c4q",
   last_name: "developer",
   full_name: "c4qdeveloper"

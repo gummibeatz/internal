@@ -25,11 +25,7 @@
         Basic info
       </h3>
       <div id="developer-basic-info" class="collapse">
-        <% developer.attributes.each_pair do |name, value| %>
-          <% next if name == "id" %>
-          <% next if name == "application_id" %>
-          <p><strong><%= "#{name}:" %></strong>  <%= value %></p>
-        <% end %>
+        <%= render partial: "developer_attributes", locals: {developer: developer} %>
       </div>
     </div>
 

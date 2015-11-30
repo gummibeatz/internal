@@ -1,6 +1,5 @@
 class Developer < ActiveRecord::Base
 
-
   enum education_status: [:not_applicable, :some_high_school, :high_school_graduate, :some_college, :pursuing_associates, :associates, :pursuing_bachelors, :bachelors, :pursuing_masters, :masters]
   enum tshirt_size: [:extra_small, :small, :medium, :large, :extra_large]
   enum personal_device: [:iphone, :android, :windows]
@@ -41,14 +40,14 @@ class Developer < ActiveRecord::Base
 
   def not_meeting_requirements?
     attendances = self.attendances.in_range(self.cohort.current_unit.range)
-    return attendances.absent_unexcused.count > MAX_ABSENT_DAYS || attendances.late_unexcused.count > MAX_LATE_DAYS 
+    return attendances.absent_unexcused.count > MAX_ABSENT_DAYS || attendances.late_unexcused.count > MAX_LATE_DAYS
   end
 
   def in_danger_of_not_meeting_requirements?
     attendances = self.attendances.in_range(self.cohort.current_unit.range)
     return attendances.absent_unexcused.count == MAX_ABSENT_DAYS || attendances.late_unexcused.count == MAX_LATE_DAYS
   end
-  
+
 end
 
 # == Schema Information
