@@ -1,6 +1,6 @@
 class Evaluation < ActiveRecord::Base
   
-  enum type: ["EOU","interview"]
+  enum type: [:EOU,:interview]
   belongs_to :developer
   
   validates :developer_id, presence: true

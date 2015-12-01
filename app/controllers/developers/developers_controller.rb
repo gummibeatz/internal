@@ -12,6 +12,7 @@ module Developers
       unless @developer.cohort.current_unit.nil? 
         @unit_attendances = DeveloperUnitAttendance.new(@developer, @developer.cohort.current_unit.range)
       end
+      @evaluations = @developer.evaluations
     end
 
     def stats
