@@ -1,9 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1><%= developer.display_name %></h1>
+      <%= render partial: "/shared/modules/editable_header", locals: {title: developer.display_name, edit_url: edit_developer_path(developer)} %>
     </div>
-    <a href= "<%=developer.id%>/edit" class="btn btn-info" role="button">Edit</a> 
 
     <div class="col-xs-12">
       <h3 data-toggle="collapse" data-target="#admin-dev-assessments-panel" aria-expanded="false" aria-controls="admin-dev-assessments-panel">

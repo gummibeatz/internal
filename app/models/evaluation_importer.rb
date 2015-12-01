@@ -44,4 +44,28 @@ module EvaluationImporter
     return Range.new(scoreRangeStart, scoreRangeEnd-1), Range.new(scoreRangeEnd, responseRangeEnd)
   end
 
+  def EvaluationImporter.import_mock_interview(file)
+    CSV.open(file, 'r') do |csv|
+      header = csv.first
+      csv.each do |row|
+        next if $. == 0
+        evaluation = Evaluation.new()
+        json_scores = Hash.new()
+        json_responses = Hash.new()
+        developer = Developer.where(full_name: row[0].downcase!).first
+        for i in 1..4
+          json_scores[header[i]] = row[i]
+        end
+        for i in 5..9
+          next if row[i].empty?
+          json_responses[header[i]] = row[i]
+        end
+        evaluation.developer_id = developer.id
+        evaluation.json_scores = json_scores
+        evaluation.json_responses = json_responses
+        evaluation.type = "interview"
+        evaluation.save!
+      end
+    end
+  end
 end
