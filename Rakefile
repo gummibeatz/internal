@@ -54,3 +54,10 @@ task :send_pledge_follow_up => :environment do
   puts message.to
   
 end
+
+desc "import android devs and mock interview feedback"
+task :import_android_and_interview => :environment do
+  cohort = Cohort.create!(version: "2.1", name: "Access Code")
+  cohort.import("AndroidDevs.csv", true)
+  EvaluationImporter.import_mock_interview("feedbacknew.csv")
+end
